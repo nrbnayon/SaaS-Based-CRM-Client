@@ -1,7 +1,10 @@
+import DashboardHeader from "../components/dashboard-header";
+
 // src/app/(dashboard)/overview/page.tsx
 export default function OverviewPage() {
   return (
-    <div className='space-y-6'>
+      <div className='space-y-6'>
+          <DashboardHeader/>
       <div>
         <h1 className='text-3xl font-bold tracking-tight'>Overview</h1>
         <p className='text-muted-foreground'>
