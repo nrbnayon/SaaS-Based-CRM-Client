@@ -575,7 +575,7 @@ export const IncomeExpenseSection: React.FC = () => {
       {/* Analytics Card */}
       <Card
         className={cn(
-          "flex flex-col h-96 justify-between items-start p-4  bg-gradient-to-r from-accent via-white to-[#FFF1E5] dark:from-dark-primary dark:via-dark-primary dark:to-dark-primary flex-1 rounded-[20px] w-full xl:w-auto min-w-2xs"
+          "flex flex-col h-96 justify-between items-start p-4 bg-[linear-gradient(45deg,var(--accent)_0%,white_50%,#FFF1E5_100%)] dark:bg-[linear-gradient(45deg,var(--dark-primary)_100%,var(--dark-primary)_100%,var(--dark-primary)_100%)] flex-1 rounded-[20px] w-full xl:w-auto min-w-2xs"
         )}
       >
         <CardHeader className='flex flex-row items-center justify-between p-0 w-full'>
@@ -617,13 +617,13 @@ export const IncomeExpenseSection: React.FC = () => {
 
               return (
                 <>
-                  <div className='font-normal text-gray-600 dark:text-muted-foreground text-xs'>
+                  <div className='font-normal text-muted-custom dark:text-muted-foreground text-xs'>
                     {formatValue(maxValue)}
                   </div>
-                  <div className='font-normal text-gray-600 dark:text-muted-foreground text-xs'>
+                  <div className='font-normal text-muted-custom dark:text-muted-foreground text-xs'>
                     0
                   </div>
-                  <div className='font-normal text-gray-600 dark:text-muted-foreground text-xs'>
+                  <div className='font-normal text-muted-custom dark:text-muted-foreground text-xs'>
                     {formatValue(maxValue)}
                   </div>
                 </>
@@ -651,7 +651,9 @@ export const IncomeExpenseSection: React.FC = () => {
                   <div
                     key={`income-${index}`}
                     className={`w-8 ${
-                      isHighlighted ? "bg-success" : "bg-[#447B56]"
+                      isHighlighted
+                        ? "bg-card-foreground dark:bg-success"
+                        : "bg-chart-1 dark:bg-[#447B56]"
                     } transition-all duration-300 hover:opacity-75 cursor-pointer`}
                     style={{
                       height: `${incomeHeight}px`,
@@ -668,7 +670,7 @@ export const IncomeExpenseSection: React.FC = () => {
               {chartData.map((item, index) => (
                 <div
                   key={`label-${index}`}
-                  className='w-8 font-normal text-gray-500 dark:text-gray-400 text-xs text-center'
+                  className='w-8 font-normal text-muted-custom dark:text-muted-foreground text-xs text-center'
                 >
                   {item.month}
                 </div>
@@ -694,7 +696,9 @@ export const IncomeExpenseSection: React.FC = () => {
                   <div
                     key={`expense-${index}`}
                     className={`w-8 ${
-                      isHighlighted ? "bg-[#FFAD66]" : "bg-[#80564B]"
+                      isHighlighted
+                        ? "bg-light-orange"
+                        : "bg-border dark:bg-[#80564B]"
                     } transition-all duration-300 hover:opacity-75 cursor-pointer`}
                     style={{
                       height: `${expenseHeight}px`,
