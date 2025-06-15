@@ -1,0 +1,7 @@
+// public/robots.txt
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/private/
+
+Sitemap: https://fun-engagement-dashboard.vercel.app/sitemap.xml
