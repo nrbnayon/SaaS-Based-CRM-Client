@@ -1,0 +1,246 @@
+# Complete List of Available Tailwind Classes
+
+## Font Classes
+```css
+.font-manrope              /* Default Manrope font */
+.font-manrope-light        /* Manrope 300 weight */
+.font-manrope-regular      /* Manrope 400 weight */
+.font-manrope-medium       /* Manrope 500 weight */
+.font-manrope-semibold     /* Manrope 600 weight */
+.font-manrope-bold         /* Manrope 700 weight */
+```
+
+## Primary Color Classes
+```css
+.text-primary              /* Primary text color */
+.bg-primary               /* Primary background color */
+.border-primary           /* Primary border color */
+.ring-primary             /* Primary ring color */
+.fill-primary             /* Primary fill color (SVG) */
+.stroke-primary           /* Primary stroke color (SVG) */
+```
+
+## Secondary Color Classes
+```css
+.text-secondary           /* Secondary text color */
+.bg-secondary            /* Secondary background color */
+.border-secondary        /* Secondary border color */
+.ring-secondary          /* Secondary ring color */
+.fill-secondary          /* Secondary fill color (SVG) */
+.stroke-secondary        /* Secondary stroke color (SVG) */
+```
+
+## Error Color Classes
+```css
+.text-error              /* Error text color (#F54A45) */
+.bg-error               /* Error background color */
+.border-error           /* Error border color */
+.ring-error             /* Error ring color */
+.fill-error             /* Error fill color (SVG) */
+.stroke-error           /* Error stroke color (SVG) */
+```
+
+## Success Color Classes
+```css
+.text-success           /* Success text color (#88F77C) */
+.bg-success            /* Success background color */
+.border-success        /* Success border color */
+.ring-success          /* Success ring color */
+.fill-success          /* Success fill color (SVG) */
+.stroke-success        /* Success stroke color (SVG) */
+```
+
+## Cyan Color Classes
+```css
+.text-cyan             /* Cyan text color (#02DBD6) */
+.bg-cyan              /* Cyan background color */
+.border-cyan          /* Cyan border color */
+.ring-cyan            /* Cyan ring color */
+.fill-cyan            /* Cyan fill color (SVG) */
+.stroke-cyan          /* Cyan stroke color (SVG) */
+```
+
+## Light Orange Color Classes
+```css
+.text-light-orange     /* Light orange text color (#FFAD66) */
+.bg-light-orange      /* Light orange background color */
+.border-light-orange  /* Light orange border color */
+.ring-light-orange    /* Light orange ring color */
+.fill-light-orange    /* Light orange fill color (SVG) */
+.stroke-light-orange  /* Light orange stroke color (SVG) */
+```
+
+## Yellow Light Color Classes
+```css
+.text-yellow-light     /* Yellow light text color (#FFF06A) */
+.bg-yellow-light      /* Yellow light background color */
+.border-yellow-light  /* Yellow light border color */
+.ring-yellow-light    /* Yellow light ring color */
+.fill-yellow-light    /* Yellow light fill color (SVG) */
+.stroke-yellow-light  /* Yellow light stroke color (SVG) */
+```
+
+## Muted Color Classes
+```css
+.text-muted           /* Muted text color (#A8A8A8) */
+.bg-muted            /* Muted background color */
+.border-muted        /* Muted border color */
+.ring-muted          /* Muted ring color */
+.fill-muted          /* Muted fill color (SVG) */
+.stroke-muted        /* Muted stroke color (SVG) */
+```
+
+## Gray Color Classes
+```css
+.text-gray           /* Gray text color (#F7F7F7 light / #505050 dark) */
+.bg-gray            /* Gray background color */
+.border-gray        /* Gray border color */
+.ring-gray          /* Gray ring color */
+.fill-gray          /* Gray fill color (SVG) */
+.stroke-gray        /* Gray stroke color (SVG) */
+```
+
+## Dark Primary Color Classes
+```css
+.text-dark-primary   /* Dark primary text color (#141440) */
+.bg-dark-primary    /* Dark primary background color */
+.border-dark-primary /* Dark primary border color */
+.ring-dark-primary  /* Dark primary ring color */
+.fill-dark-primary  /* Dark primary fill color (SVG) */
+.stroke-dark-primary /* Dark primary stroke color (SVG) */
+```
+
+## Gradient Classes
+```css
+.gradient-primary    /* Primary gradient (primary to accent) */
+.gradient-success    /* Success gradient (success to cyan) */
+.gradient-error      /* Error gradient (error to light-orange) */
+.gradient-chart      /* Chart gradient (chart-1 to chart-3) */
+.gradient-sidebar    /* Sidebar gradient (sidebar to sidebar-accent) */
+.text-gradient-primary /* Primary text gradient */
+```
+
+## Hover State Classes
+```css
+.hover\:text-primary     /* Hover primary text */
+.hover\:bg-primary      /* Hover primary background */
+.hover\:border-primary  /* Hover primary border */
+.hover\:text-error      /* Hover error text */
+.hover\:bg-error       /* Hover error background */
+.hover\:border-error   /* Hover error border */
+.hover\:text-success   /* Hover success text */
+.hover\:bg-success    /* Hover success background */
+.hover\:border-success /* Hover success border */
+```
+
+## Focus State Classes
+```css
+.focus\:text-primary    /* Focus primary text */
+.focus\:bg-primary     /* Focus primary background */
+.focus\:border-primary /* Focus primary border */
+.focus\:ring-primary   /* Focus primary ring */
+```
+
+## Opacity Variant Classes
+```css
+.text-primary\/50      /* Primary text with 50% opacity */
+.text-primary\/75      /* Primary text with 75% opacity */
+.bg-primary\/10       /* Primary background with 10% opacity */
+.bg-primary\/20       /* Primary background with 20% opacity */
+.bg-primary\/50       /* Primary background with 50% opacity */
+.text-error\/50       /* Error text with 50% opacity */
+.text-error\/75       /* Error text with 75% opacity */
+.bg-error\/10         /* Error background with 10% opacity */
+.bg-error\/20         /* Error background with 20% opacity */
+.text-success\/50     /* Success text with 50% opacity */
+.text-success\/75     /* Success text with 75% opacity */
+.bg-success\/10       /* Success background with 10% opacity */
+.bg-success\/20       /* Success background with 20% opacity */
+```
+
+## Component Utility Classes
+```css
+.card-shadow          /* Custom card shadow with primary color */
+.input-focus          /* Input focus styles with primary ring */
+.button-primary       /* Primary button with hover/focus states */
+.button-error         /* Error button with hover/focus states */
+.button-success       /* Success button with hover/focus states */
+.dashboard-card       /* Complete dashboard card styling */
+.sidebar-item         /* Sidebar navigation item */
+.sidebar-item-active  /* Active sidebar navigation item */
+```
+
+## Usage Examples
+
+### Basic Color Usage
+```html
+<div class="bg-error text-white">Error message</div>
+<div class="bg-success text-white">Success message</div>
+<div class="bg-primary text-primary-foreground">Primary content</div>
+```
+
+### Button Examples
+```html
+<button class="button-primary">Primary Button</button>
+<button class="button-error">Delete Button</button>
+<button class="button-success">Save Button</button>
+```
+
+### Card Examples
+```html
+<div class="dashboard-card">
+  <h3 class="text-primary font-manrope-semibold">Card Title</h3>
+  <p class="text-muted">Card description</p>
+</div>
+```
+
+### Gradient Examples
+```html
+<div class="gradient-primary p-6 text-white">Gradient Background</div>
+<h1 class="text-gradient-primary text-4xl font-manrope-bold">Gradient Text</h1>
+```
+
+### Sidebar Examples
+```html
+<nav>
+  <a href="#" class="sidebar-item sidebar-item-active">Dashboard</a>
+  <a href="#" class="sidebar-item">Reports</a>
+  <a href="#" class="sidebar-item">Settings</a>
+</nav>
+```
+
+### Input Examples
+```html
+<input class="input-focus border rounded-lg p-3" placeholder="Enter text...">
+```
+
+### Opacity Examples
+```html
+<div class="bg-primary/10 text-primary">Light primary background</div>
+<div class="bg-error/20 text-error">Light error background</div>
+```
+
+### SVG Icon Examples
+```html
+<svg class="fill-primary w-6 h-6">...</svg>
+<svg class="stroke-error w-6 h-6">...</svg>
+```
+
+## All Colors Available
+- **Primary**: Dynamic based on theme (light: #080635, dark: #ffffff)
+- **Secondary**: Dynamic based on theme  
+- **Error**: #F54A45
+- **Success**: #88F77C
+- **Cyan**: #02DBD6
+- **Light Orange**: #FFAD66
+- **Yellow Light**: #FFF06A
+- **Muted**: #A8A8A8
+- **Gray**: #F7F7F7 (light) / #505050 (dark)
+- **Dark Primary**: #141440
+
+## Notes
+- All classes automatically adapt to light/dark theme
+- Manrope font is set as default, no need to specify it separately
+- All classes support standard Tailwind modifiers (hover:, focus:, etc.)
+- Opacity variants use the `/` syntax (e.g., `bg-primary/50`)
+- SVG classes (fill, stroke) work with icon libraries

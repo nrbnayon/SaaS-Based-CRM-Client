@@ -5,7 +5,11 @@ import { ModeToggle } from "@/components/ui/mode-toggle";
 import { Bell } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export default function DashboardHeader() {
+export default function DashboardHeader({
+  title = "Welcome",
+}: {
+  title?: string;
+}) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -26,15 +30,17 @@ export default function DashboardHeader() {
           : "bg-transparent"
       )}
     >
-      <div className='container mx-auto px-4'>
+      <div className='container mx-auto'>
         <div className='flex items-center justify-between'>
           <div>
-            <h3 className='text-xl md:text-3xl'>Welcome Jone Doe</h3>
+            <h1 className='text-xl md:text-3xl font-bold tracking-tight'>
+              {title}
+            </h1>
           </div>
           {/* Mobile Navigation */}
           <div className='flex items-center space-x-2'>
             <ModeToggle />
-            <Bell />
+          <Bell className='hover:ring-1 hover:ring-success w-8 h-8 font-bold p-1 rounded-full' />
           </div>
         </div>
       </div>
