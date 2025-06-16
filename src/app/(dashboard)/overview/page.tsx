@@ -1,9 +1,8 @@
+// src/app/(dashboard)/overview/page.tsx
 import DashboardHeader from "../components/dashboard-header";
 import { AnalyticsSection } from "../components/Overview/AnalyticsSection";
 import { IncomeExpenseSection } from "../components/Overview/IncomeExpenseSection";
-import Test from "../components/Overview/test";
 
-// src/app/(dashboard)/overview/page.tsx
 export default function OverviewPage() {
   return (
     <div>
@@ -12,7 +11,6 @@ export default function OverviewPage() {
         {/* Add more cards as needed */}
         <IncomeExpenseSection />
         <AnalyticsSection />
-        <Test />
       </div>
     </div>
   );

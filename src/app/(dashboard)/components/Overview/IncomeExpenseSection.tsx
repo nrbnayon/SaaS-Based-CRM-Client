@@ -1,3 +1,4 @@
+// src\app\(dashboard)\components\Overview\IncomeExpenseSection.tsx
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -263,7 +264,7 @@ export const IncomeExpenseSection: React.FC = () => {
     return (
       <Card
         key={card.id}
-        className={`flex flex-col bg-secondary dark:bg-background items-center border-t-8 gap-2 p-2 flex-1 rounded-[20px] ${card.borderColor} min-h-[180px]`}
+        className={`flex flex-col w-full bg-secondary dark:bg-background items-center border-t-8 gap-2 p-2 flex-1 rounded-[20px] ${card.borderColor} min-h-[180px]`}
       >
         <CardHeader className='flex flex-row items-center justify-between px-2 py-1 w-full'>
           <CardTitle className='font-medium text-foreground dark:text-white text-base'>
@@ -326,8 +327,8 @@ export const IncomeExpenseSection: React.FC = () => {
   };
 
   return (
-    <div className='flex w-full items-start gap-6 flex-col xl:flex-row'>
-      <div className='flex flex-col items-start gap-6 flex-1 w-full'>
+    <div className='flex w-full justify-between items-center  gap-6 flex-col xl:flex-row'>
+      <div className='flex flex-col justify-between items-center gap-6 flex-1 w-full md:w-1/2'>
         {/* First Row - Expense and Income */}
         <div className='flex items-center gap-6 w-full flex-col sm:flex-row'>
           {financialCards.slice(0, 2).map(renderFinancialCard)}
@@ -338,7 +339,7 @@ export const IncomeExpenseSection: React.FC = () => {
           {renderFinancialCard(financialCards[2])}
 
           {/* Add Accounts Card */}
-          <Card className='flex flex-col bg-secondary dark:bg-background items-center gap-6 pt-2 border-t-8 pb-4 px-2 flex-1 rounded-[20px] border-white min-h-[180px]'>
+          <Card className='w-full flex flex-col bg-secondary dark:bg-background items-center gap-6 pt-2 border-t-8 pb-4 px-2 flex-1 rounded-[20px] border-white min-h-[180px]'>
             <CardHeader className='flex-col items-start px-2 justify-start gap-1 py-1 w-full'>
               <CardTitle className='font-medium text-foreground dark:text-white text-base leading-5'>
                 Add Accounts
@@ -573,145 +574,148 @@ export const IncomeExpenseSection: React.FC = () => {
       </div>
 
       {/* Analytics Card */}
-      <Card
-        className={cn(
-          "flex flex-col h-96 justify-between items-start p-4 bg-[linear-gradient(45deg,var(--accent)_0%,white_50%,#FFF1E5_100%)] dark:bg-[linear-gradient(45deg,var(--dark-primary)_100%,var(--dark-primary)_100%,var(--dark-primary)_100%)] flex-1 rounded-[20px] w-full xl:w-auto min-w-2xs"
-        )}
-      >
-        <CardHeader className='flex flex-row items-center justify-between p-0 w-full'>
-          <CardTitle className='inline-flex items-center justify-center gap-2 font-medium text-gray-800 dark:text-white text-base'>
-            Analytics
-          </CardTitle>
-          <Select
-            value={selectedPeriods.analytics}
-            onValueChange={(value: TimePeriod) =>
-              handlePeriodChange("analytics", value)
-            }
-          >
-            <SelectTrigger className='inline-flex items-center text-muted-custom justify-center gap-1.5 px-3 py-2 h-auto bg-white/20 dark:bg-transparent rounded-lg border-[0.5px] border-solid border-gray-300 dark:border-[#505050]'>
-              <SelectValue className='font-normal dark:text-muted-foreground text-xs' />
-              {/* <ChevronDownIcon className='h-4 w-4 text-muted-custom dark:text-muted-foreground' /> */}
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value='daily'>Daily</SelectItem>
-              <SelectItem value='weekly'>Weekly</SelectItem>
-              <SelectItem value='monthly'>Monthly</SelectItem>
-              <SelectItem value='yearly'>Yearly</SelectItem>
-            </SelectContent>
-          </Select>
-        </CardHeader>
+      <div className='w-full md:w-1/2'>
+        <Card
+          className={cn(
+            "flex flex-col h-96 justify-between items-start p-4 bg-[linear-gradient(45deg,var(--accent)_0%,white_50%,#FFF1E5_100%)] dark:bg-[linear-gradient(45deg,var(--dark-primary)_100%,var(--dark-primary)_100%,var(--dark-primary)_100%)] flex-1 rounded-[20px] w-full xl:w-auto min-w-2xs"
+          )}
+        >
+          <CardHeader className='flex flex-row items-center justify-between p-0 w-full'>
+            <CardTitle className='inline-flex items-center justify-center gap-2 font-medium text-gray-800 dark:text-white text-base'>
+              Analytics
+            </CardTitle>
+            <Select
+              value={selectedPeriods.analytics}
+              onValueChange={(value: TimePeriod) =>
+                handlePeriodChange("analytics", value)
+              }
+            >
+              <SelectTrigger className='inline-flex items-center text-muted-custom justify-center gap-1.5 px-3 py-2 h-auto bg-white/20 dark:bg-transparent rounded-lg border-[0.5px] border-solid border-gray-300 dark:border-[#505050]'>
+                <SelectValue className='font-normal dark:text-muted-foreground text-xs' />
+                {/* <ChevronDownIcon className='h-4 w-4 text-muted-custom dark:text-muted-foreground' /> */}
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value='daily'>Daily</SelectItem>
+                <SelectItem value='weekly'>Weekly</SelectItem>
+                <SelectItem value='monthly'>Monthly</SelectItem>
+                <SelectItem value='yearly'>Yearly</SelectItem>
+              </SelectContent>
+            </Select>
+          </CardHeader>
 
-        <CardContent className='flex items-start justify-center gap-4 px-2 py-0 h-full w-full flex-1'>
-          {/* Y-axis labels - Fixed positioning */}
-          <div className='flex flex-col items-start justify-between h-full min-w-[40px] py-2'>
-            {(() => {
-              const maxIncome = Math.max(...chartData.map((d) => d.income));
-              const maxExpense = Math.max(...chartData.map((d) => d.expense));
-              const maxValue = Math.max(maxIncome, maxExpense);
+          <CardContent className='flex items-start justify-center overflow-x-auto md:overflow-hidden gap-4 px-2 py-0 h-full w-full flex-1'>
+            {/* Y-axis labels - Fixed positioning */}
+            <div className='flex flex-col items-start justify-between h-full min-w-[40px] py-2'>
+              {(() => {
+                const maxIncome = Math.max(...chartData.map((d) => d.income));
+                const maxExpense = Math.max(...chartData.map((d) => d.expense));
+                const maxValue = Math.max(maxIncome, maxExpense);
 
-              const formatValue = (value: number): string => {
-                if (value >= 1000000) return `${(value / 1000000).toFixed(1)}M`;
-                if (value >= 1000) return `${Math.round(value / 1000)}K`;
-                return value.toString();
-              };
-
-              return (
-                <>
-                  <div className='font-normal text-muted-custom dark:text-muted-foreground text-xs'>
-                    {formatValue(maxValue)}
-                  </div>
-                  <div className='font-normal text-muted-custom dark:text-muted-foreground text-xs'>
-                    0
-                  </div>
-                  <div className='font-normal text-muted-custom dark:text-muted-foreground text-xs'>
-                    {formatValue(maxValue)}
-                  </div>
-                </>
-              );
-            })()}
-          </div>
-
-          <div className='flex flex-col items-center gap-2 flex-1 py-2'>
-            {/* Income Chart (Top Half) */}
-            <div className='flex items-end justify-between w-full h-[120px]'>
-              {chartData.map((item, index) => {
-                const maxValue = Math.max(
-                  ...chartData.map((d) => Math.max(d.income, d.expense))
-                );
-                const incomeHeight = Math.max(
-                  16,
-                  (item.income / maxValue) * 110
-                );
-                // Highlight bars above 70% of max income
-                const incomeThreshold =
-                  Math.max(...chartData.map((d) => d.income)) * 0.7;
-                const isHighlighted = item.income >= incomeThreshold;
+                const formatValue = (value: number): string => {
+                  if (value >= 1000000)
+                    return `${(value / 1000000).toFixed(1)}M`;
+                  if (value >= 1000) return `${Math.round(value / 1000)}K`;
+                  return value.toString();
+                };
 
                 return (
+                  <>
+                    <div className='font-normal text-muted-custom dark:text-muted-foreground text-xs'>
+                      {formatValue(maxValue)}
+                    </div>
+                    <div className='font-normal text-muted-custom dark:text-muted-foreground text-xs'>
+                      0
+                    </div>
+                    <div className='font-normal text-muted-custom dark:text-muted-foreground text-xs'>
+                      {formatValue(maxValue)}
+                    </div>
+                  </>
+                );
+              })()}
+            </div>
+
+            <div className='flex flex-col items-center gap-2 flex-1 py-2'>
+              {/* Income Chart (Top Half) */}
+              <div className='flex items-end justify-between w-full h-[120px]'>
+                {chartData.map((item, index) => {
+                  const maxValue = Math.max(
+                    ...chartData.map((d) => Math.max(d.income, d.expense))
+                  );
+                  const incomeHeight = Math.max(
+                    16,
+                    (item.income / maxValue) * 110
+                  );
+                  // Highlight bars above 70% of max income
+                  const incomeThreshold =
+                    Math.max(...chartData.map((d) => d.income)) * 0.7;
+                  const isHighlighted = item.income >= incomeThreshold;
+
+                  return (
+                    <div
+                      key={`income-${index}`}
+                      className={`w-8 ${
+                        isHighlighted
+                          ? "bg-card-foreground dark:bg-success"
+                          : "bg-chart-1 dark:bg-[#447B56]"
+                      } transition-all duration-300 hover:opacity-75 cursor-pointer`}
+                      style={{
+                        height: `${incomeHeight}px`,
+                        borderRadius: "8px 8px 0 0",
+                      }}
+                      title={`${item.month}: ${formatCurrency(item.income)}`}
+                    />
+                  );
+                })}
+              </div>
+
+              {/* Center Labels */}
+              <div className='flex items-center justify-between w-full py-1'>
+                {chartData.map((item, index) => (
                   <div
-                    key={`income-${index}`}
-                    className={`w-8 ${
-                      isHighlighted
-                        ? "bg-card-foreground dark:bg-success"
-                        : "bg-chart-1 dark:bg-[#447B56]"
-                    } transition-all duration-300 hover:opacity-75 cursor-pointer`}
-                    style={{
-                      height: `${incomeHeight}px`,
-                      borderRadius: "8px 8px 0 0",
-                    }}
-                    title={`${item.month}: ${formatCurrency(item.income)}`}
-                  />
-                );
-              })}
-            </div>
+                    key={`label-${index}`}
+                    className='w-8 font-normal text-muted-custom dark:text-muted-foreground text-xs text-center'
+                  >
+                    {item.month}
+                  </div>
+                ))}
+              </div>
 
-            {/* Center Labels */}
-            <div className='flex items-center justify-between w-full py-1'>
-              {chartData.map((item, index) => (
-                <div
-                  key={`label-${index}`}
-                  className='w-8 font-normal text-muted-custom dark:text-muted-foreground text-xs text-center'
-                >
-                  {item.month}
-                </div>
-              ))}
-            </div>
+              {/* Expense Chart (Bottom Half) */}
+              <div className='flex items-start justify-between w-full h-[120px]'>
+                {chartData.map((item, index) => {
+                  const maxValue = Math.max(
+                    ...chartData.map((d) => Math.max(d.income, d.expense))
+                  );
+                  const expenseHeight = Math.max(
+                    16,
+                    (item.expense / maxValue) * 110
+                  );
+                  // Highlight bars above 70% of max expense
+                  const expenseThreshold =
+                    Math.max(...chartData.map((d) => d.expense)) * 0.7;
+                  const isHighlighted = item.expense >= expenseThreshold;
 
-            {/* Expense Chart (Bottom Half) */}
-            <div className='flex items-start justify-between w-full h-[120px]'>
-              {chartData.map((item, index) => {
-                const maxValue = Math.max(
-                  ...chartData.map((d) => Math.max(d.income, d.expense))
-                );
-                const expenseHeight = Math.max(
-                  16,
-                  (item.expense / maxValue) * 110
-                );
-                // Highlight bars above 70% of max expense
-                const expenseThreshold =
-                  Math.max(...chartData.map((d) => d.expense)) * 0.7;
-                const isHighlighted = item.expense >= expenseThreshold;
-
-                return (
-                  <div
-                    key={`expense-${index}`}
-                    className={`w-8 ${
-                      isHighlighted
-                        ? "bg-light-orange"
-                        : "bg-border dark:bg-[#80564B]"
-                    } transition-all duration-300 hover:opacity-75 cursor-pointer`}
-                    style={{
-                      height: `${expenseHeight}px`,
-                      borderRadius: "0 0 8px 8px",
-                    }}
-                    title={`${item.month}: ${formatCurrency(item.expense)}`}
-                  />
-                );
-              })}
+                  return (
+                    <div
+                      key={`expense-${index}`}
+                      className={`w-8 ${
+                        isHighlighted
+                          ? "bg-light-orange"
+                          : "bg-border dark:bg-[#80564B]"
+                      } transition-all duration-300 hover:opacity-75 cursor-pointer`}
+                      style={{
+                        height: `${expenseHeight}px`,
+                        borderRadius: "0 0 8px 8px",
+                      }}
+                      title={`${item.month}: ${formatCurrency(item.expense)}`}
+                    />
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
