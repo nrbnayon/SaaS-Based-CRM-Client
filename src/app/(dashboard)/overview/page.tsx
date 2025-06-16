@@ -2,6 +2,7 @@
 import DashboardHeader from "../components/dashboard-header";
 import { AnalyticsSection } from "../components/Overview/AnalyticsSection";
 import { IncomeExpenseSection } from "../components/Overview/IncomeExpenseSection";
+import TransactionsSection from "../components/Overview/TransectionsSection";
 
 export default function OverviewPage() {
   return (
@@ -11,6 +12,7 @@ export default function OverviewPage() {
         {/* Add more cards as needed */}
         <IncomeExpenseSection />
         <AnalyticsSection />
+        <TransactionsSection />
       </div>
     </div>
   );
