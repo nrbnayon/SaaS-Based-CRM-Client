@@ -7,7 +7,7 @@ import {
   Trash2,
   X,
   Check,
-  //   CalendarDays,
+  CalendarDays,
   Save,
 } from "lucide-react";
 
@@ -129,10 +129,8 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
   // State management
   const [searchTerm, setSearchTerm] = useState("");
   const [accountFilter, setAccountFilter] = useState<string>("all");
-  //   const [startDate, setStartDate] = useState("");
-  //   const [endDate, setEndDate] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
-
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [editingCell, setEditingCell] = useState<{
     id: string;
@@ -158,33 +156,6 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
   }, [transactions]);
 
   // Filtered transactions based on search and filters
-  //   const filteredTransactions = useMemo(() => {
-  //     return localTransactions.filter((transaction) => {
-  //       // Search filter
-  //       const matchesSearch =
-  //         searchTerm === "" ||
-  //         Object.values(transaction).some((value) =>
-  //           value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
-  //         );
-
-  //       // Account filter
-  //       const matchesAccount =
-  //         accountFilter === "all" ||
-  //         transaction.account.toLowerCase() === accountFilter.toLowerCase();
-
-  //       // Date filter (if dates are provided)
-  //       let matchesDate = true;
-  //       if (startDate && endDate && transaction.date) {
-  //         const transactionDate = new Date(transaction.date);
-  //         const start = new Date(startDate);
-  //         const end = new Date(endDate);
-  //         matchesDate = transactionDate >= start && transactionDate <= end;
-  //       }
-
-  //       return matchesSearch && matchesAccount && matchesDate;
-  //     });
-  //   }, [localTransactions, searchTerm, accountFilter, startDate, endDate]);
-
   const filteredTransactions = useMemo(() => {
     return localTransactions.filter((transaction) => {
       // Search filter
@@ -199,17 +170,18 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
         accountFilter === "all" ||
         transaction.account.toLowerCase() === accountFilter.toLowerCase();
 
-      // Date filter (single date selection)
+      // Date filter (if dates are provided)
       let matchesDate = true;
-      if (selectedDate && transaction.date) {
-        const transactionDate = new Date(transaction.date).toDateString();
-        const filterDate = new Date(selectedDate).toDateString();
-        matchesDate = transactionDate === filterDate;
+      if (startDate && endDate && transaction.date) {
+        const transactionDate = new Date(transaction.date);
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        matchesDate = transactionDate >= start && transactionDate <= end;
       }
 
       return matchesSearch && matchesAccount && matchesDate;
     });
-  }, [localTransactions, searchTerm, accountFilter, selectedDate]);
+  }, [localTransactions, searchTerm, accountFilter, startDate, endDate]);
 
   // Pagination calculations
   const totalPages = Math.ceil(filteredTransactions.length / itemsPerPage);
@@ -234,16 +206,11 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
   };
 
   // Handle date filter change
-  //   const handleDateFilterChange = () => {
-  //     if (startDate && endDate) {
-  //       setCurrentPage(1); // Reset to first page on filter
-  //       onDateFilter?.(startDate, endDate);
-  //     }
-  //   };
-  const handleDateFilterChange = (date: string) => {
-    setSelectedDate(date);
-    setCurrentPage(1); // Reset to first page on filter
-    onDateFilter?.(date, date); // Pass same date as start and end
+  const handleDateFilterChange = () => {
+    if (startDate && endDate) {
+      setCurrentPage(1); // Reset to first page on filter
+      onDateFilter?.(startDate, endDate);
+    }
   };
 
   // Handle page change
@@ -527,7 +494,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                   </div>
 
                   {/* Date Filter */}
-                  {/* <div className='relative flex items-center justify-center px-3 py-2.5 rounded-xl border border-solid border-border bg-background min-w-[44px] h-[44px]'>
+                  <div className='relative flex items-center justify-center px-3 py-2.5 rounded-xl border border-solid border-border bg-background min-w-[44px] h-[44px]'>
                     <CalendarDays className='w-4 h-4 text-muted-custom cursor-pointer absolute z-10 pointer-events-none' />
                     <input
                       type='date'
@@ -540,13 +507,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                         }
                       }}
                     />
-                  </div> */}
-                  <input
-                    type='date'
-                    className='absolute inset-0 border-none bg-transparent opacity-0 cursor-pointer z-20'
-                    value={selectedDate}
-                    onChange={(e) => handleDateFilterChange(e.target.value)}
-                  />
+                  </div>
                 </div>
               )}
             </>

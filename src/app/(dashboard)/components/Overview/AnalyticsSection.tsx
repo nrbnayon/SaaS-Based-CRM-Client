@@ -265,33 +265,121 @@ export const AnalyticsSection = () => {
     };
   }
 
+  // const CustomBar = (props: SegmentProps) => {
+  //   const { fill, payload, x, y, width, height } = props;
+
+  //   if (!payload || !payload.segments) return <g />;
+
+  //   const segments = payload.segments;
+  //   const totalValue = segments.reduce((sum, seg) => sum + seg, 0);
+  //   const segmentGap = 4;
+  //   const totalGaps = (segments.length - 1) * segmentGap;
+  //   const availableHeight = height - totalGaps;
+
+  //   let currentY = y + height;
+
+  //   return (
+  //     <g>
+  //       {segments.map((segmentValue: number, index: number) => {
+  //         const segmentHeight: number =
+  //           (segmentValue / totalValue) * availableHeight;
+  //         currentY -= segmentHeight;
+
+  //         const rect = (
+  //           <rect
+  //             key={index}
+  //             x={x}
+  //             y={currentY}
+  //             width={width}
+  //             height={segmentHeight}
+  //             fill={fill}
+  //             rx={12}
+  //             ry={12}
+  //           />
+  //         );
+
+  //         currentY -= segmentGap;
+  //         return rect;
+  //       })}
+  //     </g>
+  //   );
+  // };
+
+  // Fixed CustomBar component with proper error handling
   const CustomBar = (props: SegmentProps) => {
     const { fill, payload, x, y, width, height } = props;
 
-    if (!payload || !payload.segments) return <g />;
+    // Add validation for required props
+    if (
+      !payload ||
+      !payload.segments ||
+      !Array.isArray(payload.segments) ||
+      payload.segments.length === 0
+    ) {
+      // Return a simple rect if segments are invalid
+      return (
+        <rect
+          x={x}
+          y={y}
+          width={width}
+          height={Math.max(0, height)}
+          fill={fill}
+          rx={12}
+          ry={12}
+        />
+      );
+    }
 
     const segments = payload.segments;
     const totalValue = segments.reduce((sum, seg) => sum + seg, 0);
+
+    // Prevent division by zero
+    if (totalValue <= 0) {
+      return (
+        <rect
+          x={x}
+          y={y}
+          width={width}
+          height={Math.max(0, height)}
+          fill={fill}
+          rx={12}
+          ry={12}
+        />
+      );
+    }
+
     const segmentGap = 4;
-    const totalGaps = (segments.length - 1) * segmentGap;
-    const availableHeight = height - totalGaps;
+    const totalGaps = Math.max(0, (segments.length - 1) * segmentGap);
+    const availableHeight = Math.max(0, height - totalGaps);
 
     let currentY = y + height;
 
     return (
       <g>
         {segments.map((segmentValue: number, index: number) => {
-          const segmentHeight: number =
-            (segmentValue / totalValue) * availableHeight;
+          // Ensure segmentValue is positive
+          const safeSegmentValue = Math.max(0, segmentValue);
+          const segmentHeight = Math.max(
+            0,
+            (safeSegmentValue / totalValue) * availableHeight
+          );
+
           currentY -= segmentHeight;
+
+          // Ensure currentY doesn't go below y
+          const safeCurrentY = Math.max(y, currentY);
+          const safeFinalHeight = Math.max(
+            0,
+            Math.min(segmentHeight, y + height - safeCurrentY)
+          );
 
           const rect = (
             <rect
               key={index}
               x={x}
-              y={currentY}
+              y={safeCurrentY}
               width={width}
-              height={segmentHeight}
+              height={safeFinalHeight}
               fill={fill}
               rx={12}
               ry={12}
