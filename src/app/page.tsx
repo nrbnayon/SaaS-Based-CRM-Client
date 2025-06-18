@@ -1,4 +1,6 @@
+import OverviewPage from "./(dashboard)/overview/page";
+
 // src\app\page.tsx
 export default function Home() {
-  return <div></div>;
+  return <div><OverviewPage/></div>;
 }
