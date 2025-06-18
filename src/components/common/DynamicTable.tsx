@@ -172,11 +172,15 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
 
       // Date filter (if dates are provided)
       let matchesDate = true;
-      if (startDate && endDate && transaction.date) {
+      if (startDate && transaction.date) {
         const transactionDate = new Date(transaction.date);
-        const start = new Date(startDate);
-        const end = new Date(endDate);
-        matchesDate = transactionDate >= start && transactionDate <= end;
+        const filterDate = new Date(startDate);
+
+        // Set time to start of day for accurate comparison
+        transactionDate.setHours(0, 0, 0, 0);
+        filterDate.setHours(0, 0, 0, 0);
+
+        matchesDate = transactionDate.getTime() === filterDate.getTime();
       }
 
       return matchesSearch && matchesAccount && matchesDate;
@@ -206,12 +210,20 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
   };
 
   // Handle date filter change
-  const handleDateFilterChange = () => {
-    if (startDate && endDate) {
-      setCurrentPage(1); // Reset to first page on filter
-      onDateFilter?.(startDate, endDate);
-    }
-  };
+  // const handleDateFilterChange = () => {
+  //   if (startDate && endDate) {
+  //     setCurrentPage(1); // Reset to first page on filter
+  //     onDateFilter?.(startDate, endDate);
+  //   }
+  // };
+
+  // const handleDateFilterChange = () => {
+  //   if (startDate) {
+  //     // Only need startDate since endDate will be the same
+  //     setCurrentPage(1);
+  //     onDateFilter?.(startDate, startDate);
+  //   }
+  // };
 
   // Handle page change
   const handlePageChange = (page: number) => {
@@ -494,7 +506,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                   </div>
 
                   {/* Date Filter */}
-                  <div className='relative flex items-center justify-center px-3 py-2.5 rounded-xl border border-solid border-border bg-background min-w-[44px] h-[44px]'>
+                  {/* <div className='relative flex items-center justify-center px-3 py-2.5 rounded-xl border border-solid border-border bg-background min-w-[44px] h-[44px]'>
                     <CalendarDays className='w-4 h-4 text-muted-custom cursor-pointer absolute z-10 pointer-events-none' />
                     <input
                       type='date'
@@ -506,6 +518,27 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                           handleDateFilterChange();
                         }
                       }}
+                    />
+                  </div> */}
+
+                  <div className='relative flex items-center justify-center px-3 py-2.5 rounded-xl border border-solid border-border bg-background min-w-[44px] h-[44px]'>
+                    <CalendarDays className='w-4 h-4 text-muted-custom cursor-pointer absolute z-10 pointer-events-none' />
+                    <input
+                      type='date'
+                      className='absolute inset-0 border-none bg-transparent opacity-0 cursor-pointer z-20'
+                      value={startDate}
+                      onChange={(e) => {
+                        const selectedDate = e.target.value;
+                        setStartDate(selectedDate);
+                        setEndDate(selectedDate); // Set both to same date for single-day filtering
+
+                        if (selectedDate) {
+                          // Apply filter immediately for single date
+                          setCurrentPage(1);
+                          onDateFilter?.(selectedDate, selectedDate);
+                        }
+                      }}
+                      title='Filter by Date'
                     />
                   </div>
                 </div>
