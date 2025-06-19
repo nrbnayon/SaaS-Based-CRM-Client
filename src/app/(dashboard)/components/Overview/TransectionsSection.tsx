@@ -4,6 +4,8 @@
 import React, { useState } from "react";
 import { DynamicTable, Transaction } from "@/components/common/DynamicTable";
 
+
+
 // Sample transaction data
 const initialTransactions: Transaction[] = [
   {

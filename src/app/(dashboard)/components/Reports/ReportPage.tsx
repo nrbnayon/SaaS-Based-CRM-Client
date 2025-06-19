@@ -4,6 +4,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import React from 'react'
 
 export const ReportPage = () => {
+
+    
     const initialTransactions: Transaction[] = [
             {
               id: "1s5gf1",
@@ -85,7 +87,158 @@ export const ReportPage = () => {
           ];
     
           
-           
+        const invoiceData = [
+                    {
+                        invoiceNo: "INV001",
+                        name: "Office Rent",
+                        details: "Dhanmondi Branch 2 Rent",
+                        bill: "Bank",
+                        discount: 0,
+                        expanse: 50000,
+                        income: 0,
+                        balance: -50000
+                    },
+                    {
+                        invoiceNo: "INV002",
+                        name: "Equipment's",
+                        details: "Dhanmondi Branch 2 Equipment",
+                        bill: "Cash",
+                        discount: 500,
+                        expanse: 15000,
+                        income: 0,
+                        balance: -14500
+                    },
+                    {
+                        invoiceNo: "INV003",
+                        name: "Car Rent",
+                        details: "Dhanmondi Branch 2 Car",
+                        bill: "Bank",
+                        discount: 0,
+                        expanse: 20000,
+                        income: 0,
+                        balance: -20000
+                    },
+                    {
+                        invoiceNo: "INV004",
+                        name: "Office Rent",
+                        details: "Dhanmondi Branch 1 Rent",
+                        bill: "Bank",
+                        discount: 1000,
+                        expanse: 45000,
+                        income: 0,
+                        balance: -44000
+                    },
+                    {
+                        invoiceNo: "INV005",
+                        name: "Equipment's",
+                        details: "Printer for Dhanmondi Branch 2",
+                        bill: "Cash",
+                        discount: 200,
+                        expanse: 12000,
+                        income: 0,
+                        balance: -11800
+                    },
+                    {
+                        invoiceNo: "INV006",
+                        name: "Car Rent",
+                        details: "Staff Transport Dhanmondi",
+                        bill: "Bank",
+                        discount: 0,
+                        expanse: 18000,
+                        income: 0,
+                        balance: -18000
+                    },
+                    {
+                        invoiceNo: "INV007",
+                        name: "Office Rent",
+                        details: "Mirpur Branch Rent",
+                        bill: "Bank",
+                        discount: 0,
+                        expanse: 40000,
+                        income: 0,
+                        balance: -40000
+                    },
+                    {
+                        invoiceNo: "INV008",
+                        name: "Equipment's",
+                        details: "Computers for Mirpur Branch",
+                        bill: "Cash",
+                        discount: 300,
+                        expanse: 25000,
+                        income: 0,
+                        balance: -24700
+                    },
+                    {
+                        invoiceNo: "INV009",
+                        name: "Car Rent",
+                        details: "Delivery Van Dhanmondi",
+                        bill: "Bank",
+                        discount: 0,
+                        expanse: 22000,
+                        income: 0,
+                        balance: -22000
+                    },
+                    {
+                        invoiceNo: "INV010",
+                        name: "Office Rent",
+                        details: "Uttara Branch Rent",
+                        bill: "Bank",
+                        discount: 500,
+                        expanse: 48000,
+                        income: 0,
+                        balance: -47500
+                    },
+                    {
+                        invoiceNo: "INV011",
+                        name: "Equipment's",
+                        details: "Furniture for Uttara Branch",
+                        bill: "Cash",
+                        discount: 400,
+                        expanse: 30000,
+                        income: 0,
+                        balance: -29600
+                    },
+                    {
+                        invoiceNo: "INV012",
+                        name: "Car Rent",
+                        details: "Manager Car Uttara",
+                        bill: "Bank",
+                        discount: 0,
+                        expanse: 25000,
+                        income: 0,
+                        balance: -25000
+                    },
+                    {
+                        invoiceNo: "INV013",
+                        name: "Office Rent",
+                        details: "Banani Branch Rent",
+                        bill: "Bank",
+                        discount: 0,
+                        expanse: 52000,
+                        income: 0,
+                        balance: -52000
+                    },
+                    {
+                        invoiceNo: "INV014",
+                        name: "Equipment's",
+                        details: "Air Conditioner for Banani",
+                        bill: "Cash",
+                        discount: 600,
+                        expanse: 35000,
+                        income: 0,
+                        balance: -34400
+                    },
+                    {
+                        invoiceNo: "INV015",
+                        name: "Car Rent",
+                        details: "Client Transport Banani",
+                        bill: "Bank",
+                        discount: 0,
+                        expanse: 23000,
+                        income: 0,
+                        balance: -23000
+                    }
+                    ];
           
             
             
@@ -102,10 +255,18 @@ export const ReportPage = () => {
             </TabsList>
 
             <TabsContent value="Balance-Sheet">
-                {/* Transaction table */}
-                <div>
-                    
-                </div>                
+                {/* Customized Usage - Income Only with Link Button */}
+                      <DynamicTable
+                        title='Income Transactions'
+                        transactions={invoiceData}
+                        columns={["Invoice NO", "Name", "Details", "Bill", "Discount", "Expanse","Income","Balance"]}
+                        enableEdit={true}
+                        enableSearch={false}
+                        enableDelete={false}
+                        showFilters={false}
+                        itemsPerPage={5}
+                      />
+                               
             </TabsContent>
             <TabsContent value="Income-Statement">
                 {/* Placeholder for Income Statement content */}
