@@ -21,36 +21,15 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  // ChevronDownIcon,
-  SquarePlus,
-  TrendingUp,
-  TrendingDown,
-} from "lucide-react";
+import { SquarePlus } from "lucide-react";
 import React, { useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
-
-// Type definitions
-type TimePeriod = "daily" | "weekly" | "monthly" | "yearly";
-// type TransactionType = "income" | "expense";
-
-interface FinancialData {
-  amount: number;
-  period: TimePeriod;
-  increasePercent: number;
-  timePeriod: string;
-  trendPercent: number;
-  isPositiveTrend: boolean;
-}
-
-interface FinancialCard {
-  id: string;
-  title: string;
-  data: Record<TimePeriod, FinancialData>;
-  borderColor: string;
-  accentColor: string;
-  textColor: string;
-}
+import { 
+  FinancialCardComponent, 
+  type FinancialCard, 
+  type TimePeriod, 
+  type FinancialData 
+} from "@/components/common/FinancialCardComponent";
 
 interface ChartData {
   month: string;
@@ -254,89 +233,31 @@ export const IncomeExpenseSection: React.FC = () => {
     setIsExpenseDialogOpen(false);
   };
 
-  const renderFinancialCard = (card: FinancialCard) => {
-    const currentData = card.data[selectedPeriods[card.id]];
-    const TrendIcon = currentData.isPositiveTrend ? TrendingUp : TrendingDown;
-    const trendColorClass = currentData.isPositiveTrend
-      ? card.accentColor
-      : "text-error";
-
-    return (
-      <Card
-        key={card.id}
-        className={`flex flex-col w-full bg-secondary dark:bg-background items-center border-t-8 gap-2 p-2 flex-1 rounded-[20px] ${card.borderColor} min-h-[180px]`}
-      >
-        <CardHeader className='flex flex-row items-center justify-between px-2 py-1 w-full'>
-          <CardTitle className='font-medium text-foreground dark:text-white text-base'>
-            {card.title}
-          </CardTitle>
-          <Select
-            value={selectedPeriods[card.id]}
-            onValueChange={(value: TimePeriod) =>
-              handlePeriodChange(card.id, value)
-            }
-          >
-            <SelectTrigger className='inline-flex items-center text-muted-foreground justify-center gap-1.5 px-1 py-2 h-auto w-auto bg-transparent border-none'>
-              <SelectValue className='font-normal text-white text-xs' />
-              {/* <ChevronDownIcon className='h-4 w-4 text-muted-foreground' /> */}
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value='daily'>Daily</SelectItem>
-              <SelectItem value='weekly'>Weekly</SelectItem>
-              <SelectItem value='monthly'>Monthly</SelectItem>
-              <SelectItem value='yearly'>Yearly</SelectItem>
-            </SelectContent>
-          </Select>
-        </CardHeader>
-
-        <CardContent className='flex flex-col items-start gap-1 w-full p-0 flex-1'>
-          <div className='flex items-center gap-2 px-2 py-0 w-full'>
-            <div className='font-bold text-foreground dark:text-white text-[32px] leading-[48px]'>
-              {formatCurrency(currentData.amount)}
-            </div>
-          </div>
-
-          <div className='flex items-center justify-between w-full mt-auto'>
-            <div className='flex items-center gap-2 px-2 py-1 flex-1'>
-              <div className='font-normal text-foreground dark:text-white text-sm leading-5'>
-                {card.id === "expense" ? "Increased by" : "Increased by"}{" "}
-                <span className={`font-semibold ${card.accentColor}`}>
-                  {currentData.increasePercent}%
-                </span>{" "}
-                <p className='flex gap-1 items-center'>
-                  last
-                  <span className={`font-semibold ${card.accentColor}`}>
-                    {currentData.timePeriod}
-                  </span>
-                </p>
-              </div>
-            </div>
-
-            <div className='inline-flex items-center justify-center gap-2 p-1 rounded-lg'>
-              <TrendIcon className={`h-4 w-4 ${trendColorClass}`} />
-              <div
-                className={`${trendColorClass} font-semibold text-sm leading-[21px]`}
-              >
-                {Math.abs(currentData.trendPercent)}%
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    );
-  };
-
   return (
     <div className='flex w-full justify-between items-center  gap-6 flex-col xl:flex-row'>
       <div className='flex flex-col justify-between items-center gap-6 flex-1 w-full md:w-1/2'>
         {/* First Row - Expense and Income */}
         <div className='flex items-center gap-6 w-full flex-col sm:flex-row'>
-          {financialCards.slice(0, 2).map(renderFinancialCard)}
+          {financialCards.slice(0, 2).map((card) => (
+            <FinancialCardComponent
+              key={card.id}
+              card={card}
+              selectedPeriod={selectedPeriods[card.id]}
+              onPeriodChange={handlePeriodChange}
+              showPeriodSelector={true}
+            />
+          ))}
         </div>
 
         {/* Second Row - Savings and Add Accounts */}
         <div className='flex items-center gap-6 w-full flex-col sm:flex-row'>
-          {renderFinancialCard(financialCards[2])}
+          <FinancialCardComponent
+            key={financialCards[2].id}
+            card={financialCards[2]}
+            selectedPeriod={selectedPeriods[financialCards[2].id]}
+            onPeriodChange={handlePeriodChange}
+            showPeriodSelector={true}
+          />
 
           {/* Add Accounts Card */}
           <Card className='w-full flex flex-col bg-secondary dark:bg-background items-center gap-6 pt-2 border-t-8 pb-4 px-2 flex-1 rounded-[20px] border-white min-h-[180px]'>
