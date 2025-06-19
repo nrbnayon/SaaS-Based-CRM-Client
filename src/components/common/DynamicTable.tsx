@@ -209,22 +209,6 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
     onAccountFilter?.(value);
   };
 
-  // Handle date filter change
-  // const handleDateFilterChange = () => {
-  //   if (startDate && endDate) {
-  //     setCurrentPage(1); // Reset to first page on filter
-  //     onDateFilter?.(startDate, endDate);
-  //   }
-  // };
-
-  // const handleDateFilterChange = () => {
-  //   if (startDate) {
-  //     // Only need startDate since endDate will be the same
-  //     setCurrentPage(1);
-  //     onDateFilter?.(startDate, startDate);
-  //   }
-  // };
-
   // Handle page change
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -370,6 +354,12 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
     return pageNumbers;
   };
 
+  // Format number values
+  const formatCurrency = (value: number | string) => {
+    const numValue = typeof value === 'string' ? parseFloat(value.replace(/[$,]/g, '')) : value;
+    return isNaN(numValue) ? '$0' : `$${numValue.toLocaleString()}`;
+  };
+
   // Render editable cell
   const renderEditableCell = (
     transaction: Transaction,
@@ -442,6 +432,102 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
     );
   };
 
+  // Function to render cell content based on column type
+  const renderCellContent = (transaction: Transaction, column: string) => {
+    switch (column) {
+      case "T-ID":
+      case "Invoice NO":
+        return renderEditableCell(transaction, "id", transaction.id);
+      
+      case "Category":
+        return renderEditableCell(transaction, "category", transaction.category);
+      
+      case "Name":
+        return renderEditableCell(transaction, "name", transaction.name);
+      
+      case "Details":
+        return renderEditableCell(transaction, "details", transaction.details);
+      
+      case "Amount":
+        return renderEditableCell(transaction, "amount", transaction.amount);
+      
+      case "Image":
+        return transaction.image || "Image";
+      
+      case "Transaction":
+      case "Bill":
+        return renderEditableCell(transaction, "transaction", transaction.transaction);
+      
+      case "Account":
+        return (
+          <Badge
+            className={cn(
+              "font-semibold text-xs lg:text-sm bg-transparent hover:bg-transparent border-0 px-2 py-1",
+              getAccountColor(transaction.account)
+            )}
+          >
+            {transaction.account}
+          </Badge>
+        );
+      
+      case "Date":
+        return transaction.date || "-";
+      
+      case "Discount":
+        return renderEditableCell(
+          transaction, 
+          "discount", 
+          formatCurrency(transaction.discount || 0)
+        );
+      
+      case "Expanse":
+        return renderEditableCell(
+          transaction, 
+          "expanse", 
+          formatCurrency(transaction.expanse || 0)
+        );
+      
+      case "Income":
+        return renderEditableCell(
+          transaction, 
+          "income", 
+          formatCurrency(transaction.income || 0)
+        );
+      
+      case "Balance":
+        const balance = Number(transaction.balance);
+        const balanceColor = balance < 0 ? "text-red-600 dark:text-red-400" : "text-green-600 dark:text-green-400";
+        return (
+          <div className={cn("font-semibold", balanceColor)}>
+            {renderEditableCell(
+              transaction, 
+              "balance", 
+              formatCurrency(balance)
+            )}
+          </div>
+        );
+      
+      case "Edit":
+        return enableEdit ? (
+          <Button
+            variant='ghost'
+            size='sm'
+            className='h-8 w-8 p-0 hover:bg-accent dark:hover:bg-secondary text-foreground dark:text-white'
+            onClick={() => handleEditClick(transaction)}
+          >
+            {editingRow === transaction.id ? (
+              <Save className='w-4 h-4' />
+            ) : (
+              <PencilLine className='w-4 h-4' />
+            )}
+          </Button>
+        ) : null;
+      
+      default:
+        return transaction[column.toLowerCase()]?.toString() || "-";
+    }
+  };
+
   return (
     <section
       className={cn("flex flex-col w-full items-start gap-6", className)}
@@ -506,21 +592,6 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                   </div>
 
                   {/* Date Filter */}
-                  {/* <div className='relative flex items-center justify-center px-3 py-2.5 rounded-xl border border-solid border-border bg-background min-w-[44px] h-[44px]'>
-                    <CalendarDays className='w-4 h-4 text-muted-custom cursor-pointer absolute z-10 pointer-events-none' />
-                    <input
-                      type='date'
-                      className='absolute inset-0 border-none bg-transparent opacity-0 cursor-pointer z-20'
-                      value={startDate}
-                      onChange={(e) => {
-                        setStartDate(e.target.value);
-                        if (e.target.value && endDate) {
-                          handleDateFilterChange();
-                        }
-                      }}
-                    />
-                  </div> */}
-
                   <div className='relative flex items-center justify-center px-3 py-2.5 rounded-xl border border-solid border-border bg-background min-w-[44px] h-[44px]'>
                     <CalendarDays className='w-4 h-4 text-muted-custom cursor-pointer absolute z-10 pointer-events-none' />
                     <input
@@ -599,115 +670,14 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                       "dark:[&>td]:px-2 dark:[&>td]:py-2"
                     )}
                   >
-                    {/* Transaction ID */}
-                    {columns.includes("T-ID") && (
-                      <TableCell className='text-center font-normal text-sm lg:text-base text-foreground dark:text-white'>
-                        {renderEditableCell(transaction, "id", transaction.id)}
+                    {columns.map((column) => (
+                      <TableCell 
+                        key={column}
+                        className='text-center font-normal text-sm lg:text-base text-foreground dark:text-white'
+                      >
+                        {renderCellContent(transaction, column)}
                       </TableCell>
-                    )}
-
-                    {/* Category */}
-                    {columns.includes("Category") && (
-                      <TableCell className='text-center font-normal text-sm lg:text-base text-foreground dark:text-white'>
-                        {renderEditableCell(
-                          transaction,
-                          "category",
-                          transaction.category
-                        )}
-                      </TableCell>
-                    )}
-
-                    {/* Name */}
-                    {columns.includes("Name") && (
-                      <TableCell className='text-center font-normal text-sm lg:text-base text-foreground dark:text-white'>
-                        {renderEditableCell(
-                          transaction,
-                          "name",
-                          transaction.name
-                        )}
-                      </TableCell>
-                    )}
-
-                    {/* Details */}
-                    {columns.includes("Details") && (
-                      <TableCell className='text-center font-normal text-sm lg:text-base text-foreground dark:text-white'>
-                        {renderEditableCell(
-                          transaction,
-                          "details",
-                          transaction.details
-                        )}
-                      </TableCell>
-                    )}
-
-                    {/* Amount */}
-                    {columns.includes("Amount") && (
-                      <TableCell className='text-center font-semibold text-sm lg:text-base text-foreground dark:text-white'>
-                        {renderEditableCell(
-                          transaction,
-                          "amount",
-                          transaction.amount
-                        )}
-                      </TableCell>
-                    )}
-
-                    {/* Image */}
-                    {columns.includes("Image") && (
-                      <TableCell className='text-center font-normal text-sm lg:text-base text-muted-custom dark:text-gray-400'>
-                        {transaction.image || "Image"}
-                      </TableCell>
-                    )}
-
-                    {/* Transaction Type */}
-                    {columns.includes("Transaction") && (
-                      <TableCell className='text-center font-normal text-sm lg:text-base text-foreground dark:text-white'>
-                        {renderEditableCell(
-                          transaction,
-                          "transaction",
-                          transaction.transaction
-                        )}
-                      </TableCell>
-                    )}
-
-                    {/* Account Badge */}
-                    {columns.includes("Account") && (
-                      <TableCell className='text-center'>
-                        <Badge
-                          className={cn(
-                            "font-semibold text-xs lg:text-sm bg-transparent hover:bg-transparent border-0 px-2 py-1",
-                            getAccountColor(transaction.account)
-                          )}
-                        >
-                          {transaction.account}
-                        </Badge>
-                      </TableCell>
-                    )}
-
-                    {/* Date */}
-                    {columns.includes("Date") && (
-                      <TableCell className='text-center font-normal text-sm lg:text-base text-foreground dark:text-white'>
-                        {transaction.date || "-"}
-                      </TableCell>
-                    )}
-
-                    {/* Edit Button */}
-                    {columns.includes("Edit") && (
-                      <TableCell className='text-center'>
-                        {enableEdit && (
-                          <Button
-                            variant='ghost'
-                            size='sm'
-                            className='h-8 w-8 p-0 hover:bg-accent dark:hover:bg-secondary text-foreground dark:text-white'
-                            onClick={() => handleEditClick(transaction)}
-                          >
-                            {editingRow === transaction.id ? (
-                              <Save className='w-4 h-4' />
-                            ) : (
-                              <PencilLine className='w-4 h-4' />
-                            )}
-                          </Button>
-                        )}
-                      </TableCell>
-                    )}
+                    ))}
 
                     {/* Delete Button */}
                     {enableDelete && (

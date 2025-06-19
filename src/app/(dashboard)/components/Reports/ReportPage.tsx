@@ -3,6 +3,18 @@ import { DynamicTable, type Transaction } from '@/components/common/DynamicTable
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import React from 'react'
 
+// Define the invoice data interface
+interface InvoiceData {
+  invoiceNo: string;
+  name: string;
+  details: string;
+  bill: string;
+  discount: number;
+  expanse: number;
+  income: number;
+  balance: number;
+}
+
 export const ReportPage = () => {
 
     
@@ -87,7 +99,7 @@ export const ReportPage = () => {
           ];
     
           
-        const invoiceData = [
+        const invoiceData: InvoiceData[] = [
                     {
                         invoiceNo: "INV001",
                         name: "Office Rent",
@@ -239,6 +251,31 @@ export const ReportPage = () => {
                         balance: -23000
                     }
                     ];
+
+    // Convert invoice data to transaction format for the DynamicTable
+    const convertInvoiceToTransactions = (invoices: InvoiceData[]): Transaction[] => {
+        return invoices.map((invoice) => ({
+            id: invoice.invoiceNo,
+            category: invoice.name, // Using name as category
+            name: invoice.name,
+            details: invoice.details,
+            amount: `$${invoice.balance.toLocaleString()}`, // Format balance as amount
+            image: "Image",
+            transaction: invoice.bill,
+            account: invoice.balance < 0 ? "Expense" : "Income" as Transaction["account"],
+            date: new Date().toISOString().split('T')[0], // Current date as fallback
+            // Add custom fields for invoice-specific data
+            invoiceNo: invoice.invoiceNo,
+            bill: invoice.bill,
+            discount: invoice.discount,
+            expanse: invoice.expanse,
+            income: invoice.income,
+            balance: invoice.balance
+        }));
+    };
+
+    // Convert invoice data to transaction format
+    const invoiceTransactions = convertInvoiceToTransactions(invoiceData);
           
             
             
@@ -255,30 +292,30 @@ export const ReportPage = () => {
             </TabsList>
 
             <TabsContent value="Balance-Sheet">
-                {/* Customized Usage - Income Only with Link Button */}
-                      <DynamicTable
-                        title='Income Transactions'
-                        transactions={invoiceData}
-                        columns={["Invoice NO", "Name", "Details", "Bill", "Discount", "Expanse","Income","Balance"]}
-                        enableEdit={true}
-                        enableSearch={false}
-                        enableDelete={false}
-                        showFilters={false}
-                        itemsPerPage={5}
-                      />
+                {/* Customized Usage - Invoice Data with Custom Columns */}
+                <DynamicTable
+                    title='Income Transactions'
+                    transactions={invoiceTransactions}
+                    columns={["Invoice NO", "Name", "Details", "Bill", "Discount", "Expanse", "Income", "Balance"]}
+                    enableEdit={true}
+                    enableSearch={false}
+                    enableDelete={false}
+                    showFilters={false}
+                    itemsPerPage={5}
+                />
                                
             </TabsContent>
             <TabsContent value="Income-Statement">
                 {/* Placeholder for Income Statement content */}
                 <DynamicTable
-                            title=''
-                            transactions={initialTransactions.filter((t) => t.account === "Income")}
-                            enableEdit={true}
-                            enableSearch={false}
-                            enableDelete={false}
-                            showFilters={false}
-                            itemsPerPage={10}
-                            />
+                    title=''
+                    transactions={initialTransactions.filter((t) => t.account === "Income")}
+                    enableEdit={true}
+                    enableSearch={false}
+                    enableDelete={false}
+                    showFilters={false}
+                    itemsPerPage={10}
+                />
                 
             </TabsContent>
             
