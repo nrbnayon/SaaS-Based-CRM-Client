@@ -24,13 +24,13 @@ export default function DashboardHeader({
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-200",
+        "sticky top-0 z-50 p-4 w-full transition-all duration-200",
         scrolled
-          ? "bg-background/80 backdrop-blur-md shadow-sm"
+          ? "bg-white/80 dark:bg-black/80 backdrop-blur-3xl shadow-sm"
           : "bg-transparent"
       )}
     >
-      <div className='container mx-auto'>
+      <div className=' mx-auto'>
         <div className='flex items-center justify-between'>
           <div>
             <h1 className='text-xl md:text-3xl font-bold tracking-tight'>
@@ -38,9 +38,9 @@ export default function DashboardHeader({
             </h1>
           </div>
           {/* Mobile Navigation */}
-          <div className='flex items-center space-x-2'>
+          <div className='flex items-center cursor-pointer space-x-2'>
             <ModeToggle />
-          <Bell className='hover:ring-1 hover:ring-success w-8 h-8 font-bold p-1 rounded-full' />
+          <Bell className='hover:ring-1 cursor-pointer hover:ring-success w-8 h-8 font-bold p-1 rounded-full' />
           </div>
         </div>
       </div>

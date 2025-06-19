@@ -6,9 +6,9 @@ import TransactionsSection from "../components/Overview/TransectionsSection";
 
 export default function OverviewPage() {
   return (
-    <div>
+    <div className="">
       <DashboardHeader title='Welcome  Nayon' />
-      <div className='mt-10 space-y-10'>
+      <div className='p-4 space-y-10'>
         {/* Add more cards as needed */}
         <IncomeExpenseSection />
         <AnalyticsSection />

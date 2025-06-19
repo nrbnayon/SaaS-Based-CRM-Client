@@ -127,7 +127,7 @@ const TransectionsSection = () => {
   };
 
   return (
-    <div className='container mx-auto p-6'>
+    <div className=' mx-auto '>
       {/* Basic Usage with Edit and Delete */}
       <DynamicTable
         title='All Transactions'
