@@ -1,3 +1,4 @@
+"use client";
 import { DynamicTable, type Transaction } from '@/components/common/DynamicTable';
 import { FinancialCardComponent, type FinancialCard, type FinancialData, type TimePeriod } from '@/components/common/FinancialCardComponent';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -267,8 +268,7 @@ const FinancialReport = () => {
         },
       ];
     
-      const [transactions, setTransactions] =
-          useState<Transaction[]>(initialTransactions);
+      const [transactions, setTransactions] =useState<Transaction[]>(initialTransactions);
       
         // Handle edit transaction
         const handleEditTransaction = (transaction: Transaction) => {
