@@ -38,7 +38,7 @@ interface FinancialCardProps {
   onPeriodChange: (cardId: string, period: TimePeriod) => void;
   showPeriodSelector?: boolean;
   className?: string;
-  isFromFinancialPlan?: boolean; // New prop to identify source
+  isFromFinancialPlan?: boolean;
 }
 
 export const FinancialCardComponent: React.FC<FinancialCardProps> = ({
@@ -47,7 +47,7 @@ export const FinancialCardComponent: React.FC<FinancialCardProps> = ({
   onPeriodChange,
   showPeriodSelector = true,
   className = "",
-  isFromFinancialPlan = false, // Default to false
+  isFromFinancialPlan = false,
 }) => {
   const formatCurrency = (amount: number): string => {
     return new Intl.NumberFormat("en-US", {
@@ -58,12 +58,14 @@ export const FinancialCardComponent: React.FC<FinancialCardProps> = ({
   };
 
   const currentData = card.data[selectedPeriod];
-  
+
   // Conditional icon logic
-  const TrendIcon = isFromFinancialPlan 
-    ? FileDown 
-    : (currentData.isPositiveTrend ? TrendingUp : TrendingDown);
-  
+  const TrendIcon = isFromFinancialPlan
+    ? FileDown
+    : currentData.isPositiveTrend
+    ? TrendingUp
+    : TrendingDown;
+
   const trendColorClass = currentData.isPositiveTrend
     ? card.accentColor
     : "text-error";
@@ -119,15 +121,16 @@ export const FinancialCardComponent: React.FC<FinancialCardProps> = ({
             </div>
           </div>
 
-          
           <div className='inline-flex items-center justify-center gap-2 p-1 rounded-lg'>
             {/* changeable icon part */}
             <TrendIcon className={`h-4 w-4 ${trendColorClass}`} />
-            {!isFromFinancialPlan &&  <div
-                  className={`${trendColorClass} font-semibold text-sm leading-[21px]`}
-                >
-                  {Math.abs(currentData.trendPercent)}%
-                </div>}
+            {!isFromFinancialPlan && (
+              <div
+                className={`${trendColorClass} font-semibold text-sm leading-[21px]`}
+              >
+                {Math.abs(currentData.trendPercent)}%
+              </div>
+            )}
           </div>
         </div>
       </CardContent>

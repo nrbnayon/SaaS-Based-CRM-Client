@@ -49,7 +49,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "../ui/pagination";
+} from "@/components/ui/pagination";
 
 // Transaction type definitions
 export interface Transaction {
@@ -130,7 +130,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
   const [searchTerm, setSearchTerm] = useState("");
   const [accountFilter, setAccountFilter] = useState<string>("all");
   const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [, setEndDate] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [editingCell, setEditingCell] = useState<{
     id: string;
@@ -185,7 +185,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
 
       return matchesSearch && matchesAccount && matchesDate;
     });
-  }, [localTransactions, searchTerm, accountFilter, startDate, endDate]);
+  }, [localTransactions, searchTerm, accountFilter, startDate]);
 
   // Pagination calculations
   const totalPages = Math.ceil(filteredTransactions.length / itemsPerPage);
@@ -198,14 +198,14 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
   // Handle search input change
   const handleSearchChange = (value: string) => {
     setSearchTerm(value);
-    setCurrentPage(1); // Reset to first page on search
+    setCurrentPage(1);
     onSearch?.(value);
   };
 
   // Handle account filter change
   const handleAccountFilterChange = (value: string) => {
     setAccountFilter(value);
-    setCurrentPage(1); // Reset to first page on filter
+    setCurrentPage(1);
     onAccountFilter?.(value);
   };
 
@@ -356,8 +356,11 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
 
   // Format number values
   const formatCurrency = (value: number | string) => {
-    const numValue = typeof value === 'string' ? parseFloat(value.replace(/[$,]/g, '')) : value;
-    return isNaN(numValue) ? '$0' : `$${numValue.toLocaleString()}`;
+    const numValue =
+      typeof value === "string"
+        ? parseFloat(value.replace(/[$,]/g, ""))
+        : value;
+    return isNaN(numValue) ? "$0" : `$${numValue.toLocaleString()}`;
   };
 
   // Render editable cell
@@ -438,26 +441,34 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
       case "T-ID":
       case "Invoice NO":
         return renderEditableCell(transaction, "id", transaction.id);
-      
+
       case "Category":
-        return renderEditableCell(transaction, "category", transaction.category);
-      
+        return renderEditableCell(
+          transaction,
+          "category",
+          transaction.category
+        );
+
       case "Name":
         return renderEditableCell(transaction, "name", transaction.name);
-      
+
       case "Details":
         return renderEditableCell(transaction, "details", transaction.details);
-      
+
       case "Amount":
         return renderEditableCell(transaction, "amount", transaction.amount);
-      
+
       case "Image":
         return transaction.image || "Image";
-      
+
       case "Transaction":
       case "Bill":
-        return renderEditableCell(transaction, "transaction", transaction.transaction);
-      
+        return renderEditableCell(
+          transaction,
+          "transaction",
+          transaction.transaction
+        );
+
       case "Account":
         return (
           <Badge
@@ -469,44 +480,62 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
             {transaction.account}
           </Badge>
         );
-      
+
       case "Date":
         return transaction.date || "-";
-      
+
       case "Discount":
         return renderEditableCell(
-          transaction, 
-          "discount", 
-          formatCurrency(transaction.discount || 0)
+          transaction,
+          "discount",
+          formatCurrency(
+            typeof transaction.discount === "number" ||
+              typeof transaction.discount === "string"
+              ? transaction.discount
+              : 0
+          )
         );
-      
+
       case "Expanse":
         return renderEditableCell(
-          transaction, 
-          "expanse", 
-          formatCurrency(transaction.expanse || 0)
+          transaction,
+          "expanse",
+          formatCurrency(
+            typeof transaction.expanse === "number" ||
+              typeof transaction.expanse === "string"
+              ? transaction.expanse
+              : 0
+          )
         );
-      
+
       case "Income":
         return renderEditableCell(
-          transaction, 
-          "income", 
-          formatCurrency(transaction.income || 0)
+          transaction,
+          "income",
+          formatCurrency(
+            typeof transaction.income === "number" ||
+              typeof transaction.income === "string"
+              ? transaction.income
+              : 0
+          )
         );
-      
+
       case "Balance":
         const balance = Number(transaction.balance);
-        const balanceColor = balance < 0 ? "text-red-600 dark:text-red-400" : "text-green-600 dark:text-green-400";
+        const balanceColor =
+          balance < 0
+            ? "text-red-600 dark:text-red-400"
+            : "text-green-600 dark:text-green-400";
         return (
           <div className={cn("font-semibold", balanceColor)}>
             {renderEditableCell(
-              transaction, 
-              "balance", 
+              transaction,
+              "balance",
               formatCurrency(balance)
             )}
           </div>
         );
-      
+
       case "Edit":
         return enableEdit ? (
           <Button
@@ -522,7 +551,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
             )}
           </Button>
         ) : null;
-      
+
       default:
         return transaction[column.toLowerCase()]?.toString() || "-";
     }
@@ -601,10 +630,9 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                       onChange={(e) => {
                         const selectedDate = e.target.value;
                         setStartDate(selectedDate);
-                        setEndDate(selectedDate); // Set both to same date for single-day filtering
+                        setEndDate(selectedDate);
 
                         if (selectedDate) {
-                          // Apply filter immediately for single date
                           setCurrentPage(1);
                           onDateFilter?.(selectedDate, selectedDate);
                         }
@@ -664,14 +692,12 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                       "dark:bg-dark-primary/50",
                       editingRow === transaction.id &&
                         "bg-blue-50/50 dark:bg-blue-900/10",
-                      // Light mode: gap-4 between cells
                       "[&>td]:px-4 [&>td]:py-3",
-                      // Dark mode: gap-4 between header and cells, gap-2 between cells
                       "dark:[&>td]:px-2 dark:[&>td]:py-2"
                     )}
                   >
                     {columns.map((column) => (
-                      <TableCell 
+                      <TableCell
                         key={column}
                         className='text-center font-normal text-sm lg:text-base text-foreground dark:text-white'
                       >
