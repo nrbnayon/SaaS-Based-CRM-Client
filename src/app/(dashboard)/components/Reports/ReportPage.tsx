@@ -83,7 +83,7 @@ export const ReportPage = () => {
               date: "2024-01-09",
             },
           ];
-    const transactions = initialTransactions;
+    
           
            
           
@@ -111,7 +111,7 @@ export const ReportPage = () => {
                 {/* Placeholder for Income Statement content */}
                 <DynamicTable
                             title=''
-                            transactions={transactions.filter((t) => t.account === "Income")}
+                            transactions={initialTransactions.filter((t) => t.account === "Income")}
                             enableEdit={true}
                             enableSearch={false}
                             enableDelete={false}
