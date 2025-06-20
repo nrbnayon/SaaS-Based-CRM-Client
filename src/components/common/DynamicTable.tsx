@@ -71,9 +71,9 @@ export interface Transaction {
 
 // Account type color mapping
 const accountColors = {
-  Income: "text-success",
+  Income: "text-green-600 dark:text-success",
   Expense: "text-error",
-  VAT: "text-yellow-light",
+  VAT: "text-yellow-500 dark:text-yellow-light",
   Saving: "text-cyan",
 } as const;
 
@@ -360,8 +360,11 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
 
   // Format number values
   const formatCurrency = (value: number | string) => {
-    const numValue = typeof value === 'string' ? parseFloat(value.replace(/[$,]/g, '')) : value;
-    return isNaN(numValue) ? '$0' : `$${numValue.toLocaleString()}`;
+    const numValue =
+      typeof value === "string"
+        ? parseFloat(value.replace(/[$,]/g, ""))
+        : value;
+    return isNaN(numValue) ? "$0" : `$${numValue.toLocaleString()}`;
   };
 
   // Render editable cell
@@ -377,13 +380,13 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
 
     if (isEditing) {
       return (
-        <div className='flex items-center gap-1'>
+        <div className="flex items-center gap-1">
           <Input
             value={editingCell.value}
             onChange={(e) =>
               setEditingCell({ ...editingCell, value: e.target.value })
             }
-            className='h-8 text-sm border-border'
+            className="h-8 text-sm border-border"
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 handleCellSave();
@@ -394,20 +397,20 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
             autoFocus
           />
           <Button
-            size='sm'
-            variant='ghost'
-            className='h-6 w-6 p-0'
+            size="sm"
+            variant="ghost"
+            className="h-6 w-6 p-0"
             onClick={handleCellSave}
           >
-            <Check className='w-3 h-3' />
+            <Check className="w-3 h-3" />
           </Button>
           <Button
-            size='sm'
-            variant='ghost'
-            className='h-6 w-6 p-0'
+            size="sm"
+            variant="ghost"
+            className="h-6 w-6 p-0"
             onClick={handleCellCancel}
           >
-            <X className='w-3 h-3' />
+            <X className="w-3 h-3" />
           </Button>
         </div>
       );
@@ -429,7 +432,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
           enableEdit && isRowEditing && !isIdField ? "Click to edit" : value
         }
       >
-        <div className='truncate max-w-[120px] lg:max-w-none'>
+        <div className="truncate max-w-[120px] lg:max-w-none">
           {value || "-"}
         </div>
       </div>
@@ -442,26 +445,34 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
       case "T-ID":
       case "Invoice NO":
         return renderEditableCell(transaction, "id", transaction.id);
-      
+
       case "Category":
-        return renderEditableCell(transaction, "category", transaction.category);
-      
+        return renderEditableCell(
+          transaction,
+          "category",
+          transaction.category
+        );
+
       case "Name":
         return renderEditableCell(transaction, "name", transaction.name);
-      
+
       case "Details":
         return renderEditableCell(transaction, "details", transaction.details);
-      
+
       case "Amount":
         return renderEditableCell(transaction, "amount", transaction.amount);
-      
+
       case "Image":
         return transaction.image || "Image";
-      
+
       case "Transaction":
       case "Bill":
-        return renderEditableCell(transaction, "transaction", transaction.transaction);
-      
+        return renderEditableCell(
+          transaction,
+          "transaction",
+          transaction.transaction
+        );
+
       case "Account":
         return (
           <Badge
@@ -473,60 +484,63 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
             {transaction.account}
           </Badge>
         );
-      
+
       case "Date":
         return transaction.date || "-";
-      
+
       case "Discount":
         return renderEditableCell(
-          transaction, 
-          "discount", 
+          transaction,
+          "discount",
           formatCurrency(transaction.discount || 0)
         );
-      
+
       case "Expanse":
         return renderEditableCell(
-          transaction, 
-          "expanse", 
+          transaction,
+          "expanse",
           formatCurrency(transaction.expanse || 0)
         );
-      
+
       case "Income":
         return renderEditableCell(
-          transaction, 
-          "income", 
+          transaction,
+          "income",
           formatCurrency(transaction.income || 0)
         );
-      
+
       case "Balance":
         const balance = Number(transaction.balance);
-        const balanceColor = balance < 0 ? "text-red-600 dark:text-red-400" : "text-green-600 dark:text-green-400";
+        const balanceColor =
+          balance < 0
+            ? "text-red-600 dark:text-red-400"
+            : "text-green-600 dark:text-green-400";
         return (
           <div className={cn("font-semibold", balanceColor)}>
             {renderEditableCell(
-              transaction, 
-              "balance", 
+              transaction,
+              "balance",
               formatCurrency(balance)
             )}
           </div>
         );
-      
+
       case "Edit":
         return enableEdit ? (
           <Button
-            variant='ghost'
-            size='sm'
-            className='h-8 w-8 p-0 hover:bg-accent dark:hover:bg-secondary text-foreground dark:text-white'
+            variant="ghost"
+            size="sm"
+            className="h-8 w-8 p-0 hover:bg-accent dark:hover:bg-secondary text-foreground dark:text-white"
             onClick={() => handleEditClick(transaction)}
           >
             {editingRow === transaction.id ? (
-              <Save className='w-4 h-4' />
+              <Save className="w-4 h-4" />
             ) : (
-              <PencilLine className='w-4 h-4' />
+              <PencilLine className="w-4 h-4" />
             )}
           </Button>
         ) : null;
-      
+
       default:
         return transaction[column.toLowerCase()]?.toString() || "-";
     }
