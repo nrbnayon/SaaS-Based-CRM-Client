@@ -27,20 +27,20 @@ export default function DashboardHeader({
         "sticky top-0 z-50 p-4 w-full transition-all duration-200",
         scrolled
           ? "bg-white/80 dark:bg-black/50 backdrop-blur-3xl shadow-sm"
-          : "bg-white/10 dark:bg-black/10 backdrop-blur-3xl"
+          : "bg-white/10 dark:bg-background/10 backdrop-blur-3xl"
       )}
     >
-      <div className=' mx-auto'>
-        <div className='flex items-center justify-between'>
+      <div className=" mx-auto">
+        <div className="flex items-center justify-between">
           <div>
-            <h1 className='text-xl md:text-3xl font-bold tracking-tight'>
+            <h1 className="text-xl md:text-3xl font-bold tracking-tight">
               {title}
             </h1>
           </div>
           {/* Mobile Navigation */}
-          <div className='flex items-center cursor-pointer space-x-2'>
+          <div className="flex items-center cursor-pointer space-x-2">
             <ModeToggle />
-            <Bell className='hover:ring-1 cursor-pointer hover:ring-success w-8 h-8 font-bold p-1 rounded-full' />
+            <Bell className="hover:ring-1 cursor-pointer hover:ring-success w-8 h-8 font-bold p-1 rounded-full" />
           </div>
         </div>
       </div>
