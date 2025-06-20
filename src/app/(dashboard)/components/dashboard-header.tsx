@@ -1,6 +1,3 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { Bell } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -10,24 +7,10 @@ export default function DashboardHeader({
 }: {
   title?: string;
 }) {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 p-4 w-full transition-all duration-200",
-        scrolled
-          ? "bg-white/80 dark:bg-black/80 backdrop-blur-3xl shadow-sm"
-          : "bg-transparent"
+        "sticky top-0 z-50 p-4 w-full transition-all duration-200bg-white/10 dark:bg-background/10 backdrop-blur-3xl"
       )}
     >
       <div className=' mx-auto'>
