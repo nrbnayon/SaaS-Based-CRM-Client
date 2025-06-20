@@ -69,7 +69,7 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
   return (
     <div
       className={cn(
-        "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-dark-primary w-full flex-1 mx-auto border border-neutral-200 dark:border-neutral-700",
+        "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-dark-primary w-full flex-1 mx-auto",
         "h-screen overflow-hidden"
       )}
     >
