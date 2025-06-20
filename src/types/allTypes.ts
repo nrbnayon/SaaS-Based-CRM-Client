@@ -14,13 +14,20 @@ export interface Transaction {
     [key: string]: unknown;
 }
   
+export interface TransactionForm {
+  amount: string;
+  description: string;
+  category: string;
+  [key: string]: unknown;
+}
 
 // chart data type
 export interface ChartData {
   month: string;
   income: number;
   expense: number;
-  cashflow: number;
+  cashflow?: number;
+  [key: string]: unknown;
 }
 
 

@@ -25,59 +25,11 @@ import { SquarePlus } from "lucide-react";
 import React, { useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import {
-  FinancialCardComponent,
-  type FinancialCard,
-  type TimePeriod,
-  type FinancialData,
-} from "@/components/common/FinancialCardComponent";
+  FinancialCardComponent} from "@/components/common/FinancialCardComponent";
+import { FinancialCard, TimePeriod, TransactionForm } from "@/types/allTypes";
+import { chartDataSets } from "@/data/chartDataSets";
+import { generateMockData } from "@/data/generateMockData";
 
-interface ChartData {
-  month: string;
-  income: number;
-  expense: number;
-}
-
-interface TransactionForm {
-  amount: string;
-  description: string;
-  category: string;
-}
-
-// Mock data with proper typing
-const generateMockData = (): Record<TimePeriod, FinancialData> => ({
-  daily: {
-    amount: 405.1,
-    period: "daily",
-    increasePercent: 12,
-    timePeriod: "24 hours",
-    trendPercent: 8,
-    isPositiveTrend: true,
-  },
-  weekly: {
-    amount: 2835.7,
-    period: "weekly",
-    increasePercent: 18,
-    timePeriod: "7 days",
-    trendPercent: 15,
-    isPositiveTrend: true,
-  },
-  monthly: {
-    amount: 12153.0,
-    period: "monthly",
-    increasePercent: 15,
-    timePeriod: "30 days",
-    trendPercent: 22,
-    isPositiveTrend: true,
-  },
-  yearly: {
-    amount: 145836.0,
-    period: "yearly",
-    increasePercent: 25,
-    timePeriod: "365 days",
-    trendPercent: 28,
-    isPositiveTrend: true,
-  },
-});
 
 const financialCards: FinancialCard[] = [
   {
@@ -124,48 +76,6 @@ const financialCards: FinancialCard[] = [
   },
 ];
 
-// Chart data for different periods
-const chartDataSets: Record<TimePeriod, ChartData[]> = {
-  daily: [
-    { month: "6AM", income: 120, expense: 80 },
-    { month: "9AM", income: 200, expense: 150 },
-    { month: "12PM", income: 350, expense: 200 },
-    { month: "3PM", income: 280, expense: 180 },
-    { month: "6PM", income: 420, expense: 250 },
-    { month: "9PM", income: 180, expense: 120 },
-  ],
-  weekly: [
-    { month: "Mon", income: 1200, expense: 800 },
-    { month: "Tue", income: 1500, expense: 900 },
-    { month: "Wed", income: 1800, expense: 1200 },
-    { month: "Thu", income: 2200, expense: 1400 },
-    { month: "Fri", income: 2800, expense: 1800 },
-    { month: "Sat", income: 1600, expense: 1000 },
-    { month: "Sun", income: 1200, expense: 700 },
-  ],
-  monthly: [
-    { month: "Jan", income: 12000, expense: 8000 },
-    { month: "Feb", income: 15000, expense: 9000 },
-    { month: "Mar", income: 18000, expense: 12000 },
-    { month: "Apr", income: 22000, expense: 14000 },
-    { month: "May", income: 28000, expense: 18000 },
-    { month: "Jun", income: 16000, expense: 10000 },
-    { month: "Jul", income: 25000, expense: 16000 },
-    { month: "Aug", income: 19000, expense: 12000 },
-    { month: "Sep", income: 21000, expense: 13000 },
-    { month: "Oct", income: 24000, expense: 15000 },
-    { month: "Nov", income: 17000, expense: 11000 },
-    { month: "Dec", income: 20000, expense: 13000 },
-  ],
-  yearly: [
-    { month: "2019", income: 180000, expense: 120000 },
-    { month: "2020", income: 165000, expense: 110000 },
-    { month: "2021", income: 210000, expense: 140000 },
-    { month: "2022", income: 245000, expense: 165000 },
-    { month: "2023", income: 280000, expense: 185000 },
-    { month: "2024", income: 320000, expense: 210000 },
-  ],
-};
 
 export const IncomeExpenseSection: React.FC = () => {
   const [selectedPeriods, setSelectedPeriods] = useState<

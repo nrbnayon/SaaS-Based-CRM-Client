@@ -19,69 +19,8 @@ import {
   YAxis,
 } from "recharts";
 import React, { useState, useMemo } from "react";
-
-// Type definitions matching IncomeExpenseSection
-type TimePeriod = "daily" | "weekly" | "monthly" | "yearly";
-
-interface ChartData {
-  month: string;
-  income: number;
-  expense: number;
-}
-
-interface FinancialData {
-  amount: number;
-  period: TimePeriod;
-  increasePercent: number;
-  timePeriod: string;
-  trendPercent: number;
-  isPositiveTrend: boolean;
-}
-
-interface FinancialCard {
-  id: string;
-  title: string;
-  data: Record<TimePeriod, FinancialData>;
-  borderColor: string;
-  accentColor: string;
-  textColor: string;
-}
-
-// Same mock data generation as IncomeExpenseSection
-const generateMockData = (): Record<TimePeriod, FinancialData> => ({
-  daily: {
-    amount: 405.1,
-    period: "daily",
-    increasePercent: 12,
-    timePeriod: "24 hours",
-    trendPercent: 8,
-    isPositiveTrend: true,
-  },
-  weekly: {
-    amount: 2835.7,
-    period: "weekly",
-    increasePercent: 18,
-    timePeriod: "7 days",
-    trendPercent: 15,
-    isPositiveTrend: true,
-  },
-  monthly: {
-    amount: 12153.0,
-    period: "monthly",
-    increasePercent: 15,
-    timePeriod: "30 days",
-    trendPercent: 22,
-    isPositiveTrend: true,
-  },
-  yearly: {
-    amount: 145836.0,
-    period: "yearly",
-    increasePercent: 25,
-    timePeriod: "365 days",
-    trendPercent: 28,
-    isPositiveTrend: true,
-  },
-});
+import { ChartData, FinancialCard,  TimePeriod } from "@/types/allTypes";
+import { generateMockData } from "@/data/generateMockData";
 
 // Same financial cards data as IncomeExpenseSection
 const financialCards: FinancialCard[] = [

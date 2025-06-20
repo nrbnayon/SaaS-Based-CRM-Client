@@ -8,29 +8,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { FinancialCard, TimePeriod } from "@/types/allTypes";
 import { TrendingUp, TrendingDown, FileDown } from "lucide-react";
 import React from "react";
 
-// Type definitions
-export type TimePeriod = "daily" | "weekly" | "monthly" | "yearly";
 
-export interface FinancialData {
-  amount: number;
-  period: TimePeriod;
-  increasePercent: number;
-  timePeriod: string;
-  trendPercent: number;
-  isPositiveTrend: boolean;
-}
-
-export interface FinancialCard {
-  id: string;
-  title: string;
-  data: Record<TimePeriod, FinancialData>;
-  borderColor: string;
-  accentColor: string;
-  textColor: string;
-}
 
 interface FinancialCardProps {
   card: FinancialCard;
