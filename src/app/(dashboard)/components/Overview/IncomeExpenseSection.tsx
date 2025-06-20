@@ -260,7 +260,7 @@ export const IncomeExpenseSection: React.FC = () => {
           />
 
           {/* Add Accounts Card */}
-          <Card className="w-full flex flex-col bg-secondary dark:bg-background items-center gap-6 pt-2 border-t-8 pb-4 px-2 flex-1 rounded-[20px] border-white min-h-[180px]">
+          <Card className="w-full flex flex-col bg-secondary dark:bg-background items-center gap-6 pt-2 border-none dark:border-t-8 pb-4 px-2 flex-1 rounded-[20px] dark:border-white min-h-[180px]">
             <CardHeader className="flex-col items-start px-2 justify-start gap-1 py-1 w-full">
               <CardTitle className="font-medium text-foreground dark:text-white text-base leading-5">
                 Add Accounts
@@ -505,7 +505,7 @@ export const IncomeExpenseSection: React.FC = () => {
         >
           <Card
             className={cn(
-              "flex flex-col h-96 justify-between items-start border-none shadow-none p-4 bg-[linear-gradient(45deg,var(--accent)_0%,white_50%,#FFF1E5_100%)] dark:bg-[linear-gradient(45deg,var(--dark-primary)_100%,var(--dark-primary)_100%,var(--dark-primary)_100%)] flex-1 rounded-[20px] w-full xl:w-auto min-w-2xs dark:border-[0.5px] dark:border-solid dark:border-[#505050]"
+              "flex flex-col h-96 justify-between items-start border-none shadow-none p-4 bg-[linear-gradient(45deg,var(--accent)_0%,white_50%,#FFF1E5_100%)] dark:bg-[linear-gradient(45deg,var(--dark-primary)_100%,var(--dark-primary)_100%,var(--dark-primary)_100%)] flex-1 rounded-[20px] w-full xl:w-auto min-w-2xs"
             )}
           >
             <CardHeader className="flex flex-row items-center justify-between p-0 w-full">
@@ -631,7 +631,7 @@ export const IncomeExpenseSection: React.FC = () => {
                         className={`w-8 ${
                           isHighlighted
                             ? "bg-light-orange"
-                            : "bg-border dark:bg-chart-5"
+                            : "bg-border dark:bg-[#80564B]"
                         } transition-all duration-300 hover:opacity-75 cursor-pointer`}
                         style={{
                           height: `${expenseHeight}px`,

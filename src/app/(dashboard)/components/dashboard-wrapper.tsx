@@ -76,7 +76,7 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody
           className={cn(
-            "justify-between gap-10",
+            "justify-between gap-10 border-none",
             // Light mode: radial gradient from #080635 to #16156C
             "bg-sidebar-gradient",
             // Dark mode: solid color #141440

@@ -253,6 +253,7 @@ export const AnalyticsSection = () => {
     return Math.ceil(Math.max(...data.map((d) => d.income)) / 1000);
   }, [selectedPeriods.income]);
 
+  // Custom bar component to create segmented appearance
   interface SegmentProps {
     fill: string;
     x: number;
@@ -351,12 +352,12 @@ export const AnalyticsSection = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 h-auto lg:h-[400px]">
+    <div className='flex flex-col lg:flex-row gap-4 lg:gap-6 h-auto lg:h-[400px]'>
       {/* Income Analytics Card */}
-      <Card className="w-full lg:w-1/2 bg-background border-none shadow-none dark:bg-dark-primary rounded-3xl h-[350px] lg:h-full">
-        <CardHeader className="pb-2 lg:pb-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-2 gap-2 sm:gap-0">
-            <CardTitle className="font-medium text-foreground text-sm sm:text-base">
+      <Card className='w-full lg:w-1/2 bg-background dark:bg-dark-primary border-none rounded-3xl h-[350px] lg:h-full'>
+        <CardHeader className='pb-2 lg:pb-6'>
+          <div className='flex flex-col sm:flex-row items-start sm:items-center justify-between px-2 gap-2 sm:gap-0'>
+            <CardTitle className='font-medium text-foreground text-sm sm:text-base'>
               Income Analytics
             </CardTitle>
             <Select
@@ -365,22 +366,22 @@ export const AnalyticsSection = () => {
                 handlePeriodChange("income", value)
               }
             >
-              <SelectTrigger className="w-auto px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm text-muted-foreground rounded-lg border border-border bg-transparent">
-                <SelectValue placeholder="Week" />
+              <SelectTrigger className='w-auto px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm text-muted-foreground rounded-lg border border-border bg-transparent'>
+                <SelectValue placeholder='Week' />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="daily">Daily</SelectItem>
-                <SelectItem value="weekly">Weekly</SelectItem>
-                <SelectItem value="monthly">Monthly</SelectItem>
-                <SelectItem value="yearly">Yearly</SelectItem>
+                <SelectItem value='daily'>Daily</SelectItem>
+                <SelectItem value='weekly'>Weekly</SelectItem>
+                <SelectItem value='monthly'>Monthly</SelectItem>
+                <SelectItem value='yearly'>Yearly</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </CardHeader>
 
-        <CardContent className="px-2 h-[260px] lg:h-full">
-          <div className="h-full w-full">
-            <ResponsiveContainer width="100%" height="100%">
+        <CardContent className='px-2 h-[260px] lg:h-full'>
+          <div className='h-full w-full'>
+            <ResponsiveContainer width='100%' height='100%'>
               <BarChart
                 data={incomeAnalyticsData}
                 margin={{
@@ -390,21 +391,21 @@ export const AnalyticsSection = () => {
                   bottom: 5,
                 }}
                 barGap={6}
-                barCategoryGap="10%"
+                barCategoryGap='10%'
               >
                 <XAxis
-                  dataKey="day"
+                  dataKey='day'
                   axisLine={false}
                   tickLine={false}
                   tick={{ fontSize: 10, fill: "#ACACAC" }}
-                  className="text-xs sm:text-sm"
-                  stroke="none"
+                  className='text-xs sm:text-sm'
+                  stroke='none'
                 />
                 <YAxis
                   axisLine={false}
                   tickLine={false}
                   tick={{ fontSize: 10, fill: "#ACACAC" }}
-                  className="text-xs sm:text-sm"
+                  className='text-xs sm:text-sm'
                   tickFormatter={(value) => `${value}K`}
                   domain={[0, maxValue]}
                   ticks={Array.from({ length: 7 }, (_, i) =>
@@ -412,7 +413,7 @@ export const AnalyticsSection = () => {
                   )}
                 />
                 <Bar
-                  dataKey="value"
+                  dataKey='value'
                   shape={(props: unknown) => {
                     const barProps = props as SegmentProps & {
                       payload: { day: string };
@@ -439,10 +440,10 @@ export const AnalyticsSection = () => {
       </Card>
 
       {/* Category Analytics Card */}
-      <Card className="w-full lg:w-1/2 bg-background dark:border-none shadow-none dark:bg-dark-primary rounded-3xl h-auto lg:h-full">
-        <CardHeader className="pb-2 lg:pb-6">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-0 md:px-2 gap-2 sm:gap-0">
-            <CardTitle className="font-medium text-foreground text-sm sm:text-base">
+      <Card className='w-full lg:w-1/2 bg-background dark:bg-dark-primary rounded-3xl h-auto lg:h-full'>
+        <CardHeader className='pb-2 lg:pb-6'>
+          <div className='flex flex-col sm:flex-row items-start sm:items-center justify-between px-0 md:px-2 gap-2 sm:gap-0'>
+            <CardTitle className='font-medium text-foreground text-sm sm:text-base'>
               Category Analytics
             </CardTitle>
             <Select
@@ -451,37 +452,37 @@ export const AnalyticsSection = () => {
                 handlePeriodChange("category", value)
               }
             >
-              <SelectTrigger className="w-auto px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm text-muted-foreground rounded-lg border border-border bg-transparent">
-                <SelectValue placeholder="Week" />
+              <SelectTrigger className='w-auto px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm text-muted-foreground rounded-lg border border-border bg-transparent'>
+                <SelectValue placeholder='Week' />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="daily">Daily</SelectItem>
-                <SelectItem value="weekly">Weekly</SelectItem>
-                <SelectItem value="monthly">Monthly</SelectItem>
-                <SelectItem value="yearly">Yearly</SelectItem>
+                <SelectItem value='daily'>Daily</SelectItem>
+                <SelectItem value='weekly'>Weekly</SelectItem>
+                <SelectItem value='monthly'>Monthly</SelectItem>
+                <SelectItem value='yearly'>Yearly</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </CardHeader>
 
-        <CardContent className="px-2 sm:px-4 h-auto lg:h-full flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-8 pb-6 lg:pb-4">
+        <CardContent className='px-2 sm:px-4 h-auto lg:h-full flex flex-col lg:flex-row items-center justify-between gap-4 lg:gap-8 pb-6 lg:pb-4'>
           {/* Pie Chart Container */}
-          <div className="w-full lg:w-full h-[250px] sm:h-[280px] lg:h-full bg-input dark:bg-transparent rounded-3xl">
-            <ResponsiveContainer width="100%" height="100%">
+          <div className='w-full lg:w-full h-[250px] sm:h-[280px] lg:h-full bg-input dark:bg-transparent rounded-3xl'>
+            <ResponsiveContainer width='100%' height='100%'>
               <PieChart>
                 <Pie
                   data={categoryAnalyticsData}
-                  cx="50%"
-                  cy="50%"
+                  cx='50%'
+                  cy='50%'
                   innerRadius={50}
                   outerRadius={90}
                   paddingAngle={2}
-                  dataKey="value"
+                  dataKey='value'
                   startAngle={90}
                   endAngle={450}
-                  stroke="none"
+                  stroke='none'
                   cornerRadius={8}
-                  className="sm:inner-radius-[60px] sm:outer-radius-[100px] lg:inner-radius-[70px] lg:outer-radius-[120px]"
+                  className='sm:inner-radius-[60px] sm:outer-radius-[100px] lg:inner-radius-[70px] lg:outer-radius-[120px]'
                 >
                   {categoryAnalyticsData.map((entry, index) => (
                     <Cell
@@ -496,25 +497,25 @@ export const AnalyticsSection = () => {
           </div>
 
           {/* Legend */}
-          <div className="flex flex-col w-full lg:w-full items-center gap-2 sm:gap-3 p-2 sm:p-4">
+          <div className='flex flex-col w-full lg:w-full items-center gap-2 sm:gap-3 p-2 sm:p-4'>
             {categoryAnalyticsData.map((category, index) => (
-              <div key={index} className="w-full">
-                <div className="flex items-center justify-between w-full">
-                  <div className="flex items-center gap-2 sm:gap-3">
+              <div key={index} className='w-full'>
+                <div className='flex items-center justify-between w-full'>
+                  <div className='flex items-center gap-2 sm:gap-3'>
                     <div
-                      className="w-3 h-3 sm:w-4 sm:h-4 rounded-full flex-shrink-0"
+                      className='w-3 h-3 sm:w-4 sm:h-4 rounded-full flex-shrink-0'
                       style={{ backgroundColor: category.color }}
                     />
-                    <div className="font-normal text-foreground text-sm sm:text-base leading-5 sm:leading-6">
+                    <div className='font-normal text-foreground text-sm sm:text-base leading-5 sm:leading-6'>
                       {category.name}
                     </div>
                   </div>
-                  <div className="font-semibold text-foreground text-sm sm:text-base leading-5 sm:leading-6">
+                  <div className='font-semibold text-foreground text-sm sm:text-base leading-5 sm:leading-6'>
                     {category.percentage}
                   </div>
                 </div>
                 {index < categoryAnalyticsData.length - 1 && (
-                  <div className="w-full h-px bg-border my-2 sm:my-3" />
+                  <div className='w-full h-px bg-border my-2 sm:my-3' />
                 )}
               </div>
             ))}
