@@ -15,10 +15,33 @@ import {  Plus, Search} from "lucide-react";
 // import img from "next/img";
 import React, { useState } from "react";
 
-
+// Client data array
+const clientsData = [
+  { name: "Starbucks", id: "CL-1001", phone: "541515695", avatar: "https://logo.clearbit.com/starbucks.com" },
+  { name: "General Electric", id: "CL-1002", phone: "541515696", avatar: "https://logo.clearbit.com/ge.com" },
+  { name: "Pizza Hut", id: "CL-1003", phone: "541515697", avatar: "https://logo.clearbit.com/pizzahut.com" },
+  { name: "Gillette", id: "CL-1004", phone: "541515698", avatar: "https://logo.clearbit.com/gillette.com" },
+  { name: "McDonald's", id: "CL-1005", phone: "541515699", avatar: "https://logo.clearbit.com/mcdonalds.com" },
+  { name: "Nike", id: "CL-1006", phone: "541515700", avatar: "https://logo.clearbit.com/nike.com" },
+  { name: "Apple Inc", id: "CL-1007", phone: "541515701", avatar: "https://logo.clearbit.com/apple.com" },
+  { name: "Google", id: "CL-1008", phone: "541515702", avatar: "https://logo.clearbit.com/google.com" },
+  { name: "Microsoft", id: "CL-1009", phone: "541515703", avatar: "https://logo.clearbit.com/microsoft.com" },
+  { name: "Amazon", id: "CL-1010", phone: "541515704", avatar: "https://logo.clearbit.com/amazon.com" },
+  { name: "Facebook", id: "CL-1011", phone: "541515705", avatar: "https://logo.clearbit.com/facebook.com" },
+  { name: "Tesla", id: "CL-1012", phone: "541515706", avatar: "https://logo.clearbit.com/tesla.com" },
+  { name: "Netflix", id: "CL-1013", phone: "541515707", avatar: "https://logo.clearbit.com/netflix.com" },
+  { name: "Spotify", id: "CL-1014", phone: "541515708", avatar: "https://logo.clearbit.com/spotify.com" },
+  { name: "Uber", id: "CL-1015", phone: "541515709", avatar: "https://logo.clearbit.com/uber.com" }
+];
 
 export const AccountPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Filter clients based on search term
+  const filteredClients = clientsData.filter(client =>
+    client.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <div className="p-4 space-y-4 md:space-y-10">
       {/* Summary Cards */}
@@ -201,20 +224,33 @@ export const AccountPage = () => {
 
             {/* Right Sidebar - Saved Clients */}
             <div className="col-span-3 lg:col-span-1">
-              <Card className="bg-[#141440] border-[#323679]">
-                <CardHeader>
-                  <CardTitle className="text-xl">Saved Client</CardTitle>
-                  <CardDescription className="text-[#a1a1a1]">Save client details</CardDescription>
+              <Card className="">
+                <CardHeader className="flex justify-between">
+                  <div className="space-y-3">
+                    <CardTitle className="text-lg md:text-xl text-[#505050] dark:text-white font-bold mb-2">Saved Client</CardTitle>
+                    <CardDescription className="text-gray-400  text-xs md:text-base">Save client details</CardDescription>
+                  </div>
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#a1a1a1]" />
-                    <Input placeholder="Search..." className="bg-[#08022e] border-[#323679] pl-10" />
+                    <Input 
+                      placeholder="Search..." 
+                      className="bg-transparent pl-10" 
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <ClientItem name="Starbucks" id="CL-1001" phone="541515695" avatar="S" color="bg-[#34c724]" />
-                  <ClientItem name="General Electric" id="CL-1001" phone="541515695" avatar="GE" color="bg-[#02dbd6]" />
-                  <ClientItem name="Pizza Hut" id="CL-1001" phone="541515695" avatar="P" color="bg-[#f54a45]" />
-                  <ClientItem name="Gillette" id="CL-1001" phone="541515695" avatar="G" color="bg-[#02dbd6]" />
+
+                <CardContent className="space-y-1 md:space-y-4 max-h-[500px] overflow-y-auto">
+                  {filteredClients.map((client, index) => (
+                    <ClientItem 
+                      key={index}
+                      name={client.name} 
+                      id={client.id} 
+                      phone={client.phone} 
+                      avatar={client.avatar} 
+                    />
+                  ))}
                 </CardContent>
               </Card>
             </div>
