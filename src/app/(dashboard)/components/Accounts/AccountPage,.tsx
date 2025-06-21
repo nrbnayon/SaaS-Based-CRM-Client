@@ -35,13 +35,24 @@ const clientsData = [
 ];
 
 export const AccountPage = () => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [activeTab, setActiveTab] = useState("Income");
 
   // Filter clients based on search term
   const filteredClients = clientsData.filter(client =>
     client.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  // Function to handle summary card button clicks
+  const handleSummaryCardClick = (tabValue: string) => {
+    setActiveTab(tabValue);
+    // Scroll to transactions section
+    const transactionsSection = document.getElementById('transactions-section');
+    if (transactionsSection) {
+      transactionsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="p-4 space-y-4 md:space-y-10">
       {/* Summary Cards */}
@@ -57,28 +68,13 @@ export const AccountPage = () => {
               >
                 Add your Expense transaction&apos;s details
               </p>
-              <Dialog
-                open={isDialogOpen}
-                onOpenChange={setIsDialogOpen}
+              <Button 
+                onClick={() => handleSummaryCardClick('Income')}
+                className={`p-5 w-full text-xs md:text-base bg-transparent text-primary hover:bg-transparent cursor-pointer border border-primary`}
               >
-                <DialogTrigger asChild>
-                  <Button className={`p-5 w-full text-xs md:text-base bg-transparent text-primary hover:bg-transparent cursor-pointer border border-primary`}>
-                    <Plus className={`w-4 h-4 mr-2 text-primary border-2 border-primary rounded-[4px] `} />
-                    Income
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                  <DialogHeader>
-                    <DialogTitle>Add Income</DialogTitle>
-                    <DialogDescription>
-                      Add a new income entry to track your earnings.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <SummaryCard/>
-                </DialogContent>
-              </Dialog>
-
-              
+                <Plus className={`w-4 h-4 mr-2 text-primary border-2 border-primary rounded-[4px] `} />
+                Income
+              </Button>
             </CardContent>
           </Card>
 
@@ -93,27 +89,13 @@ export const AccountPage = () => {
               >
                 Add your Expense transaction&apos;s details
               </p>
-              <Dialog
-                open={isDialogOpen}
-                onOpenChange={setIsDialogOpen}
+              <Button 
+                onClick={() => handleSummaryCardClick('Expense')}
+                className={`p-5 w-full text-xs md:text-base bg-transparent text-primary hover:bg-transparent cursor-pointer border border-primary`}
               >
-                <DialogTrigger asChild>
-                  <Button className={`p-5 w-full text-xs md:text-base bg-transparent text-primary hover:bg-transparent cursor-pointer border border-primary`}>
-                    <Plus className={`w-4 h-4 mr-2 text-primary border-2 border-primary rounded-[4px] `} />
-                    Expense
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                  <DialogHeader>
-                    <DialogTitle>Add Expense</DialogTitle>
-                    <DialogDescription>
-                      Add a new Expense entry to track your earnings.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <SummaryCard/>
-                </DialogContent>
-              </Dialog>
-              
+                <Plus className={`w-4 h-4 mr-2 text-primary border-2 border-primary rounded-[4px] `} />
+                Expense
+              </Button>
             </CardContent>
           </Card>
           
@@ -128,27 +110,13 @@ export const AccountPage = () => {
               >
                 Add your Expense transaction&apos;s details
               </p>
-               <Dialog
-                open={isDialogOpen}
-                onOpenChange={setIsDialogOpen}
+              <Button 
+                onClick={() => handleSummaryCardClick('Savings')}
+                className={`p-5 w-full text-xs md:text-base bg-transparent text-primary hover:bg-transparent cursor-pointer border border-primary`}
               >
-                <DialogTrigger asChild>
-                  <Button className={`p-5 w-full text-xs md:text-base bg-transparent text-primary hover:bg-transparent cursor-pointer border border-primary`}>
-                    <Plus className={`w-4 h-4 mr-2 text-primary border-2 border-primary rounded-[4px] `} />
-                    Savings
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                  <DialogHeader>
-                    <DialogTitle>Add Savings</DialogTitle>
-                    <DialogDescription>
-                      Add a new Savings entry to track your earnings.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <SummaryCard/>
-                </DialogContent>
-              </Dialog>
-              
+                <Plus className={`w-4 h-4 mr-2 text-primary border-2 border-primary rounded-[4px] `} />
+                Savings
+              </Button>
             </CardContent>
           </Card>
 
@@ -169,11 +137,9 @@ export const AccountPage = () => {
               </Button>
             </CardContent>
           </Card>
-         
-         
         </div>
 
-        <div>
+        <div id="transactions-section">
            <div className="mb-6">
                 <h2 className="text-lg md:text-xl text-[#505050] dark:text-white font-bold mb-2">Transactions</h2>
                 <p className="text-gray-400  text-xs md:text-base">Add your income transaction&apos;s details</p>
@@ -182,7 +148,7 @@ export const AccountPage = () => {
             {/* Transactions Section */}
           <div className="grid grid-cols-3 gap-6   ">
             <div className="col-span-3 lg:col-span-2 bg-gray-50 dark:bg-card border rounded-2xl p-1 md:p-4">
-              <Tabs className="bg-transparent overflow-auto mb-3" defaultValue="Income">
+              <Tabs className="bg-transparent overflow-auto mb-3" value={activeTab} onValueChange={setActiveTab}>
                 <TabsList className="gap-3 md:gap-6 bg-transparent h-12 overflow-auto">
                   <TabsTrigger
                     value="Income"
@@ -214,12 +180,6 @@ export const AccountPage = () => {
                   <TransactionForm type="Savings" />
                 </TabsContent>
               </Tabs>
-
-
-             
-
-              
-              
             </div>
 
             {/* Right Sidebar - Saved Clients */}
