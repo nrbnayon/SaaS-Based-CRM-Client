@@ -158,7 +158,7 @@ export const AccountPage = () => {
 
             {/* Transactions Section */}
           <div className="grid grid-cols-3 gap-6   ">
-            <div className="col-span-2 bg-gray-50 dark:bg-card border rounded-2xl p-1 md:p-4">
+            <div className="col-span-3 lg:col-span-2 bg-gray-50 dark:bg-card border rounded-2xl p-1 md:p-4">
               <Tabs className="bg-transparent overflow-auto mb-3" defaultValue="Income">
                 <TabsList className="gap-3 md:gap-6 bg-transparent h-12 overflow-auto">
                   <TabsTrigger
@@ -200,7 +200,7 @@ export const AccountPage = () => {
             </div>
 
             {/* Right Sidebar - Saved Clients */}
-            <div>
+            <div className="col-span-3 lg:col-span-1">
               <Card className="bg-[#141440] border-[#323679]">
                 <CardHeader>
                   <CardTitle className="text-xl">Saved Client</CardTitle>
