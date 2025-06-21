@@ -3,7 +3,7 @@
 
 import { ClientItem } from "@/components/common/ClientItem";
 import { SummaryCard } from "@/components/common/SummaryCard";
-import { TransectionForm } from "@/components/common/TransectionForm";
+import { TransactionForm } from "@/components/common/TransactionForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -168,10 +168,10 @@ export const AccountPage = () => {
                     Income
                   </TabsTrigger>
                   <TabsTrigger
-                    value="Expanse"
-                    className="text-base md:text-xl cursor-pointer border-2 bg-gray-200 dark:bg-border  data-[state=active]:bg-transparent dark:data-[state=active]:border-[#34C724] data-[state=active]:border-[#34C724] dark:data-[state=active]:text-[#34C724] data-[state=active]:text-[#34C724]"
+                    value="Expense"
+                    className="text-base md:text-xl cursor-pointer border-2 bg-gray-200 dark:bg-border data-[state=active]:bg-transparent dark:data-[state=active]:border-[#34C724] data-[state=active]:border-[#34C724] dark:data-[state=active]:text-[#34C724] data-[state=active]:text-[#34C724]"
                   >
-                    Expanse
+                    Expense
                   </TabsTrigger>
                   <TabsTrigger
                     value="Savings"
@@ -182,9 +182,13 @@ export const AccountPage = () => {
                 </TabsList>
 
                 <TabsContent value="Income">
-                  {/* Transaction Form */}
-                  <TransectionForm/>
-
+                  <TransactionForm type="Income" />
+                </TabsContent>
+                <TabsContent value="Expense">
+                  <TransactionForm type="Expense" />
+                </TabsContent>
+                <TabsContent value="Savings">
+                  <TransactionForm type="Savings" />
                 </TabsContent>
               </Tabs>
 
