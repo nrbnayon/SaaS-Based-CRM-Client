@@ -168,7 +168,7 @@ const FinancialReport = () => {
     chartDataSets[selectedPeriods.analytics || "monthly"];
 
   return (
-    <div className="p-4 space-y-10">
+    <div className="p-4 space-y-4 md:space-y-10">
       {/* Financial Goals Grid */}
       <div className="space-y-6">
         {/* First Row - Primary Goals */}

@@ -8,7 +8,7 @@ export default function OverviewPage() {
   return (
     <div className="">
       <DashboardHeader title='Welcome  Nayon' />
-      <div className='p-4 space-y-10'>
+      <div className='p-4 space-y-4 md:space-y-10'>
         {/* Add more cards as needed */}
         <IncomeExpenseSection />
         <AnalyticsSection />
