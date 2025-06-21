@@ -2,16 +2,16 @@
 "use client";
 
 import { ClientItem } from "@/components/common/ClientItem";
-import { SummaryCard } from "@/components/common/SummaryCard";
+
 import { TransactionForm } from "@/components/common/TransactionForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent,  DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { cn } from "@/lib/utils";
-import {  Plus, Search} from "lucide-react";
+import {   Plus, Search} from "lucide-react";
 // import img from "next/img";
 import React, { useState } from "react";
 
@@ -52,6 +52,20 @@ export const AccountPage = () => {
     if (transactionsSection) {
       transactionsSection.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+  const [formData, setFormData] = useState({
+    clientName: "",
+    companyId: "",
+    contact: "",
+    email: "",
+    address: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
@@ -137,19 +151,105 @@ export const AccountPage = () => {
                 onOpenChange={setIsDialogOpen}
               >
                 <DialogTrigger asChild>
-                  <Button className={`p-5 w-full text-xs md:text-base bg-[#505050] dark:bg-white text-white dark:text-black  hover:bg-[#505050] dark:hover:bg-white cursor-pointer border border-primary`}>
+                  <Button className={`p-5 w-full text-xs md:text-base  text-white dark:text-black bg-[#505050] hover:bg-[#505050] dark:hover:bg-white cursor-pointer border border-primary`}>
                     <Plus className={`w-4 h-4 mr-2 text-white dark:text-black border-2  rounded-[4px] `} />
                     Client
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                  <DialogHeader>
-                    <DialogTitle>Add Income</DialogTitle>
-                    <DialogDescription>
-                      Add a new income entry to track your earnings.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <SummaryCard/>
+                <DialogContent className="">
+                  <div className="   bg-transparent rounded-3xl  ">
+                    <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+                      <div>
+                        <h2 className="text-2xl font-bold">Save Client</h2>
+                        <p className="text-sm text-gray-400">Save client details</p>
+                      </div>
+                      <div className="relative">
+                        <Search className="absolute top-2.5 left-3 text-gray-400" />
+                        <input
+                          type="text"
+                          placeholder="Search"
+                          className="pl-10 pr-4 py-2 border rounded-full text-sm"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Client Name */}
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium mb-1">Client Name</label>
+                      <div className="relative">
+                        <select
+                          name="clientName"
+                          value={formData.clientName}
+                          onChange={handleChange}
+                          className="w-full p-2 pr-10 border rounded-xl text-sm"
+                        >
+                          <option value="">Select a source</option>
+                          <option value="Client A">Client A</option>
+                          <option value="Client B">Client B</option>
+                        </select>
+                        
+                      </div>
+                    </div>
+
+                    {/* Company ID */}
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium mb-1">Company ID</label>
+                      <input
+                        type="text"
+                        name="companyId"
+                        value={formData.companyId}
+                        onChange={handleChange}
+                        placeholder="sdrgergh"
+                        className="w-full p-2 border rounded-xl text-sm"
+                      />
+                    </div>
+
+                    {/* Contact */}
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium mb-1">Contact</label>
+                      <input
+                        type="text"
+                        name="contact"
+                        value={formData.contact}
+                        onChange={handleChange}
+                        placeholder="0024654584"
+                        className="w-full p-2 border rounded-xl text-sm"
+                      />
+                    </div>
+
+                    {/* Email */}
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium mb-1">Email</label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="asdfgh@gmail.com"
+                        className="w-full p-2 border rounded-xl text-sm"
+                      />
+                    </div>
+
+                    {/* Address */}
+                    <div className="mb-4">
+                      <label className="block text-sm font-medium mb-1">Address</label>
+                      <input
+                        type="text"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleChange}
+                        placeholder="Enter client or company name"
+                        className="w-full p-2 border rounded-xl text-sm"
+                      />
+                    </div>
+
+                    {/* Save Button */}
+                    <div className="mt-6">
+                      <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl">
+                        Save Client
+                      </Button>
+                    </div>
+                  </div>
                 </DialogContent>
               </Dialog>
               
