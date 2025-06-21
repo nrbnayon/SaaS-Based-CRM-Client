@@ -35,6 +35,7 @@ const clientsData = [
 ];
 
 export const AccountPage = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("Income");
 
@@ -131,10 +132,27 @@ export const AccountPage = () => {
               >
                 Add your Client details
               </p>
-              <Button className={`p-5 w-full text-xs md:text-base bg-[#505050] dark:bg-white text-white dark:text-black  hover:bg-[#505050] dark:hover:bg-white cursor-pointer border border-primary`}>
-                <Plus className={`w-4 h-4 mr-2 text-white dark:text-black border-2  rounded-[4px] `} />
-                 Client
-              </Button>
+              <Dialog
+                open={isDialogOpen}
+                onOpenChange={setIsDialogOpen}
+              >
+                <DialogTrigger asChild>
+                  <Button className={`p-5 w-full text-xs md:text-base bg-[#505050] dark:bg-white text-white dark:text-black  hover:bg-[#505050] dark:hover:bg-white cursor-pointer border border-primary`}>
+                    <Plus className={`w-4 h-4 mr-2 text-white dark:text-black border-2  rounded-[4px] `} />
+                    Client
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Add Income</DialogTitle>
+                    <DialogDescription>
+                      Add a new income entry to track your earnings.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <SummaryCard/>
+                </DialogContent>
+              </Dialog>
+              
             </CardContent>
           </Card>
         </div>

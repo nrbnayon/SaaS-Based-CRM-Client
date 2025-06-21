@@ -5,6 +5,7 @@ import { Input } from '../ui/input';
 import { Calendar } from 'lucide-react';
 import { Textarea } from '../ui/textarea';
 import FileUpload from '../ui/file-upload';
+import { Button } from '../ui/button';
 
 
 // TransactionForm component that accepts a 'type' prop
@@ -115,6 +116,9 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
                 className="bg-transparent text-sm md:text-base border-border h-20 md:h-28"
               />
             </div>
+          </div>
+          <div className='w-full flex '>
+            <Button className='bg-transparent right-0 text-black dark:text-white border border-gray-300 hover:bg-transparent cursor-pointer ml-auto'>Save</Button>
           </div>
         </CardContent>
       </Card>
