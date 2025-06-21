@@ -1,16 +1,19 @@
 // src\app\(dashboard)\accounts\page.tsx
 "use client";
 
+import { SummaryCard } from "@/components/common/SummaryCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
-import { Plus } from "lucide-react";
+import { Plus} from "lucide-react";
 // import img from "next/img";
-import React from "react";
+import React, { useState } from "react";
 
 
 
 export const AccountPage = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   return (
     <div className="p-4 space-y-4 md:space-y-10">
       {/* Summary Cards */}
@@ -26,10 +29,28 @@ export const AccountPage = () => {
               >
                 Add your Expense transaction&apos;s details
               </p>
-              <Button className={`p-5 w-full text-xs md:text-base bg-transparent text-primary hover:bg-transparent cursor-pointer border border-primary`}>
-                <Plus className={`w-4 h-4 mr-2 text-primary border-2 border-primary rounded-[4px] `} />
-                Income
-              </Button>
+              <Dialog
+                open={isDialogOpen}
+                onOpenChange={setIsDialogOpen}
+              >
+                <DialogTrigger asChild>
+                  <Button className={`p-5 w-full text-xs md:text-base bg-transparent text-primary hover:bg-transparent cursor-pointer border border-primary`}>
+                    <Plus className={`w-4 h-4 mr-2 text-primary border-2 border-primary rounded-[4px] `} />
+                    Income
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Add Income</DialogTitle>
+                    <DialogDescription>
+                      Add a new income entry to track your earnings.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <SummaryCard/>
+                </DialogContent>
+              </Dialog>
+
+              
             </CardContent>
           </Card>
 
@@ -44,10 +65,27 @@ export const AccountPage = () => {
               >
                 Add your Expense transaction&apos;s details
               </p>
-              <Button className={`p-5 w-full text-xs md:text-base bg-transparent text-primary hover:bg-transparent cursor-pointer border border-primary`}>
-                <Plus className={`w-4 h-4 mr-2 text-primary border-2 border-primary rounded-[4px] `} />
-                Expense
-              </Button>
+              <Dialog
+                open={isDialogOpen}
+                onOpenChange={setIsDialogOpen}
+              >
+                <DialogTrigger asChild>
+                  <Button className={`p-5 w-full text-xs md:text-base bg-transparent text-primary hover:bg-transparent cursor-pointer border border-primary`}>
+                    <Plus className={`w-4 h-4 mr-2 text-primary border-2 border-primary rounded-[4px] `} />
+                    Expense
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Add Expense</DialogTitle>
+                    <DialogDescription>
+                      Add a new Expense entry to track your earnings.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <SummaryCard/>
+                </DialogContent>
+              </Dialog>
+              
             </CardContent>
           </Card>
           
@@ -62,10 +100,27 @@ export const AccountPage = () => {
               >
                 Add your Expense transaction&apos;s details
               </p>
-              <Button className={`p-5 w-full text-xs md:text-base bg-transparent text-primary hover:bg-transparent cursor-pointer border border-primary`}>
-                <Plus className={`w-4 h-4 mr-2 text-primary border-2 border-primary rounded-[4px] `} />
-                Savings
-              </Button>
+               <Dialog
+                open={isDialogOpen}
+                onOpenChange={setIsDialogOpen}
+              >
+                <DialogTrigger asChild>
+                  <Button className={`p-5 w-full text-xs md:text-base bg-transparent text-primary hover:bg-transparent cursor-pointer border border-primary`}>
+                    <Plus className={`w-4 h-4 mr-2 text-primary border-2 border-primary rounded-[4px] `} />
+                    Savings
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Add Savings</DialogTitle>
+                    <DialogDescription>
+                      Add a new Savings entry to track your earnings.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <SummaryCard/>
+                </DialogContent>
+              </Dialog>
+              
             </CardContent>
           </Card>
 

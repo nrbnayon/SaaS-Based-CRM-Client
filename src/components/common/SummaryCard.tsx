@@ -1,52 +1,84 @@
 "use client"
 
-import { Plus } from "lucide-react"
 import { Button } from "../ui/button"
-import { Card, CardContent } from "../ui/card"
-import { cn } from "@/lib/utils"
 
-export function SummaryCard({
-  title,
-  subtitle,
-  buttonText,
-  buttonColor,
-  iconColor,
-  cardBg = "#A3C3FA",
-  cardBg2 = "#D3E3FD",
-  textColor = "text-white",
-}: {
-  title: string
-  subtitle: string
-  buttonText: string
-  buttonColor: string
-  iconColor: string
-  cardBg?: string
-  cardBg2?: string
-  textColor?: string
-}) {
+import { Label } from "../ui/label"
+import { Input } from "../ui/input"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import { Textarea } from "../ui/textarea"
+
+export function SummaryCard() {
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        // Here you would typically call an API to save the income
+      };
   return (
-    <Card
-      className={cn('bg-accent')}
-      style={{
-        background: `linear-gradient(45deg, ${cardBg} 0%, white 50%, ${cardBg2} 100%)`,
-        // Dark mode gradient
-        ...({ '@media (prefers-color-scheme: dark)': { background: 'linear-gradient(45deg, #000000 0%, #1a1a1a 50%, #333333 100%)' } }),
-      }}
-    >
-      <CardContent className="p-6">
-        <h3 className={`text-lg font-semibold mb-2 ${textColor}`}>{title}</h3>
-        <p
-          className={`text-sm mb-4 ${
-            textColor === "text-white" ? "text-[#a1a1a1] dark:text-gray-400" : "text-[#838383]"
-          }`}
-        >
-          {subtitle}
-        </p>
-        <Button className={`w-full ${buttonColor} hover:opacity-90`}>
-          <Plus className={`w-4 h-4 mr-2 ${iconColor}`} />
-          {buttonText}
-        </Button>
-      </CardContent>
-    </Card>
+    <div>
+        <form onSubmit={handleSubmit}>
+                    <div className="grid gap-4 py-4">
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="income-amount" className="text-right">
+                          Amount
+                        </Label>
+                        <Input
+                          id="income-amount"
+                          type="number"
+                          step="0.01"
+                          placeholder="0.00"
+                          className="col-span-3"
+                          
+                          
+                         required
+                        />
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label htmlFor="income-category" className="text-right">
+                          Category
+                        </Label>
+                        <Select
+                          value='Select'
+                          
+                        >
+                          <SelectTrigger className="col-span-3">
+                            <SelectValue placeholder="Select category" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="salary">Salary</SelectItem>
+                            <SelectItem value="freelance">Freelance</SelectItem>
+                            <SelectItem value="investment">
+                              Investment
+                            </SelectItem>
+                            <SelectItem value="business">Business</SelectItem>
+                            <SelectItem value="other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="grid grid-cols-4 items-center gap-4">
+                        <Label
+                          htmlFor="income-description"
+                          className="text-right"
+                        >
+                          Description
+                        </Label>
+                        <Textarea
+                          id="income-description"
+                          placeholder="Enter description..."
+                          className="col-span-3"
+                          value="income-description"
+                          
+                          
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <Button
+                        type="submit"
+                        className="bg-success hover:bg-success/90"
+                      >
+                        Add 
+                      </Button>
+                    </div>
+                  </form>
+    </div>
   )
 }
