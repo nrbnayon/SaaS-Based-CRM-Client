@@ -1,12 +1,17 @@
 // src\app\(dashboard)\accounts\page.tsx
 "use client";
 
+import { ClientItem } from "@/components/common/ClientItem";
 import { SummaryCard } from "@/components/common/SummaryCard";
+import { TransectionForm } from "@/components/common/TransectionForm";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import { cn } from "@/lib/utils";
-import { Plus} from "lucide-react";
+import {  Plus, Search} from "lucide-react";
 // import img from "next/img";
 import React, { useState } from "react";
 
@@ -143,6 +148,73 @@ export const AccountPage = () => {
           </Card>
          
          
+        </div>
+
+        <div>
+           <div className="mb-6">
+                <h2 className="text-lg md:text-xl text-[#505050] dark:text-white font-bold mb-2">Transactions</h2>
+                <p className="text-gray-400  text-xs md:text-base">Add your income transaction&apos;s details</p>
+            </div>
+
+            {/* Transactions Section */}
+          <div className="grid grid-cols-3 gap-6   ">
+            <div className="col-span-2 bg-gray-50 dark:bg-card border rounded-2xl p-1 md:p-4">
+              <Tabs className="bg-transparent overflow-auto mb-3" defaultValue="Income">
+                <TabsList className="gap-3 md:gap-6 bg-transparent h-12 overflow-auto">
+                  <TabsTrigger
+                    value="Income"
+                    className="text-base md:text-xl cursor-pointer border-2 bg-gray-200 dark:bg-border data-[state=active]:bg-transparent dark:data-[state=active]:border-[#34C724] data-[state=active]:border-[#34C724] dark:data-[state=active]:text-[#34C724] data-[state=active]:text-[#34C724]"
+                  >
+                    Income
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="Expanse"
+                    className="text-base md:text-xl cursor-pointer border-2 bg-gray-200 dark:bg-border  data-[state=active]:bg-transparent dark:data-[state=active]:border-[#34C724] data-[state=active]:border-[#34C724] dark:data-[state=active]:text-[#34C724] data-[state=active]:text-[#34C724]"
+                  >
+                    Expanse
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="Savings"
+                    className="text-base md:text-xl cursor-pointer border-2 bg-gray-200 dark:bg-border data-[state=active]:bg-transparent dark:data-[state=active]:border-[#34C724] data-[state=active]:border-[#34C724] dark:data-[state=active]:text-[#34C724] data-[state=active]:text-[#34C724]"
+                  >
+                    Savings
+                  </TabsTrigger>
+                </TabsList>
+
+                <TabsContent value="Income">
+                  {/* Transaction Form */}
+                  <TransectionForm/>
+
+                </TabsContent>
+              </Tabs>
+
+
+             
+
+              
+              
+            </div>
+
+            {/* Right Sidebar - Saved Clients */}
+            <div>
+              <Card className="bg-[#141440] border-[#323679]">
+                <CardHeader>
+                  <CardTitle className="text-xl">Saved Client</CardTitle>
+                  <CardDescription className="text-[#a1a1a1]">Save client details</CardDescription>
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#a1a1a1]" />
+                    <Input placeholder="Search..." className="bg-[#08022e] border-[#323679] pl-10" />
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <ClientItem name="Starbucks" id="CL-1001" phone="541515695" avatar="S" color="bg-[#34c724]" />
+                  <ClientItem name="General Electric" id="CL-1001" phone="541515695" avatar="GE" color="bg-[#02dbd6]" />
+                  <ClientItem name="Pizza Hut" id="CL-1001" phone="541515695" avatar="P" color="bg-[#f54a45]" />
+                  <ClientItem name="Gillette" id="CL-1001" phone="541515695" avatar="G" color="bg-[#02dbd6]" />
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </div>
 
     </div>
