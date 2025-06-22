@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { Edit, Lock, MoveUpRight } from "lucide-react";
+import { Edit, Lock, MoveUpRight, Trash2 } from "lucide-react";
 import { Dialog } from "@radix-ui/react-dialog";
 import {
   DialogContent,
@@ -282,7 +282,10 @@ export default function ProfilePage() {
 
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>
+                <div className="border-2 border-error rounded-lg h-12 w-12">
+                  <Trash2 className="text-error p-2 h-11 w-11" />
+                </div>
+                <DialogTitle className="text-xl md:text-2xl">
                   Are you sure you want to{" "}
                   <span className="text-error">Delete</span> your account?
                 </DialogTitle>
@@ -290,7 +293,7 @@ export default function ProfilePage() {
                   Inter your current password you used login with
                 </DialogDescription>
               </DialogHeader>
-              <DialogFooter>
+              <DialogFooter className="grid grid-cols-2 gap-6 w-full justify-between">
                 <Button variant="outline" onClick={handleDeleteCancel}>
                   Cancel
                 </Button>
