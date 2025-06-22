@@ -1,7 +1,6 @@
 "use client";
 import {
   DynamicTable,
-  type Transaction,
 } from "@/components/common/DynamicTable";
 import { FinancialCardComponent } from "@/components/common/FinancialCardComponent";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,7 +16,7 @@ import { chartDataSets } from "@/data/chartDataSets";
 import { generateFinancialPlanData } from "@/data/financialDataSets";
 import { initialTransactions } from "@/data/transactionData";
 import { cn } from "@/lib/utils";
-import { FinancialCard, TimePeriod } from "@/types/allTypes";
+import { FinancialCard, TimePeriod, Transaction } from "@/types/allTypes";
 import React, { useState } from "react";
 import {
   Bar,

@@ -183,6 +183,8 @@ export const DynamicEditModal: React.FC<DynamicEditModalProps> = ({
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [filePreviewUrls, setFilePreviewUrls] = useState<string[]>([]);
 
+  console.log("Uploads file for edit", uploadedFiles);
+
   // Get field configs based on modal type
   const configs = fieldConfigs || getDefaultFieldConfigs(modalType);
 
@@ -346,7 +348,7 @@ export const DynamicEditModal: React.FC<DynamicEditModalProps> = ({
             >
               <SelectTrigger
                 className={cn(
-                  "border-gray-200 text-foreground",
+                  "border-gray-200 text-foreground w-full",
                   "focus:border-blue-500 focus:ring-blue-500/20",
                   hasError && "border-red-500 focus:border-red-500"
                 )}
