@@ -127,7 +127,7 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
                   ),
                 }}
                 className={cn(
-                  "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200",
+                  "flex items-center gap-3 px-2 py-2.5 rounded-lg transition-all duration-200",
                   pathname === "/profile"
                     ? "bg-white dark:bg-white text-slate-800 dark:text-slate-900 shadow-lg"
                     : "text-white/80 hover:text-white hover:bg-white/10"
