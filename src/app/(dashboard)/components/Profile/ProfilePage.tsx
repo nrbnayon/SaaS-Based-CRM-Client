@@ -34,6 +34,7 @@ export default function ProfilePage() {
   };
   const handleDeleteConfirm = () => {
     console.log("account deleted");
+    setIsDialogOpen(false);
   };
 
   // Edit states
