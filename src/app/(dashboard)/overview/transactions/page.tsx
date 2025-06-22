@@ -2,12 +2,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { DynamicTable, Transaction } from "@/components/common/DynamicTable";
+import { DynamicTable } from "@/components/common/DynamicTable";
 import DashboardHeader from "../../components/dashboard-header";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { allTransactions } from "@/data/transactionData";
+import { Transaction } from "@/types/allTypes";
 
 export default function AllTransactionsPage() {
   const router = useRouter();
