@@ -2,16 +2,23 @@
 
 // Transaction type definitions
 export interface Transaction {
-    id: string;
-    category: string;
-    name: string;
-    details: string;
-    amount: string;
-    image?: string;
-    transaction: string;
-    account: "Income" | "Expense" | "VAT" | "Saving";
-    date?: string;
-    [key: string]: unknown;
+  id: string;
+  category: string;
+  name: string;
+  details: string;
+  amount: string;
+  image?: string;
+  transaction: string;
+  account: "Income" | "Expense" | "VAT" | "Saving";
+  date?: string;
+  discount?: string | number;
+  expanse?: string | number;
+  income?: string | number;
+  balance?: string | number;
+  contact?: string;
+  notes?: string;
+  uploadedFiles?: File[];
+  [key: string]: unknown;
 }
   
 export interface TransactionForm {

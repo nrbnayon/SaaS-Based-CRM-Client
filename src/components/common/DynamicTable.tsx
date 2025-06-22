@@ -1,20 +1,12 @@
-/** @format */
-
 // src\components\common\DynamicTable.tsx
 "use client";
-
 import {
   PencilLine,
   SearchIcon,
   Trash2,
-  X,
-  Check,
   CalendarDays,
-  Save,
 } from "lucide-react";
-
-import { PiSlidersHorizontal } from "react-icons/pi"; // for filter icon
-
+import { PiSlidersHorizontal } from "react-icons/pi";
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -51,25 +43,9 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "../ui/pagination";
-
-// Transaction type definitions
-export interface Transaction {
-  id: string;
-  category: string;
-  name: string;
-  details: string;
-  amount: string;
-  image?: string;
-  transaction: string;
-  account: "Income" | "Expense" | "VAT" | "Saving";
-  date?: string;
-  discount?: string | number;
-  expanse?: string | number;
-  income?: string | number;
-  balance?: string | number;
-  [key: string]: unknown;
-}
+} from "@/components/ui/pagination";
+import { Transaction } from "@/types/allTypes";
+import { DynamicEditModal } from "./DynamicEditModal";
 
 // Account type color mapping
 const accountColors = {
@@ -138,12 +114,9 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
   const [startDate, setStartDate] = useState("");
   const [, setEndDate] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [editingCell, setEditingCell] = useState<{
-    id: string;
-    field: string;
-    value: string;
-  } | null>(null);
-  const [editingRow, setEditingRow] = useState<string | null>(null);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] =
+    useState<Transaction | null>(null);
   const [localTransactions, setLocalTransactions] =
     useState<Transaction[]>(transactions);
   const [deleteConfirm, setDeleteConfirm] = useState<{
@@ -175,13 +148,11 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
       const matchesAccount =
         accountFilter === "all" ||
         transaction.account.toLowerCase() === accountFilter.toLowerCase();
-
       // Date filter (if dates are provided)
       let matchesDate = true;
       if (startDate && transaction.date) {
         const transactionDate = new Date(transaction.date);
         const filterDate = new Date(startDate);
-
         // Set time to start of day for accurate comparison
         transactionDate.setHours(0, 0, 0, 0);
         filterDate.setHours(0, 0, 0, 0);
@@ -221,54 +192,78 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
   };
 
   // Handle edit button click
+  // const handleEditClick = (transaction: Transaction) => {
+  //   if (editingRow === transaction.id) {
+  //     // Save changes
+  //     onEdit?.(transaction);
+  //     setEditingRow(null);
+  //     setEditingCell(null);
+  //   } else {
+  //     // Start editing
+  //     setEditingRow(transaction.id);
+  //     setEditingCell(null);
+  //   }
+  // };
+
   const handleEditClick = (transaction: Transaction) => {
-    if (editingRow === transaction.id) {
-      // Save changes
-      onEdit?.(transaction);
-      setEditingRow(null);
-      setEditingCell(null);
-    } else {
-      // Start editing
-      setEditingRow(transaction.id);
-      setEditingCell(null);
-    }
+    setSelectedTransaction(transaction);
+    setEditModalOpen(true);
   };
 
-  // Handle cell edit start
-  const handleCellEdit = (transaction: Transaction, field: string) => {
-    if (!enableEdit || editingRow !== transaction.id || field === "id") return;
-
-    const value = transaction[field]?.toString() || "";
-    setEditingCell({
-      id: transaction.id,
-      field,
-      value,
-    });
-  };
-
-  // Handle cell edit save
-  const handleCellSave = () => {
-    if (!editingCell) return;
-
+  const handleModalSave = (updatedTransaction: Transaction) => {
     const updatedTransactions = localTransactions.map((transaction) => {
-      if (transaction.id === editingCell.id) {
-        const updatedTransaction = {
-          ...transaction,
-          [editingCell.field]: editingCell.value,
-        };
+      if (transaction.id === updatedTransaction.id) {
         return updatedTransaction;
       }
       return transaction;
     });
 
     setLocalTransactions(updatedTransactions);
-    setEditingCell(null);
+    onEdit?.(updatedTransaction);
+    setEditModalOpen(false);
+    setSelectedTransaction(null);
   };
 
-  // Handle cell edit cancel
-  const handleCellCancel = () => {
-    setEditingCell(null);
+  const handleModalClose = () => {
+    setEditModalOpen(false);
+    setSelectedTransaction(null);
   };
+
+  // // Handle cell edit start
+  // const handleCellEdit = (transaction: Transaction, field: string) => {
+  //   if (!enableEdit || editingRow !== transaction.id || field === "id") return;
+
+  //   const value = transaction[field]?.toString() || "";
+  //   setEditingCell({
+  //     id: transaction.id,
+  //     field,
+  //     value,
+  //   });
+  // };
+
+  // // Handle cell edit save
+  // const handleCellSave = () => {
+  //   if (!editingCell) return;
+
+  //   const updatedTransactions = localTransactions.map((transaction) => {
+  //     if (transaction.id === editingCell.id) {
+  //       const updatedTransaction = {
+  //         ...transaction,
+  //         [editingCell.field]: editingCell.value,
+  //       };
+  //       return updatedTransaction;
+  //     }
+  //     return transaction;
+  //   });
+
+  //   setLocalTransactions(updatedTransactions);
+  //   setEditingCell(null);
+  // };
+
+  // // Handle cell edit cancel
+  // const handleCellCancel = () => {
+  //   setEditingCell(null);
+  // };
 
   // Handle delete confirmation
   const handleDeleteClick = (transaction: Transaction) => {
@@ -370,71 +365,85 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
   };
 
   // Render editable cell
+  // const renderEditableCell = (
+  //   transaction: Transaction,
+  //   field: string,
+  //   value: string
+  // ) => {
+  //   const isRowEditing = editingRow === transaction.id;
+  //   const isEditing =
+  //     editingCell?.id === transaction.id && editingCell?.field === field;
+  //   const isIdField = field === "id";
+
+  //   if (isEditing) {
+  //     return (
+  //       <div className='flex items-center gap-1'>
+  //         <Input
+  //           value={editingCell.value}
+  //           onChange={(e) =>
+  //             setEditingCell({ ...editingCell, value: e.target.value })
+  //           }
+  //           className='h-8 text-sm border-border'
+  //           onKeyDown={(e) => {
+  //             if (e.key === "Enter") {
+  //               handleCellSave();
+  //             } else if (e.key === "Escape") {
+  //               handleCellCancel();
+  //             }
+  //           }}
+  //           autoFocus
+  //         />
+  //         <Button
+  //           size='sm'
+  //           variant='ghost'
+  //           className='h-6 w-6 p-0'
+  //           onClick={handleCellSave}
+  //         >
+  //           <Check className='w-3 h-3' />
+  //         </Button>
+  //         <Button
+  //           size='sm'
+  //           variant='ghost'
+  //           className='h-6 w-6 p-0'
+  //           onClick={handleCellCancel}
+  //         >
+  //           <X className='w-3 h-3' />
+  //         </Button>
+  //       </div>
+  //     );
+  //   }
+
+  //   return (
+  //     <div
+  //       className={cn(
+  //         "p-1 rounded transition-colors",
+  //         enableEdit &&
+  //           isRowEditing &&
+  //           !isIdField &&
+  //           "cursor-pointer hover:bg-accent/20 hover:outline-1 hover:outline-border bg-blue-50 dark:bg-blue-900/20"
+  //       )}
+  //       onClick={() =>
+  //         enableEdit && isRowEditing && handleCellEdit(transaction, field)
+  //       }
+  //       title={
+  //         enableEdit && isRowEditing && !isIdField ? "Click to edit" : value
+  //       }
+  //     >
+  //       <div className='truncate max-w-[120px] lg:max-w-none'>
+  //         {value || "-"}
+  //       </div>
+  //     </div>
+  //   );
+  // };
+
   const renderEditableCell = (
     transaction: Transaction,
     field: string,
     value: string
   ) => {
-    const isRowEditing = editingRow === transaction.id;
-    const isEditing =
-      editingCell?.id === transaction.id && editingCell?.field === field;
-    const isIdField = field === "id";
-
-    if (isEditing) {
-      return (
-        <div className='flex items-center gap-1'>
-          <Input
-            value={editingCell.value}
-            onChange={(e) =>
-              setEditingCell({ ...editingCell, value: e.target.value })
-            }
-            className='h-8 text-sm border-border'
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleCellSave();
-              } else if (e.key === "Escape") {
-                handleCellCancel();
-              }
-            }}
-            autoFocus
-          />
-          <Button
-            size='sm'
-            variant='ghost'
-            className='h-6 w-6 p-0'
-            onClick={handleCellSave}
-          >
-            <Check className='w-3 h-3' />
-          </Button>
-          <Button
-            size='sm'
-            variant='ghost'
-            className='h-6 w-6 p-0'
-            onClick={handleCellCancel}
-          >
-            <X className='w-3 h-3' />
-          </Button>
-        </div>
-      );
-    }
-
     return (
-      <div
-        className={cn(
-          "p-1 rounded transition-colors",
-          enableEdit &&
-            isRowEditing &&
-            !isIdField &&
-            "cursor-pointer hover:bg-accent/20 hover:outline-1 hover:outline-border bg-blue-50 dark:bg-blue-900/20"
-        )}
-        onClick={() =>
-          enableEdit && isRowEditing && handleCellEdit(transaction, field)
-        }
-        title={
-          enableEdit && isRowEditing && !isIdField ? "Click to edit" : value
-        }
-      >
-        <div className='truncate max-w-[120px] lg:max-w-none'>
+      <div className='p-1 rounded transition-colors'>
+        <div className='truncate max-w-[120px] lg:max-w-none' title={value}>
           {value || "-"}
         </div>
       </div>
@@ -527,6 +536,22 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
           </div>
         );
 
+      // case "Edit":
+      //   return enableEdit ? (
+      //     <Button
+      //       variant='ghost'
+      //       size='sm'
+      //       className='h-8 w-8 p-0 hover:bg-accent dark:hover:bg-secondary text-foreground dark:text-white'
+      //       onClick={() => handleEditClick(transaction)}
+      //     >
+      //       {editingRow === transaction.id ? (
+      //         <Save className='w-4 h-4' />
+      //       ) : (
+      //         <PencilLine className='w-4 h-4' />
+      //       )}
+      //     </Button>
+      //   ) : null;
+
       case "Edit":
         return enableEdit ? (
           <Button
@@ -535,11 +560,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
             className='h-8 w-8 p-0 hover:bg-accent dark:hover:bg-secondary text-foreground dark:text-white'
             onClick={() => handleEditClick(transaction)}
           >
-            {editingRow === transaction.id ? (
-              <Save className='w-4 h-4' />
-            ) : (
-              <PencilLine className='w-4 h-4' />
-            )}
+            <PencilLine className='w-4 h-4' />
           </Button>
         ) : null;
 
@@ -682,8 +703,6 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                       "hover:bg-accent/50 dark:hover:bg-secondary/50 transition-colors",
                       "border-b border-border/30",
                       "dark:bg-dark-primary/50",
-                      editingRow === transaction.id &&
-                        "bg-blue-50/50 dark:bg-blue-900/10",
                       index % 2 === 0 ? "bg-white" : "bg-muted",
                       "dark:bg-dark-primary/50",
                       "[&>td]:px-4 [&>td]:py-3",
@@ -810,6 +829,15 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <DynamicEditModal
+        isOpen={editModalOpen}
+        onClose={handleModalClose}
+        transaction={selectedTransaction}
+        onSave={handleModalSave}
+        title='Edit Transaction Details'
+        description='Update your transaction information below. All changes will be saved immediately.'
+      />
     </section>
   );
 };

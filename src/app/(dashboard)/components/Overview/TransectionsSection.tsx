@@ -2,8 +2,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { DynamicTable, Transaction } from "@/components/common/DynamicTable";
+import { DynamicTable } from "@/components/common/DynamicTable";
 import { initialTransactions } from "@/data/transactionData";
+import { Transaction } from "@/types/allTypes";
 
 const TransectionsSection = () => {
   // State to manage transactions
@@ -60,6 +61,7 @@ const TransectionsSection = () => {
         enableDelete={true}
         className='mb-8'
         itemsPerPage={10}
+        // showFilters={false}
       />
 
       {/* Customized Usage - Income Only with Link Button */}
