@@ -1,10 +1,10 @@
 "use client";
+import React from "react";
 import {
   DynamicTable,
-  type Transaction,
 } from "@/components/common/DynamicTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import React from "react";
+import { Transaction } from "@/types/allTypes";
 
 // Define the invoice data interface
 interface InvoiceData {
