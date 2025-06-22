@@ -1,3 +1,5 @@
+/** @format */
+
 // src\components\common\DynamicTable.tsx
 "use client";
 
@@ -705,7 +707,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="h-8 w-8 p-0 hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400"
+                          className="h-8 w-8 p-0 cursor-pointer hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400"
                           onClick={() => handleDeleteClick(transaction)}
                         >
                           <Trash2 className="w-4 h-4" />

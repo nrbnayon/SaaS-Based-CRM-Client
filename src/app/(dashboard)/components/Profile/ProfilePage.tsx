@@ -1,36 +1,146 @@
 /** @format */
 
-"use client";
-
+import React, { useState, useRef } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Edit, Lock, MoveUpRight } from "lucide-react";
 
-export const ProfilePage = () => {
+export default function ProfilePage() {
+  // Profile data array
+  const [profileData, setProfileData] = useState({
+    name: "Mahdee Rashid",
+    image: "/placeholder.svg?height=80&width=80",
+    email: "polash@gmail.com",
+    phone: "+880 1636 828200",
+    address: "123 Main Street, Dhaka, Bangladesh",
+    linkedin: "linkedin.com/in/polash",
+    website: "polashportfolio.com",
+  });
+
+  // Edit states
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [isEditingEmail, setIsEditingEmail] = useState(false);
+
+  // Temporary edit values
+  const [tempName, setTempName] = useState(profileData.name);
+  const [tempEmail, setTempEmail] = useState(profileData.email);
+
+  // File input ref for avatar upload
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Handle avatar edit click
+  const handleAvatarEdit = () => {
+    fileInputRef.current?.click();
+  };
+
+  // Handle avatar image upload
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files && event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setProfileData((prev) => ({
+          ...prev,
+          image: e.target?.result as string,
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Handle name edit
+  const handleNameEdit = () => {
+    if (isEditingName) {
+      // Save the changes
+      setProfileData((prev) => ({
+        ...prev,
+        name: tempName,
+      }));
+    } else {
+      // Start editing
+      setTempName(profileData.name);
+    }
+    setIsEditingName(!isEditingName);
+  };
+
+  // Handle email edit
+  const handleEmailEdit = () => {
+    if (isEditingEmail) {
+      // Save the changes
+      setProfileData((prev) => ({
+        ...prev,
+        email: tempEmail,
+      }));
+    } else {
+      // Start editing
+      setTempEmail(profileData.email);
+    }
+    setIsEditingEmail(!isEditingEmail);
+  };
+
+  // Handle change password (arrow button)
+  const handleChangePassword = () => {
+    alert("Redirecting to change password page...");
+    // You can implement navigation logic here
+  };
+
+  // Handle delete account
+  const handleDeleteAccount = () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete your account? This action cannot be undone."
+    );
+    if (confirmed) {
+      alert(
+        "Account deletion request submitted. Please check your email for further instructions."
+      );
+      // You can implement the actual deletion logic here
+    }
+  };
+
+  // Get initials for avatar fallback
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .map((word) => word[0])
+      .join("")
+      .toUpperCase();
+  };
+
   return (
     <div>
-      <div className="flex flex-col space-y-5 lg:flex-row bg-secondary dark:bg-card p-8 rounded-2xl border border-gray-300 dark:border-blue-950 items-center justify-between  mb-8">
+      {/* Hidden file input for avatar upload */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleImageUpload}
+        accept="image/*"
+        style={{ display: "none" }}
+      />
+
+      <div className="flex flex-col space-y-5 lg:flex-row bg-secondary dark:bg-card p-8 rounded-2xl border border-gray-300 dark:border-blue-950 items-center justify-between mb-8">
         <div className="flex items-center gap-4">
           <div className="relative">
             <Avatar className="w-20 h-20">
-              <AvatarImage
-                src="/placeholder.svg?height=80&width=80"
-                alt="Mahdee Rashid"
-              />
-              <AvatarFallback className="text-lg">MR</AvatarFallback>
+              <AvatarImage src={profileData.image} alt={profileData.name} />
+              <AvatarFallback className="text-lg">
+                {getInitials(profileData.name)}
+              </AvatarFallback>
             </Avatar>
-            <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-[#838383] rounded-full flex items-center justify-center">
-              <Edit className="w-3 h-3 text-white" />
+            <div
+              className="absolute -bottom-1 -right-1 w-6 h-6 bg-[#838383] rounded-full flex items-center justify-center cursor-pointer hover:bg-[#6b6b6b] transition-colors"
+              onClick={handleAvatarEdit}
+            >
+              <Edit className="w-3 h-3 cursor-pointer text-white" />
             </div>
           </div>
           <div className="my-auto">
-            <div className="flex  items-center gap-2 mb-1 bg-[#c9e2f8] text-[#148CFF] dark:text-card text-xs w-14 px-3  py-1 rounded-2xl">
+            <div className="flex items-center gap-2 mb-1 bg-[#c9e2f8] text-[#148CFF] dark:text-card text-xs w-14 px-3 py-1 rounded-2xl">
               Admin
             </div>
             <h2 className="text-xl lg:text-2xl font-semibold text-black dark:text-white">
-              Mahdee Rashid
+              {profileData.name}
             </h2>
           </div>
         </div>
@@ -38,36 +148,34 @@ export const ProfilePage = () => {
         {/* Contact Info */}
         <div className="space-y-3 text-sm md:text-base">
           <div className="flex justify-between items-center min-w-[300px]">
-            <span className="text-gray-800 dark:text-white font-medium  ">
+            <span className="text-gray-800 dark:text-white font-medium">
               E-mail
             </span>
-            <span className="text-gray-400">polash@gmail.com</span>
+            <span className="text-gray-400">{profileData.email}</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-gray-800 dark:text-white font-medium">
               Phone
             </span>
-            <span className="text-gray-400">+880 1636 828200</span>
+            <span className="text-gray-400">{profileData.phone}</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-gray-800 dark:text-white font-medium pr-5">
               Address
             </span>
-            <span className="text-gray-400 w-44">
-              123 Main Street, Dhaka, Bangladesh
-            </span>
+            <span className="text-gray-400 w-44">{profileData.address}</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-gray-800 dark:text-white font-medium">
               LinkedIn
             </span>
-            <span className="text-gray-400">linkedin.com/in/polash</span>
+            <span className="text-gray-400">{profileData.linkedin}</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-gray-800 dark:text-white font-medium">
               Website
             </span>
-            <span className="text-gray-400">polashportfolio.com</span>
+            <span className="text-gray-400">{profileData.website}</span>
           </div>
         </div>
       </div>
@@ -75,41 +183,52 @@ export const ProfilePage = () => {
       {/* Form Fields */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <div>
-          <label className="block text-xl md:text-2xl text-black dark:text-white font-medium  mb-2">
+          <label className="block text-xl md:text-2xl text-black dark:text-white font-medium mb-2">
             Name
           </label>
-          <div className="relative bg-transparent md:bg-white  rounded-lg ">
+          <div className="relative bg-transparent md:bg-white rounded-lg">
             <Input
-              value="Mahdee Rashid"
+              value={isEditingName ? tempName : profileData.name}
+              onChange={(e) => setTempName(e.target.value)}
               className={cn(
-                "bg-[#e5f3ff]  p-6  text-lg md:text-xl dark:text-card text-[#148cff] font-medium pr-10"
+                "bg-[#e5f3ff] p-6 text-lg md:text-xl dark:text-card text-[#148cff] font-medium pr-10"
               )}
-              readOnly
+              readOnly={!isEditingName}
             />
-
-            <Edit className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 dark:text-card text-[#148cff]" />
+            <button
+              onClick={handleNameEdit}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 hover:scale-110 transition-transform"
+            >
+              <Edit className="w-4 h-4 cursor-pointer dark:text-card text-[#148cff]" />
+            </button>
           </div>
         </div>
         <div>
-          <label className="block  text-xl md:text-2xl font-medium text-black dark:text-white mb-2">
+          <label className="block text-xl md:text-2xl font-medium text-black dark:text-white mb-2">
             E-mail
           </label>
-          <div className="relative bg-transparent md:bg-white  rounded-lg">
+          <div className="relative bg-transparent md:bg-white rounded-lg">
             <Input
-              value="mahdeerashid@gmail.com"
+              value={isEditingEmail ? tempEmail : profileData.email}
+              onChange={(e) => setTempEmail(e.target.value)}
               className={cn(
-                "bg-[#e5f3ff]  p-6  text-lg md:text-xl dark:text-card text-[#148cff] font-medium pr-10"
+                "bg-[#e5f3ff] p-6 text-lg md:text-xl dark:text-card text-[#148cff] font-medium pr-10"
               )}
-              readOnly
+              readOnly={!isEditingEmail}
             />
-            <Edit className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 dark:text-card text-[#148cff]" />{" "}
+            <button
+              onClick={handleEmailEdit}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 hover:scale-110 transition-transform"
+            >
+              <Edit className="w-4 h-4 cursor-pointer dark:text-card text-[#148cff]" />
+            </button>
           </div>
         </div>
       </div>
 
       {/* Change Password Section */}
-      <div className=" mb-6 bg-blue-50 dark:bg-card p-8 rounded-2xl border border-blue-100 dark:border-blue-950">
-        <div className="flex  justify-between">
+      <div className="mb-6 bg-blue-50 dark:bg-card p-8 rounded-2xl border border-blue-100 dark:border-blue-950">
+        <div className="flex justify-between">
           <div className="flex flex-col items-start gap-3">
             <div className="w-14 h-14 bg-gray-200 dark:bg-[#323679] rounded-lg flex items-center justify-center">
               <Lock className="w-6 h-6 text-gray-800 dark:text-white" />
@@ -118,9 +237,12 @@ export const ProfilePage = () => {
               Change Password
             </span>
           </div>
-          <div className="w-7 h-7 border justify-center items-center cursor-pointer border-gray-400 bg-transparent rounded-full">
+          <button
+            onClick={handleChangePassword}
+            className="w-7 h-7 border justify-center items-center cursor-pointer border-gray-400 bg-transparent rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          >
             <MoveUpRight className="w-6 h-6 p-1 text-gray-400 m-auto" />
-          </div>
+          </button>
         </div>
       </div>
 
@@ -133,17 +255,20 @@ export const ProfilePage = () => {
             </h3>
             <p className="text-gray-500 text-sm md:text-base">
               Contact our{" "}
-              <span className="text-secondary underline cursor-pointer">
+              <span className="text-blue-950 underline cursor-pointer">
                 support team
               </span>{" "}
               to process the deletion of your account.
             </p>
           </div>
-          <Button className="bg-error hover:bg-error/90 text-white px-2">
+          <Button
+            onClick={handleDeleteAccount}
+            className="bg-error  hover:bg-error/90 cursor-pointer text-white px-2"
+          >
             Apply Delete
           </Button>
         </div>
       </div>
     </div>
   );
-};
+}
