@@ -15,6 +15,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import ChangePassword from "./ChangePassord";
 
 export default function ProfilePage() {
   // Profile data array
@@ -29,6 +30,7 @@ export default function ProfilePage() {
   });
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
   const handleDeleteCancel = () => {
     setIsDialogOpen(false);
   };
@@ -100,13 +102,19 @@ export default function ProfilePage() {
 
   // Handle change password (arrow button)
   const handleChangePassword = () => {
-    alert("Redirecting to change password page...");
+    setIsPasswordDialogOpen(true);
+    console.log("password change");
     // You can implement navigation logic here
   };
 
   // Handle delete account
   const handleDeleteAccount = () => {
     setIsDialogOpen(true);
+  };
+
+  // Function to close password dialog
+  const handlePasswordDialogClose = () => {
+    setIsPasswordDialogOpen(false);
   };
 
   // Get initials for avatar fallback
@@ -247,12 +255,22 @@ export default function ProfilePage() {
               Change Password
             </span>
           </div>
-          <button
-            onClick={handleChangePassword}
-            className="w-7 h-7 border justify-center items-center cursor-pointer border-gray-400 bg-transparent rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          <Dialog
+            open={isPasswordDialogOpen}
+            onOpenChange={setIsPasswordDialogOpen}
           >
-            <MoveUpRight className="w-6 h-6 p-1 text-gray-400 m-auto" />
-          </button>
+            <DialogTrigger asChild>
+              <button
+                onClick={handleChangePassword}
+                className="w-7 h-7 border justify-center items-center cursor-pointer border-gray-400 bg-transparent rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              >
+                <MoveUpRight className="w-6 h-6 p-1 text-gray-400 m-auto" />
+              </button>
+            </DialogTrigger>
+            <DialogContent className="bg-white">
+              <ChangePassword onCancel={handlePasswordDialogClose} />
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
 
