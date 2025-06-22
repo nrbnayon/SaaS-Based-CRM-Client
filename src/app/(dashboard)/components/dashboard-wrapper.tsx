@@ -136,7 +136,7 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
             </div>
             <button
               onClick={() => {
-                // Add your logout logic here
+                // Add your logout logic
                 console.log("Logout clicked");
               }}
               className='w-full'
