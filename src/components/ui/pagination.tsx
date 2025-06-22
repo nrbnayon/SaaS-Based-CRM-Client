@@ -50,7 +50,7 @@ const PaginationLink = ({
     className={cn(
       "h-10 w-10 rounded-full",
       isActive &&
-        "bg-yellow-400 text-black border-yellow-400 hover:bg-yellow-300",
+        "bg-yellow-400 text-foreground dark:bg-error dark:hover:bg-accent border-yellow-400 hover:bg-yellow-300",
       className
     )}
     {...props}

@@ -1,15 +1,11 @@
-
-
-import { AccountPage } from "../components/Accounts/AccountPage,";
+import { AccountPage } from "../components/Accounts/AccountPage";
 import DashboardHeader from "../components/dashboard-header";
-
 
 export default function page() {
   return (
-    <div className="">
-          <DashboardHeader title='Account' />
-          <AccountPage/>
-          
-        </div>
+    <div className=''>
+      <DashboardHeader title='Account Page' />
+      <AccountPage />
+    </div>
   );
 }

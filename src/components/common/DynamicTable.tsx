@@ -1,20 +1,7 @@
-/** @format */
-
 // src\components\common\DynamicTable.tsx
 "use client";
-
-import {
-  PencilLine,
-  SearchIcon,
-  Trash2,
-  X,
-  Check,
-  CalendarDays,
-  Save,
-} from "lucide-react";
-
-import { PiSlidersHorizontal } from "react-icons/pi"; // for filter icon
-
+import { PencilLine, SearchIcon, Trash2, CalendarDays } from "lucide-react";
+import { PiSlidersHorizontal } from "react-icons/pi";
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
@@ -51,25 +38,9 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "../ui/pagination";
-
-// Transaction type definitions
-export interface Transaction {
-  id: string;
-  category: string;
-  name: string;
-  details: string;
-  amount: string;
-  image?: string;
-  transaction: string;
-  account: "Income" | "Expense" | "VAT" | "Saving";
-  date?: string;
-  discount?: string | number;
-  expanse?: string | number;
-  income?: string | number;
-  balance?: string | number;
-  [key: string]: unknown;
-}
+} from "@/components/ui/pagination";
+import { Transaction } from "@/types/allTypes";
+import { DynamicEditModal } from "./DynamicEditModal";
 
 // Account type color mapping
 const accountColors = {
@@ -138,12 +109,9 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
   const [startDate, setStartDate] = useState("");
   const [, setEndDate] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [editingCell, setEditingCell] = useState<{
-    id: string;
-    field: string;
-    value: string;
-  } | null>(null);
-  const [editingRow, setEditingRow] = useState<string | null>(null);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] =
+    useState<Transaction | null>(null);
   const [localTransactions, setLocalTransactions] =
     useState<Transaction[]>(transactions);
   const [deleteConfirm, setDeleteConfirm] = useState<{
@@ -175,13 +143,11 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
       const matchesAccount =
         accountFilter === "all" ||
         transaction.account.toLowerCase() === accountFilter.toLowerCase();
-
       // Date filter (if dates are provided)
       let matchesDate = true;
       if (startDate && transaction.date) {
         const transactionDate = new Date(transaction.date);
         const filterDate = new Date(startDate);
-
         // Set time to start of day for accurate comparison
         transactionDate.setHours(0, 0, 0, 0);
         filterDate.setHours(0, 0, 0, 0);
@@ -221,54 +187,78 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
   };
 
   // Handle edit button click
+  // const handleEditClick = (transaction: Transaction) => {
+  //   if (editingRow === transaction.id) {
+  //     // Save changes
+  //     onEdit?.(transaction);
+  //     setEditingRow(null);
+  //     setEditingCell(null);
+  //   } else {
+  //     // Start editing
+  //     setEditingRow(transaction.id);
+  //     setEditingCell(null);
+  //   }
+  // };
+
   const handleEditClick = (transaction: Transaction) => {
-    if (editingRow === transaction.id) {
-      // Save changes
-      onEdit?.(transaction);
-      setEditingRow(null);
-      setEditingCell(null);
-    } else {
-      // Start editing
-      setEditingRow(transaction.id);
-      setEditingCell(null);
-    }
+    setSelectedTransaction(transaction);
+    setEditModalOpen(true);
   };
 
-  // Handle cell edit start
-  const handleCellEdit = (transaction: Transaction, field: string) => {
-    if (!enableEdit || editingRow !== transaction.id || field === "id") return;
-
-    const value = transaction[field]?.toString() || "";
-    setEditingCell({
-      id: transaction.id,
-      field,
-      value,
-    });
-  };
-
-  // Handle cell edit save
-  const handleCellSave = () => {
-    if (!editingCell) return;
-
+  const handleModalSave = (updatedTransaction: Transaction) => {
     const updatedTransactions = localTransactions.map((transaction) => {
-      if (transaction.id === editingCell.id) {
-        const updatedTransaction = {
-          ...transaction,
-          [editingCell.field]: editingCell.value,
-        };
+      if (transaction.id === updatedTransaction.id) {
         return updatedTransaction;
       }
       return transaction;
     });
 
     setLocalTransactions(updatedTransactions);
-    setEditingCell(null);
+    onEdit?.(updatedTransaction);
+    setEditModalOpen(false);
+    setSelectedTransaction(null);
   };
 
-  // Handle cell edit cancel
-  const handleCellCancel = () => {
-    setEditingCell(null);
+  const handleModalClose = () => {
+    setEditModalOpen(false);
+    setSelectedTransaction(null);
   };
+
+  // // Handle cell edit start
+  // const handleCellEdit = (transaction: Transaction, field: string) => {
+  //   if (!enableEdit || editingRow !== transaction.id || field === "id") return;
+
+  //   const value = transaction[field]?.toString() || "";
+  //   setEditingCell({
+  //     id: transaction.id,
+  //     field,
+  //     value,
+  //   });
+  // };
+
+  // // Handle cell edit save
+  // const handleCellSave = () => {
+  //   if (!editingCell) return;
+
+  //   const updatedTransactions = localTransactions.map((transaction) => {
+  //     if (transaction.id === editingCell.id) {
+  //       const updatedTransaction = {
+  //         ...transaction,
+  //         [editingCell.field]: editingCell.value,
+  //       };
+  //       return updatedTransaction;
+  //     }
+  //     return transaction;
+  //   });
+
+  //   setLocalTransactions(updatedTransactions);
+  //   setEditingCell(null);
+  // };
+
+  // // Handle cell edit cancel
+  // const handleCellCancel = () => {
+  //   setEditingCell(null);
+  // };
 
   // Handle delete confirmation
   const handleDeleteClick = (transaction: Transaction) => {
@@ -370,71 +360,85 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
   };
 
   // Render editable cell
+  // const renderEditableCell = (
+  //   transaction: Transaction,
+  //   field: string,
+  //   value: string
+  // ) => {
+  //   const isRowEditing = editingRow === transaction.id;
+  //   const isEditing =
+  //     editingCell?.id === transaction.id && editingCell?.field === field;
+  //   const isIdField = field === "id";
+
+  //   if (isEditing) {
+  //     return (
+  //       <div className='flex items-center gap-1'>
+  //         <Input
+  //           value={editingCell.value}
+  //           onChange={(e) =>
+  //             setEditingCell({ ...editingCell, value: e.target.value })
+  //           }
+  //           className='h-8 text-sm border-border'
+  //           onKeyDown={(e) => {
+  //             if (e.key === "Enter") {
+  //               handleCellSave();
+  //             } else if (e.key === "Escape") {
+  //               handleCellCancel();
+  //             }
+  //           }}
+  //           autoFocus
+  //         />
+  //         <Button
+  //           size='sm'
+  //           variant='ghost'
+  //           className='h-6 w-6 p-0'
+  //           onClick={handleCellSave}
+  //         >
+  //           <Check className='w-3 h-3' />
+  //         </Button>
+  //         <Button
+  //           size='sm'
+  //           variant='ghost'
+  //           className='h-6 w-6 p-0'
+  //           onClick={handleCellCancel}
+  //         >
+  //           <X className='w-3 h-3' />
+  //         </Button>
+  //       </div>
+  //     );
+  //   }
+
+  //   return (
+  //     <div
+  //       className={cn(
+  //         "p-1 rounded transition-colors",
+  //         enableEdit &&
+  //           isRowEditing &&
+  //           !isIdField &&
+  //           "cursor-pointer hover:bg-accent/20 hover:outline-1 hover:outline-border bg-blue-50 dark:bg-blue-900/20"
+  //       )}
+  //       onClick={() =>
+  //         enableEdit && isRowEditing && handleCellEdit(transaction, field)
+  //       }
+  //       title={
+  //         enableEdit && isRowEditing && !isIdField ? "Click to edit" : value
+  //       }
+  //     >
+  //       <div className='truncate max-w-[120px] lg:max-w-none'>
+  //         {value || "-"}
+  //       </div>
+  //     </div>
+  //   );
+  // };
+
   const renderEditableCell = (
     transaction: Transaction,
     field: string,
     value: string
   ) => {
-    const isRowEditing = editingRow === transaction.id;
-    const isEditing =
-      editingCell?.id === transaction.id && editingCell?.field === field;
-    const isIdField = field === "id";
-
-    if (isEditing) {
-      return (
-        <div className="flex items-center gap-1">
-          <Input
-            value={editingCell.value}
-            onChange={(e) =>
-              setEditingCell({ ...editingCell, value: e.target.value })
-            }
-            className="h-8 text-sm border-border"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleCellSave();
-              } else if (e.key === "Escape") {
-                handleCellCancel();
-              }
-            }}
-            autoFocus
-          />
-          <Button
-            size="sm"
-            variant="ghost"
-            className="h-6 w-6 p-0"
-            onClick={handleCellSave}
-          >
-            <Check className="w-3 h-3" />
-          </Button>
-          <Button
-            size="sm"
-            variant="ghost"
-            className="h-6 w-6 p-0"
-            onClick={handleCellCancel}
-          >
-            <X className="w-3 h-3" />
-          </Button>
-        </div>
-      );
-    }
-
     return (
-      <div
-        className={cn(
-          "p-1 rounded transition-colors",
-          enableEdit &&
-            isRowEditing &&
-            !isIdField &&
-            "cursor-pointer hover:bg-accent/20 hover:outline-1 hover:outline-border bg-blue-50 dark:bg-blue-900/20"
-        )}
-        onClick={() =>
-          enableEdit && isRowEditing && handleCellEdit(transaction, field)
-        }
-        title={
-          enableEdit && isRowEditing && !isIdField ? "Click to edit" : value
-        }
-      >
-        <div className="truncate max-w-[120px] lg:max-w-none">
+      <div className='p-1 rounded transition-colors'>
+        <div className='truncate max-w-[120px] lg:max-w-none' title={value}>
           {value || "-"}
         </div>
       </div>
@@ -527,19 +531,31 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
           </div>
         );
 
+      // case "Edit":
+      //   return enableEdit ? (
+      //     <Button
+      //       variant='ghost'
+      //       size='sm'
+      //       className='h-8 w-8 p-0 hover:bg-accent dark:hover:bg-secondary text-foreground dark:text-white'
+      //       onClick={() => handleEditClick(transaction)}
+      //     >
+      //       {editingRow === transaction.id ? (
+      //         <Save className='w-4 h-4' />
+      //       ) : (
+      //         <PencilLine className='w-4 h-4' />
+      //       )}
+      //     </Button>
+      //   ) : null;
+
       case "Edit":
         return enableEdit ? (
           <Button
-            variant="ghost"
-            size="sm"
-            className="h-8 w-8 p-0 hover:bg-accent dark:hover:bg-secondary text-foreground dark:text-white"
+            variant='ghost'
+            size='sm'
+            className='h-8 w-8 p-0 hover:bg-accent dark:hover:bg-secondary text-foreground dark:text-white'
             onClick={() => handleEditClick(transaction)}
           >
-            {editingRow === transaction.id ? (
-              <Save className="w-4 h-4" />
-            ) : (
-              <PencilLine className="w-4 h-4" />
-            )}
+            <PencilLine className='w-4 h-4' />
           </Button>
         ) : null;
 
@@ -553,19 +569,19 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
       className={cn("flex flex-col w-full items-start gap-6", className)}
     >
       {/* Header Section */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between w-full gap-4">
-        <h2 className="font-bold text-xl lg:text-2xl leading-7 text-foreground">
+      <div className='flex flex-col lg:flex-row lg:items-center justify-between w-full gap-4'>
+        <h2 className='font-bold text-xl lg:text-2xl leading-7 text-foreground'>
           {title}
         </h2>
 
         {/* Search and Filters Container OR Link Button */}
-        <div className="flex items-center gap-3 w-full lg:w-auto">
+        <div className='flex items-center gap-3 w-full lg:w-auto'>
           {showLinkButton ? (
             /* Link Button */
             <Link href={url}>
               <Button
-                variant="outline"
-                className="px-6 py-2 border-border hover:bg-accent dark:hover:bg-secondary"
+                variant='outline'
+                className='px-6 py-2 border-border hover:bg-accent dark:hover:bg-secondary'
               >
                 {text}
               </Button>
@@ -574,8 +590,8 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
             <>
               {/* Search Input */}
               {enableSearch && (
-                <div className="flex items-center gap-2 px-4 py-3 rounded-xl border border-solid border-border w-full sm:max-w-[300px] lg:max-w-[356px] bg-background">
-                  <SearchIcon className="w-5 h-5 text-muted-custom flex-shrink-0" />
+                <div className='flex items-center gap-2 px-4 py-3 rounded-xl border border-solid border-border w-full sm:max-w-[300px] lg:max-w-[356px] bg-background'>
+                  <SearchIcon className='w-5 h-5 text-muted-custom flex-shrink-0' />
                   <Input
                     className={cn(
                       "border-none bg-transparent text-foreground text-base focus-visible:ring-0 focus-visible:ring-offset-0 p-0 h-6 placeholder:text-muted-custom"
@@ -589,19 +605,19 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
 
               {/* Filters */}
               {showFilters && (
-                <div className="flex items-center gap-2">
+                <div className='flex items-center gap-2'>
                   {/* Account Filter */}
-                  <div className="relative flex items-center justify-center px-3 py-2.5 rounded-xl border border-solid border-border bg-background min-w-[44px] h-[44px]">
-                    <PiSlidersHorizontal className="w-4 h-4 text-muted-custom" />
+                  <div className='relative flex items-center justify-center px-3 py-2.5 rounded-xl border border-solid border-border bg-background min-w-[44px] h-[44px]'>
+                    <PiSlidersHorizontal className='w-4 h-4 text-muted-custom' />
                     <Select
                       value={accountFilter}
                       onValueChange={handleAccountFilterChange}
                     >
-                      <SelectTrigger className="absolute inset-0 border-none bg-transparent opacity-0 cursor-pointer">
+                      <SelectTrigger className='absolute inset-0 border-none bg-transparent opacity-0 cursor-pointer'>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">All Accounts</SelectItem>
+                        <SelectItem value='all'>All Accounts</SelectItem>
                         {accountTypes.map((type) => (
                           <SelectItem key={type} value={type.toLowerCase()}>
                             {type}
@@ -612,11 +628,11 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                   </div>
 
                   {/* Date Filter */}
-                  <div className="relative flex items-center justify-center px-3 py-2.5 rounded-xl border border-solid border-border bg-background min-w-[44px] h-[44px]">
-                    <CalendarDays className="w-4 h-4 text-muted-custom cursor-pointer absolute z-10 pointer-events-none" />
+                  <div className='relative flex items-center justify-center px-3 py-2.5 rounded-xl border border-solid border-border bg-background min-w-[44px] h-[44px]'>
+                    <CalendarDays className='w-4 h-4 text-muted-custom cursor-pointer absolute z-10 pointer-events-none' />
                     <input
-                      type="date"
-                      className="absolute inset-0 border-none bg-transparent opacity-0 cursor-pointer z-20"
+                      type='date'
+                      className='absolute inset-0 border-none bg-transparent opacity-0 cursor-pointer z-20'
                       value={startDate}
                       onChange={(e) => {
                         const selectedDate = e.target.value;
@@ -629,7 +645,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                           onDateFilter?.(selectedDate, selectedDate);
                         }
                       }}
-                      title="Filter by Date"
+                      title='Filter by Date'
                     />
                   </div>
                 </div>
@@ -640,12 +656,12 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
       </div>
 
       {/* Table Container with Responsive Scroll */}
-      <div className="w-full overflow-x-auto">
-        <div className="min-w-[800px]">
-          <Table>
+      <div className='w-full overflow-x-auto scrollbar-custom'>
+        <div className='min-w-[800px]'>
+          <Table className=''>
             {/* Table Header */}
-            <TableHeader className="bg-accent dark:bg-secondary">
-              <TableRow className="hover:bg-transparent border-b-0">
+            <TableHeader className='bg-accent dark:bg-secondary'>
+              <TableRow className='hover:bg-transparent border-b-0'>
                 {columns.map((column) => (
                   <TableHead
                     key={column}
@@ -673,7 +689,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
             </TableHeader>
 
             {/* Table Body */}
-            <TableBody className="space-y-1">
+            <TableBody className='space-y-1'>
               {currentData.length > 0 ? (
                 currentData.map((transaction, index) => (
                   <TableRow
@@ -682,8 +698,6 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                       "hover:bg-accent/50 dark:hover:bg-secondary/50 transition-colors",
                       "border-b border-border/30",
                       "dark:bg-dark-primary/50",
-                      editingRow === transaction.id &&
-                        "bg-blue-50/50 dark:bg-blue-900/10",
                       index % 2 === 0 ? "bg-white" : "bg-muted",
                       "dark:bg-dark-primary/50",
                       "[&>td]:px-4 [&>td]:py-3",
@@ -695,7 +709,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                     {columns.map((column) => (
                       <TableCell
                         key={column}
-                        className="text-center font-normal text-sm lg:text-base text-foreground dark:text-white"
+                        className='text-center font-normal text-sm lg:text-base text-foreground dark:text-white'
                       >
                         {renderCellContent(transaction, column)}
                       </TableCell>
@@ -703,14 +717,14 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
 
                     {/* Delete Button */}
                     {enableDelete && (
-                      <TableCell className="text-center">
+                      <TableCell className='text-center'>
                         <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-8 w-8 p-0 cursor-pointer hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400"
+                          variant='ghost'
+                          size='sm'
+                          className='h-8 w-8 p-0 cursor-pointer hover:bg-red-50 dark:hover:bg-red-900/20 text-red-600 dark:text-red-400'
                           onClick={() => handleDeleteClick(transaction)}
                         >
-                          <Trash2 className="w-4 h-4" />
+                          <Trash2 className='w-4 h-4' />
                         </Button>
                       </TableCell>
                     )}
@@ -720,7 +734,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                 <TableRow>
                   <TableCell
                     colSpan={columns.length + (enableDelete ? 1 : 0)}
-                    className="text-center py-8 text-muted-custom dark:text-gray-400"
+                    className='text-center py-8 text-muted-custom dark:text-gray-400'
                   >
                     No transactions found
                   </TableCell>
@@ -733,7 +747,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
 
       {/* Results Summary */}
       {filteredTransactions.length > 0 && (
-        <div className="text-sm text-muted-custom dark:text-gray-400">
+        <div className='text-sm text-muted-custom dark:text-gray-400'>
           Showing {startIndex + 1} to{" "}
           {Math.min(startIndex + itemsPerPage, filteredTransactions.length)} of{" "}
           {filteredTransactions.length} transactions
@@ -742,7 +756,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-center w-full mt-5">
+        <div className='flex justify-center w-full mt-5'>
           <Pagination>
             <PaginationContent>
               <PaginationItem>
@@ -750,7 +764,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                   onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                   className={
                     currentPage === 1
-                      ? "pointer-events-none opacity-50"
+                      ? "pointer-events-none opacity-50 "
                       : "cursor-pointer"
                   }
                 />
@@ -759,12 +773,12 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
               {generatePageNumbers().map((pageNum, index) => (
                 <PaginationItem key={index}>
                   {pageNum === "..." ? (
-                    <span className="px-3 py-2">...</span>
+                    <span className='px-3 py-2'>...</span>
                   ) : (
                     <PaginationLink
                       onClick={() => handlePageChange(pageNum as number)}
                       isActive={currentPage === pageNum}
-                      className="cursor-pointer"
+                      className='cursor-pointer'
                     >
                       {pageNum}
                     </PaginationLink>
@@ -801,15 +815,24 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" onClick={handleDeleteCancel}>
+            <Button variant='outline' onClick={handleDeleteCancel}>
               Cancel
             </Button>
-            <Button variant="destructive" onClick={handleDeleteConfirm}>
+            <Button variant='destructive' onClick={handleDeleteConfirm}>
               Delete
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <DynamicEditModal
+        isOpen={editModalOpen}
+        onClose={handleModalClose}
+        transaction={selectedTransaction}
+        onSave={handleModalSave}
+        title='Atlas Tech Ltd. Income Details'
+        description='Update your transaction information below. All changes will be saved immediately.'
+      />
     </section>
   );
 };

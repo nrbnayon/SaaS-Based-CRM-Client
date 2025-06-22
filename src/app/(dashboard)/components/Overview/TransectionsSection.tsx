@@ -2,90 +2,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { DynamicTable, Transaction } from "@/components/common/DynamicTable";
-
-
-
-// Sample transaction data
-const initialTransactions: Transaction[] = [
-  {
-    id: "1s5gf1",
-    category: "Salary",
-    name: "Starbucks",
-    details: "Dhanmondi Branch 2 Rent",
-    amount: "$33,200",
-    image: "Image",
-    transaction: "Bank",
-    account: "Income",
-    date: "2024-01-15",
-  },
-  {
-    id: "1s5gf2",
-    category: "General Electric",
-    name: "Equipment's",
-    details: "Dhanmondi Branch 2 Rent",
-    amount: "$2,200",
-    image: "Image",
-    transaction: "Bank",
-    account: "Income",
-    date: "2024-01-14",
-  },
-  {
-    id: "dsrg515",
-    category: "Pizza Hut",
-    name: "Office Rent",
-    details: "Dhanmondi Branch 2 Rent",
-    amount: "$12,200",
-    image: "Image",
-    transaction: "Bank",
-    account: "Expense",
-    date: "2024-01-13",
-  },
-  {
-    id: "452hd",
-    category: "Car Rent",
-    name: "Car Rent",
-    details: "Dhanmondi Branch 2 Rent",
-    amount: "$1,200",
-    image: "Image",
-    transaction: "Bank",
-    account: "Expense",
-    date: "2024-01-12",
-  },
-  {
-    id: "4rs4g",
-    category: "Office Rent",
-    name: "Office Rent",
-    details: "Dhanmondi Branch 2 Rent",
-    amount: "$12,200",
-    image: "Image",
-    transaction: "Bank",
-    account: "Expense",
-    date: "2024-01-11",
-  },
-  {
-    id: "78er4gtf",
-    category: "Tax Payment",
-    name: "VAT Payment",
-    details: "Monthly VAT Payment",
-    amount: "$500",
-    image: "Image",
-    transaction: "Bank",
-    account: "VAT",
-    date: "2024-01-10",
-  },
-  {
-    id: "sav001",
-    category: "Investment",
-    name: "Fixed Deposit",
-    details: "6 Month Fixed Deposit",
-    amount: "$5,000",
-    image: "Image",
-    transaction: "Bank",
-    account: "Saving",
-    date: "2024-01-09",
-  },
-];
+import { DynamicTable } from "@/components/common/DynamicTable";
+import { initialTransactions } from "@/data/transactionData";
+import { Transaction } from "@/types/allTypes";
 
 const TransectionsSection = () => {
   // State to manage transactions
@@ -142,6 +61,7 @@ const TransectionsSection = () => {
         enableDelete={true}
         className='mb-8'
         itemsPerPage={10}
+        // showFilters={false}
       />
 
       {/* Customized Usage - Income Only with Link Button */}
@@ -154,7 +74,7 @@ const TransectionsSection = () => {
         showFilters={false}
         className='mb-8'
         text='Show all'
-        url='/overview'
+        url='/overview/transactions'
         itemsPerPage={5}
       />
 
