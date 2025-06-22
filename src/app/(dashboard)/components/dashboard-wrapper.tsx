@@ -122,7 +122,7 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
                   href: "/profile",
                   icon: (
                     <div className='w-5 h-5 rounded-full  bg-transparent flex items-center justify-center'>
-                      <CircleUserRound className='w-5 h-5 text-white' />
+                      <CircleUserRound className='w-5 h-5' />
                     </div>
                   ),
                 }}
