@@ -30,37 +30,37 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
     {
       label: "Overview",
       href: "/overview",
-      icon: <MdDashboard className="h-5 w-5 flex-shrink-0" />,
+      icon: <MdDashboard className='h-5 w-5 flex-shrink-0' />,
     },
     {
       label: "Financial Plan",
       href: "/financial-plan",
-      icon: <PiRankingLight className="h-5 w-5 flex-shrink-0" />,
+      icon: <PiRankingLight className='h-5 w-5 flex-shrink-0' />,
     },
     {
       label: "Accounts",
       href: "/accounts",
-      icon: <MdAccountBalance className="h-5 w-5 flex-shrink-0" />,
+      icon: <MdAccountBalance className='h-5 w-5 flex-shrink-0' />,
     },
     {
       label: "Reports",
       href: "/reports",
-      icon: <HiOutlineDocumentText className="h-5 w-5 flex-shrink-0" />,
+      icon: <HiOutlineDocumentText className='h-5 w-5 flex-shrink-0' />,
     },
     {
       label: "HR Test",
       href: "/hr-test",
-      icon: <UserSquare2Icon className="h-5 w-5 flex-shrink-0" />,
+      icon: <UserSquare2Icon className='h-5 w-5 flex-shrink-0' />,
     },
     {
       label: "Chat AI",
       href: "/chat-ai",
-      icon: <BotMessageSquare className="h-5 w-5 flex-shrink-0" />,
+      icon: <BotMessageSquare className='h-5 w-5 flex-shrink-0' />,
     },
     {
       label: "Upgrade",
       href: "/upgrade",
-      icon: <CrownIcon className="h-5 w-5 flex-shrink-0" />,
+      icon: <CrownIcon className='h-5 w-5 flex-shrink-0' />,
     },
   ];
 
@@ -83,9 +83,9 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
             "dark:bg-dark-primary dark:bg-none"
           )}
         >
-          <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+          <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
             {open ? <Logo /> : <LogoIcon />}
-            <div className="mt-10 flex flex-col gap-2">
+            <div className='mt-10 flex flex-col gap-2'>
               {links.map((link, idx) => {
                 const isActive = pathname === link.href;
 
@@ -114,15 +114,15 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
               })}
             </div>
           </div>
-          <div className="border-t border-white/20 pt-4">
-            <div className="mb-4">
+          <div className='border-t border-white/20 pt-4'>
+            <div className='mb-4'>
               <SidebarLink
                 link={{
                   label: "Profile",
                   href: "/profile",
                   icon: (
-                    <div className="w-5 h-5 rounded-full  bg-transparent flex items-center justify-center">
-                      <CircleUserRound className="w-5 h-5 text-white" />
+                    <div className='w-5 h-5 rounded-full  bg-transparent flex items-center justify-center'>
+                      <CircleUserRound className='w-5 h-5 text-white' />
                     </div>
                   ),
                 }}
@@ -139,16 +139,16 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
                 // Add your logout logic here
                 console.log("Logout clicked");
               }}
-              className="w-full"
+              className='w-full'
             >
-              <div className="flex items-center gap-3 p-2 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200">
-                <LogOut className="h-5 w-5 flex-shrink-0" />
+              <div className='flex items-center gap-3 p-2 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200'>
+                <LogOut className='h-5 w-5 flex-shrink-0' />
                 <motion.span
                   animate={{
                     display: open ? "inline-block" : "none",
                     opacity: open ? 1 : 0,
                   }}
-                  className="text-sm whitespace-pre inline-block !p-0 !m-0"
+                  className='text-sm whitespace-pre inline-block !p-0 !m-0'
                 >
                   Log Out
                 </motion.span>
@@ -165,15 +165,15 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
 const Logo = () => {
   return (
     <Link
-      href="/overview"
-      className="font-normal flex space-x-3 items-center text-sm py-3 relative z-20 w-full"
+      href='/overview'
+      className='font-normal flex space-x-3 items-center text-sm py-3 relative z-20 w-full'
     >
       {/* Fixed container for image to prevent jumping */}
-      <div className="w-9 h-9 flex-shrink-0 flex items-center justify-center">
+      <div className='w-9 h-9 flex-shrink-0 flex items-center justify-center'>
         <Image
-          className="w-full h-full object-contain z-10"
-          alt="PrimeFlow Logo"
-          src="/logo1.png"
+          className='w-full h-full object-contain z-10'
+          alt='PrimeFlow Logo'
+          src='/logo1.png'
           width={36}
           height={36}
         />
@@ -182,7 +182,7 @@ const Logo = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.2 }}
-        className="font-semibold text-white whitespace-pre text-lg"
+        className='font-semibold text-white whitespace-pre text-lg'
       >
         PrimeFlow
       </motion.span>
@@ -193,15 +193,15 @@ const Logo = () => {
 const LogoIcon = () => {
   return (
     <Link
-      href="/overview"
-      className="font-normal flex space-x-2 items-center text-sm py-3 relative z-20 w-full justify-center"
+      href='/overview'
+      className='font-normal flex space-x-2 items-center text-sm py-3 relative z-20 w-full justify-center'
     >
       {/* Fixed container for image to prevent jumping */}
-      <div className="w-9 h-9 flex-shrink-0 flex items-center justify-center">
+      <div className='w-9 h-9 flex-shrink-0 flex items-center justify-center'>
         <Image
-          className="w-full h-full object-contain"
-          alt="PrimeFlow Logo"
-          src="/logo1.png"
+          className='w-full h-full object-contain'
+          alt='PrimeFlow Logo'
+          src='/logo1.png'
           width={36}
           height={36}
         />
@@ -212,7 +212,7 @@ const LogoIcon = () => {
           opacity: 1,
         }}
         transition={{ duration: 0.2 }}
-        className="font-medium text-lg bg-clip-text text-transparent dark:text-white whitespace-pre overflow-hidden"
+        className='font-medium text-lg bg-clip-text text-transparent dark:text-white whitespace-pre overflow-hidden'
       >
         PrimeFlow
       </motion.span>
@@ -222,8 +222,8 @@ const LogoIcon = () => {
 
 const Dashboard = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex flex-1 bg-card min-h-0">
-      <div className="p-0 rounded-tl-2xl bg-white dark:bg-background flex flex-col gap-2 flex-1 w-full overflow-y-auto overflow-x-hidden">
+    <div className='flex flex-1 bg-card min-h-0'>
+      <div className='p-0 rounded-tl-2xl bg-white dark:bg-background flex flex-col gap-2 flex-1 w-full overflow-y-auto overflow-x-hidden scrollbar-custom'>
         {children}
       </div>
     </div>

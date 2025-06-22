@@ -1,11 +1,6 @@
 // src\components\common\DynamicTable.tsx
 "use client";
-import {
-  PencilLine,
-  SearchIcon,
-  Trash2,
-  CalendarDays,
-} from "lucide-react";
+import { PencilLine, SearchIcon, Trash2, CalendarDays } from "lucide-react";
 import { PiSlidersHorizontal } from "react-icons/pi";
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
@@ -661,9 +656,9 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
       </div>
 
       {/* Table Container with Responsive Scroll */}
-      <div className='w-full overflow-x-auto'>
+      <div className='w-full overflow-x-auto scrollbar-custom'>
         <div className='min-w-[800px]'>
-          <Table>
+          <Table className=''>
             {/* Table Header */}
             <TableHeader className='bg-accent dark:bg-secondary'>
               <TableRow className='hover:bg-transparent border-b-0'>

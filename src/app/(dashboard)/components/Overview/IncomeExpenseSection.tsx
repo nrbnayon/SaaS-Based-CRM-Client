@@ -9,28 +9,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { SquarePlus } from "lucide-react";
 import React, { useState, useMemo } from "react";
 import { cn } from "@/lib/utils";
-import {
-  FinancialCardComponent} from "@/components/common/FinancialCardComponent";
-import { FinancialCard, TimePeriod, TransactionForm } from "@/types/allTypes";
+import { FinancialCardComponent } from "@/components/common/FinancialCardComponent";
+import { FinancialCard, TimePeriod, Transaction } from "@/types/allTypes";
 import { chartDataSets } from "@/data/chartDataSets";
 import { generateMockData } from "@/data/generateMockData";
 import { DynamicEditModal } from "@/components/common/DynamicEditModal";
-
 
 const financialCards: FinancialCard[] = [
   {
@@ -77,7 +63,6 @@ const financialCards: FinancialCard[] = [
   },
 ];
 
-
 export const IncomeExpenseSection: React.FC = () => {
   const [selectedPeriods, setSelectedPeriods] = useState<
     Record<string, TimePeriod>
@@ -90,22 +75,68 @@ export const IncomeExpenseSection: React.FC = () => {
 
   const [isIncomeDialogOpen, setIsIncomeDialogOpen] = useState(false);
   const [isExpenseDialogOpen, setIsExpenseDialogOpen] = useState(false);
+  const [newIncomeTransaction, setNewIncomeTransaction] =
+    useState<Transaction | null>(null);
+  const [newExpenseTransaction, setNewExpenseTransaction] =
+    useState<Transaction | null>(null);
 
-  const handleModalClose = () => {
+  const handleIncomeModalClose = () => {
     setIsIncomeDialogOpen(false);
+    setNewIncomeTransaction(null);
   };
 
-  const [incomeForm, setIncomeForm] = useState<TransactionForm>({
-    amount: "",
-    description: "",
-    category: "salary",
-  });
+  const handleExpenseModalClose = () => {
+    setIsExpenseDialogOpen(false);
+    setNewExpenseTransaction(null);
+  };
 
-  const [expenseForm, setExpenseForm] = useState<TransactionForm>({
-    amount: "",
-    description: "",
-    category: "food",
-  });
+  const handleIncomeModalSave = (updatedTransaction: Transaction) => {
+    console.log("Income submitted:", updatedTransaction);
+    // Add your API call here to save the income
+    setIsIncomeDialogOpen(false);
+    setNewIncomeTransaction(null);
+  };
+
+  const handleExpenseModalSave = (updatedTransaction: Transaction) => {
+    console.log("Expense submitted:", updatedTransaction);
+    // Add your API call here to save the expense
+    setIsExpenseDialogOpen(false);
+    setNewExpenseTransaction(null);
+  };
+
+  const handleIncomeButtonClick = () => {
+    const newTransaction: Transaction = {
+      id: `income_${Date.now()}`,
+      category: "",
+      name: "",
+      details: "",
+      amount: "",
+      transaction: "",
+      account: "Income",
+      date: new Date().toISOString().split("T")[0],
+      contact: "",
+      notes: "",
+    };
+    setNewIncomeTransaction(newTransaction);
+    setIsIncomeDialogOpen(true);
+  };
+
+  const handleExpenseButtonClick = () => {
+    const newTransaction: Transaction = {
+      id: `expense_${Date.now()}`,
+      category: "",
+      name: "",
+      details: "",
+      amount: "",
+      transaction: "",
+      account: "Expense",
+      date: new Date().toISOString().split("T")[0],
+      contact: "",
+      notes: "",
+    };
+    setNewExpenseTransaction(newTransaction);
+    setIsExpenseDialogOpen(true);
+  };
 
   // Calculate chart dimensions and data
   const chartData = useMemo(() => {
@@ -132,25 +163,9 @@ export const IncomeExpenseSection: React.FC = () => {
     setSelectedPeriods((prev) => ({ ...prev, [cardId]: period }));
   };
 
-  const handleIncomeSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would typically call an API to save the income
-    console.log("Income submitted:", incomeForm);
-    setIncomeForm({ amount: "", description: "", category: "salary" });
-    setIsIncomeDialogOpen(false);
-  };
-
-  const handleExpenseSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would typically call an API to save the expense
-    console.log("Expense submitted:", expenseForm);
-    setExpenseForm({ amount: "", description: "", category: "food" });
-    setIsExpenseDialogOpen(false);
-  };
-
   return (
     <div className='flex w-full justify-between items-center  gap-6 flex-col xl:flex-row'>
-      <div className='flex flex-col justify-between items-center gap-6 flex-1 w-full md:w-1/2'>
+      <div className='flex flex-col justify-between items-center gap-6 flex-1 w-full xl:w-1/2'>
         {/* First Row - Expense and Income */}
         <div className='flex items-center gap-6 w-full flex-col sm:flex-row'>
           {financialCards.slice(0, 2).map((card) => (
@@ -186,231 +201,34 @@ export const IncomeExpenseSection: React.FC = () => {
             </CardHeader>
 
             <CardContent className='flex items-center gap-3 p-2 flex-1 w-full'>
-              <Dialog
-                open={isIncomeDialogOpen}
-                onOpenChange={setIsIncomeDialogOpen}
+              <Button
+                variant='default'
+                className='flex items-center justify-center gap-2 px-4 py-3 flex-1 bg-white hover:bg-gray-50 rounded-xl border border-gray-200'
+                onClick={handleIncomeButtonClick}
               >
-                <DialogTrigger asChild>
-                  <Button
-                    variant='default'
-                    className='flex items-center justify-center gap-2 px-4 py-3 flex-1 bg-white hover:bg-gray-50 rounded-xl border border-gray-200'
-                  >
-                    <SquarePlus className='text-[#34C724] h-4 w-4' />
-                    <span className='font-semibold text-[#34C724] text-base'>
-                      Income
-                    </span>
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className='sm:max-w-[425px]'>
-                  <DialogHeader>
-                    <DialogTitle>Add Income</DialogTitle>
-                    <DialogDescription>
-                      Add a new income entry to track your earnings.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <form onSubmit={handleIncomeSubmit}>
-                    <div className='grid gap-4 py-4'>
-                      <div className='grid grid-cols-4 items-center gap-4'>
-                        <Label htmlFor='income-amount' className='text-right'>
-                          Amount
-                        </Label>
-                        <Input
-                          id='income-amount'
-                          type='number'
-                          step='0.01'
-                          placeholder='0.00'
-                          className='col-span-3'
-                          value={incomeForm.amount}
-                          onChange={(e) =>
-                            setIncomeForm((prev) => ({
-                              ...prev,
-                              amount: e.target.value,
-                            }))
-                          }
-                          required
-                        />
-                      </div>
-                      <div className='grid grid-cols-4 items-center gap-4'>
-                        <Label htmlFor='income-category' className='text-right'>
-                          Category
-                        </Label>
-                        <Select
-                          value={incomeForm.category}
-                          onValueChange={(value) =>
-                            setIncomeForm((prev) => ({
-                              ...prev,
-                              category: value,
-                            }))
-                          }
-                        >
-                          <SelectTrigger className='col-span-3'>
-                            <SelectValue placeholder='Select category' />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value='salary'>Salary</SelectItem>
-                            <SelectItem value='freelance'>Freelance</SelectItem>
-                            <SelectItem value='investment'>
-                              Investment
-                            </SelectItem>
-                            <SelectItem value='business'>Business</SelectItem>
-                            <SelectItem value='other'>Other</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className='grid grid-cols-4 items-center gap-4'>
-                        <Label
-                          htmlFor='income-description'
-                          className='text-right'
-                        >
-                          Description
-                        </Label>
-                        <Textarea
-                          id='income-description'
-                          placeholder='Enter description...'
-                          className='col-span-3'
-                          value={incomeForm.description}
-                          onChange={(e) =>
-                            setIncomeForm((prev) => ({
-                              ...prev,
-                              description: e.target.value,
-                            }))
-                          }
-                        />
-                      </div>
-                    </div>
-                    <DialogFooter>
-                      <Button
-                        type='submit'
-                        className='bg-success hover:bg-success/90'
-                      >
-                        Add Income
-                      </Button>
-                    </DialogFooter>
-                  </form>
-                </DialogContent>
-              </Dialog>
+                <SquarePlus className='text-[#34C724] h-4 w-4' />
+                <span className='font-semibold text-[#34C724] text-base'>
+                  Income
+                </span>
+              </Button>
 
-              <Dialog
-                open={isExpenseDialogOpen}
-                onOpenChange={setIsExpenseDialogOpen}
+              <Button
+                variant='default'
+                className='flex items-center justify-center gap-2 px-4 py-3 flex-1 bg-white hover:bg-gray-50 rounded-xl border border-gray-200'
+                onClick={handleExpenseButtonClick}
               >
-                <DialogTrigger asChild>
-                  <Button
-                    variant='default'
-                    className='flex items-center justify-center gap-2 px-4 py-3 flex-1 bg-white hover:bg-gray-50 rounded-xl border border-gray-200'
-                  >
-                    <SquarePlus className='text-error h-4 w-4' />
-                    <span className='font-semibold text-error text-base'>
-                      Expense
-                    </span>
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className='sm:max-w-[425px]'>
-                  <DialogHeader>
-                    <DialogTitle>Add Expense</DialogTitle>
-                    <DialogDescription>
-                      Add a new expense entry to track your spending.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <form onSubmit={handleExpenseSubmit}>
-                    <div className='grid gap-4 py-4'>
-                      <div className='grid grid-cols-4 items-center gap-4'>
-                        <Label htmlFor='expense-amount' className='text-right'>
-                          Amount
-                        </Label>
-                        <Input
-                          id='expense-amount'
-                          type='number'
-                          step='0.01'
-                          placeholder='0.00'
-                          className='col-span-3'
-                          value={expenseForm.amount}
-                          onChange={(e) =>
-                            setExpenseForm((prev) => ({
-                              ...prev,
-                              amount: e.target.value,
-                            }))
-                          }
-                          required
-                        />
-                      </div>
-                      <div className='grid grid-cols-4 items-center gap-4'>
-                        <Label
-                          htmlFor='expense-category'
-                          className='text-right'
-                        >
-                          Category
-                        </Label>
-                        <Select
-                          value={expenseForm.category}
-                          onValueChange={(value) =>
-                            setExpenseForm((prev) => ({
-                              ...prev,
-                              category: value,
-                            }))
-                          }
-                        >
-                          <SelectTrigger className='col-span-3'>
-                            <SelectValue placeholder='Select category' />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value='food'>Food & Dining</SelectItem>
-                            <SelectItem value='transportation'>
-                              Transportation
-                            </SelectItem>
-                            <SelectItem value='shopping'>Shopping</SelectItem>
-                            <SelectItem value='entertainment'>
-                              Entertainment
-                            </SelectItem>
-                            <SelectItem value='bills'>
-                              Bills & Utilities
-                            </SelectItem>
-                            <SelectItem value='healthcare'>
-                              Healthcare
-                            </SelectItem>
-                            <SelectItem value='other'>Other</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className='grid grid-cols-4 items-center gap-4'>
-                        <Label
-                          htmlFor='expense-description'
-                          className='text-right'
-                        >
-                          Description
-                        </Label>
-                        <Textarea
-                          id='expense-description'
-                          placeholder='Enter description...'
-                          className='col-span-3'
-                          value={expenseForm.description}
-                          onChange={(e) =>
-                            setExpenseForm((prev) => ({
-                              ...prev,
-                              description: e.target.value,
-                            }))
-                          }
-                        />
-                      </div>
-                    </div>
-                    <DialogFooter>
-                      <Button
-                        type='submit'
-                        className='bg-error hover:bg-error/90'
-                      >
-                        Add Expense
-                      </Button>
-                    </DialogFooter>
-                  </form>
-                </DialogContent>
-              </Dialog>
+                <SquarePlus className='text-error h-4 w-4' />
+                <span className='font-semibold text-error text-base'>
+                  Expense
+                </span>
+              </Button>
             </CardContent>
           </Card>
         </div>
       </div>
 
       {/* Analytics Card */}
-      <div className='w-full md:w-1/2'>
+      <div className='w-full xl:w-1/2'>
         <div
           className='p-[1px] rounded-[20px] dark:p-0'
           style={{
@@ -446,7 +264,7 @@ export const IncomeExpenseSection: React.FC = () => {
               </Select>
             </CardHeader>
 
-            <CardContent className='flex items-start justify-center overflow-x-auto md:overflow-hidden gap-4 px-2 py-0 h-full w-full flex-1'>
+            <CardContent className='flex items-start justify-center overflow-x-auto md:overflow-hidden scrollbar-custom gap-4 px-2 py-0 h-full w-full flex-1'>
               {/* Y-axis labels - Fixed positioning */}
               <div className='flex flex-col items-start justify-between h-full min-w-[40px] py-2'>
                 {(() => {
@@ -562,13 +380,25 @@ export const IncomeExpenseSection: React.FC = () => {
           </Card>
         </div>
       </div>
+
       <DynamicEditModal
         isOpen={isIncomeDialogOpen}
-        onClose={handleModalClose}
-        // transaction={selectedTransaction}
-        // onSave={handleModalSave}
-        title='Add Income'
-        description='Add your incom information below. All changes will be saved immediately.'
+        onClose={handleIncomeModalClose}
+        transaction={newIncomeTransaction}
+        onSave={handleIncomeModalSave}
+        title='Add Income Entry'
+        description='Add your income information below. All fields marked with * are required.'
+        modalType='income'
+      />
+
+      <DynamicEditModal
+        isOpen={isExpenseDialogOpen}
+        onClose={handleExpenseModalClose}
+        transaction={newExpenseTransaction}
+        onSave={handleExpenseModalSave}
+        title='Add Expense Entry'
+        description='Add your expense information below. All fields marked with * are required.'
+        modalType='expense'
       />
     </div>
   );

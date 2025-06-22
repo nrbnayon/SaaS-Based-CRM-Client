@@ -490,7 +490,7 @@ export const DynamicEditModal: React.FC<DynamicEditModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className='min-w-6xl max-h-[90vh] overflow-y-auto text-foreground border-border'>
+      <DialogContent className='min-w-full mx-auto lg:min-w-6xl max-h-[90vh] overflow-y-auto scrollbar-custom text-foreground border-border'>
         {/* Header with Account Badge */}
         <DialogHeader className='space-y-4 pb-6'>
           <div className='flex items-start justify-between'>
