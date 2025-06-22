@@ -12,8 +12,6 @@ import { FinancialCard, TimePeriod } from "@/types/allTypes";
 import { TrendingUp, TrendingDown, FileDown } from "lucide-react";
 import React from "react";
 
-
-
 interface FinancialCardProps {
   card: FinancialCard;
   selectedPeriod: TimePeriod;
@@ -83,7 +81,7 @@ export const FinancialCardComponent: React.FC<FinancialCardProps> = ({
       <CardContent className='flex flex-col items-start gap-1 w-full p-0 flex-1'>
         <div className='flex items-center gap-2 px-2 py-0 w-full'>
           <div className='font-bold text-foreground dark:text-white text-[32px] leading-[48px]'>
-            {formatCurrency(currentData.amount)}
+            {formatCurrency(currentData.amount ?? 0)}
           </div>
         </div>
 
@@ -92,12 +90,12 @@ export const FinancialCardComponent: React.FC<FinancialCardProps> = ({
             <div className='font-normal text-foreground dark:text-white text-sm leading-5'>
               {card.id === "expense" ? "Increased by" : "Increased by"}{" "}
               <span className={`font-semibold ${card.accentColor}`}>
-                {currentData.increasePercent}%
+                {currentData.increasePercent ?? 0}%
               </span>{" "}
               <p className='flex gap-1 items-center'>
                 last
                 <span className={`font-semibold ${card.accentColor}`}>
-                  {currentData.timePeriod}
+                  {currentData.timePeriod ?? selectedPeriod}
                 </span>
               </p>
             </div>
@@ -110,7 +108,7 @@ export const FinancialCardComponent: React.FC<FinancialCardProps> = ({
               <div
                 className={`${trendColorClass} font-semibold text-sm leading-[21px]`}
               >
-                {Math.abs(currentData.trendPercent)}%
+                {Math.abs(currentData.trendPercent ?? 0)}%
               </div>
             )}
           </div>
