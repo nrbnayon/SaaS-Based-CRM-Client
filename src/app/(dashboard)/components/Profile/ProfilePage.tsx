@@ -6,6 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Edit, Lock, MoveUpRight } from "lucide-react";
+import { Dialog } from "@radix-ui/react-dialog";
+import {
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function ProfilePage() {
   // Profile data array
@@ -18,6 +27,14 @@ export default function ProfilePage() {
     linkedin: "linkedin.com/in/polash",
     website: "polashportfolio.com",
   });
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const handleDeleteCancel = () => {
+    setIsDialogOpen(false);
+  };
+  const handleDeleteConfirm = () => {
+    console.log("account deleted");
+  };
 
   // Edit states
   const [isEditingName, setIsEditingName] = useState(false);
@@ -88,15 +105,7 @@ export default function ProfilePage() {
 
   // Handle delete account
   const handleDeleteAccount = () => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete your account? This action cannot be undone."
-    );
-    if (confirmed) {
-      alert(
-        "Account deletion request submitted. Please check your email for further instructions."
-      );
-      // You can implement the actual deletion logic here
-    }
+    setIsDialogOpen(true);
   };
 
   // Get initials for avatar fallback
@@ -261,12 +270,36 @@ export default function ProfilePage() {
               to process the deletion of your account.
             </p>
           </div>
-          <Button
-            onClick={handleDeleteAccount}
-            className="bg-error  hover:bg-error/90 cursor-pointer text-white px-2"
-          >
-            Apply Delete
-          </Button>
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogTrigger asChild>
+              <Button
+                onClick={handleDeleteAccount}
+                className="bg-error  hover:bg-error/90 cursor-pointer text-white px-2"
+              >
+                Apply Delete
+              </Button>
+            </DialogTrigger>
+
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>
+                  Are you sure you want to{" "}
+                  <span className="text-error">Delete</span> your account?
+                </DialogTitle>
+                <DialogDescription>
+                  Inter your current password you used login with
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <Button variant="outline" onClick={handleDeleteCancel}>
+                  Cancel
+                </Button>
+                <Button variant="destructive" onClick={handleDeleteConfirm}>
+                  Yes Delete
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </div>
