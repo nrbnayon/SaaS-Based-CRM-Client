@@ -122,12 +122,12 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
                   href: "/profile",
                   icon: (
                     <div className='w-5 h-5 rounded-full  bg-transparent flex items-center justify-center'>
-                      <CircleUserRound className='w-5 h-5 text-white' />
+                      <CircleUserRound className='w-5 h-5' />
                     </div>
                   ),
                 }}
                 className={cn(
-                  "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200",
+                  "flex items-center gap-3 px-2 py-2.5 rounded-lg transition-all duration-200",
                   pathname === "/profile"
                     ? "bg-white dark:bg-white text-slate-800 dark:text-slate-900 shadow-lg"
                     : "text-white/80 hover:text-white hover:bg-white/10"
@@ -136,7 +136,7 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
             </div>
             <button
               onClick={() => {
-                // Add your logout logic here
+                // Add your logout logic
                 console.log("Logout clicked");
               }}
               className='w-full'
