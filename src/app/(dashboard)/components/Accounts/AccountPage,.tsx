@@ -11,12 +11,12 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { cn } from "@/lib/utils";
-import {   Plus, Search} from "lucide-react";
+import {   BookImage,  Plus, Search} from "lucide-react";
 // import img from "next/img";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 // Client data array
-const clientsData = [
+const initialClientsData = [
   { name: "Starbucks", id: "CL-1001", phone: "541515695", avatar: "https://logo.clearbit.com/starbucks.com" },
   { name: "General Electric", id: "CL-1002", phone: "541515696", avatar: "https://logo.clearbit.com/ge.com" },
   { name: "Pizza Hut", id: "CL-1003", phone: "541515697", avatar: "https://logo.clearbit.com/pizzahut.com" },
@@ -38,6 +38,8 @@ export const AccountPage = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("Income");
+  const [clientsData, setClientsData] = useState(initialClientsData);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Filter clients based on search term
   const filteredClients = clientsData.filter(client =>
@@ -53,12 +55,14 @@ export const AccountPage = () => {
       transactionsSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
   const [formData, setFormData] = useState({
-    clientName: "",
-    companyId: "",
-    contact: "",
+    name: "",
+    id: "",
+    phone: "",
     email: "",
     address: "",
+    avatar: ""
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -66,6 +70,72 @@ export const AccountPage = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  // Handle image upload
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const imageUrl = event.target?.result as string;
+        setFormData({
+          ...formData,
+          avatar: imageUrl
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  // Handle BookImage icon click
+  const handleBookImageClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  // Generate unique client ID
+  const generateClientId = () => {
+    const existingIds = clientsData.map(client => 
+      parseInt(client.id.replace('CL-', ''))
+    );
+    const maxId = Math.max(...existingIds);
+    return `CL-${(maxId + 1).toString().padStart(4, '0')}`;
+  };
+
+  // Handle save client
+  const handleSaveClient = () => {
+    // Validate required fields
+    if (!formData.name || !formData.phone) {
+      console.log('Please fill in at least the client name and phone number.');
+      return;
+    }
+
+    // Create new client object
+    const newClient = {
+      name: formData.name,
+      id: formData.id || generateClientId(),
+      phone: formData.phone,
+      avatar: formData.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(formData.name)}&background=random`
+    };
+
+    // Add to clients data
+    setClientsData(prevClients => [...prevClients, newClient]);
+
+    // Reset form
+    setFormData({
+      name: "",
+      id: "",
+      phone: "",
+      email: "",
+      address: "",
+      avatar: ""
+    });
+
+    // Close dialog
+    setIsDialogOpen(false);
+
+    // Show success message
+    console.log('Client saved successfully!');
   };
 
   return (
@@ -173,22 +243,36 @@ export const AccountPage = () => {
                       </div>
                     </div>
 
+                    {/* Hidden file input */}
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={handleImageUpload}
+                      accept="image/*"
+                      style={{ display: 'none' }}
+                    />
+
                     {/* Client Name */}
                     <div className="mb-4">
                       <label className="block text-sm font-medium mb-1">Client Name</label>
-                      <div className="relative">
-                        <select
-                          name="clientName"
-                          value={formData.clientName}
+                      <div className="flex gap-3">
+                        <input
+                          type="text"
+                          name="name"
+                          value={formData.name}
                           onChange={handleChange}
+                          placeholder="Enter client name"
                           className="w-full p-2 pr-10 border rounded-xl text-sm"
+                        />
+                        <div 
+                          className="border-2 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors"
+                          onClick={handleBookImageClick}
                         >
-                          <option value="">Select a source</option>
-                          <option value="Client A">Client A</option>
-                          <option value="Client B">Client B</option>
-                        </select>
-                        
+                          <BookImage className="m-2 text-gray-400" />
+                        </div>
                       </div>
+                      {/* Show preview of uploaded image */}
+                      
                     </div>
 
                     {/* Company ID */}
@@ -196,10 +280,10 @@ export const AccountPage = () => {
                       <label className="block text-sm font-medium mb-1">Company ID</label>
                       <input
                         type="text"
-                        name="companyId"
-                        value={formData.companyId}
+                        name="id"
+                        value={formData.id}
                         onChange={handleChange}
-                        placeholder="sdrgergh"
+                        placeholder="Enter company ID (optional - will auto-generate)"
                         className="w-full p-2 border rounded-xl text-sm"
                       />
                     </div>
@@ -209,10 +293,10 @@ export const AccountPage = () => {
                       <label className="block text-sm font-medium mb-1">Contact</label>
                       <input
                         type="text"
-                        name="contact"
-                        value={formData.contact}
+                        name="phone"
+                        value={formData.phone}
                         onChange={handleChange}
-                        placeholder="0024654584"
+                        placeholder="Enter phone number"
                         className="w-full p-2 border rounded-xl text-sm"
                       />
                     </div>
@@ -225,7 +309,7 @@ export const AccountPage = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="asdfgh@gmail.com"
+                        placeholder="Enter email address"
                         className="w-full p-2 border rounded-xl text-sm"
                       />
                     </div>
@@ -238,14 +322,17 @@ export const AccountPage = () => {
                         name="address"
                         value={formData.address}
                         onChange={handleChange}
-                        placeholder="Enter client or company name"
+                        placeholder="Enter client address"
                         className="w-full p-2 border rounded-xl text-sm"
                       />
                     </div>
 
                     {/* Save Button */}
                     <div className="mt-6">
-                      <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl">
+                      <Button 
+                        onClick={handleSaveClient}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl"
+                      >
                         Save Client
                       </Button>
                     </div>
