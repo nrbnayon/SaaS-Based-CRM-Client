@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { Edit, ExternalLink, Lock, MoveUpRight } from "lucide-react";
+import { Edit, Lock, MoveUpRight } from "lucide-react";
 
 export const ProfilePage = () => {
   return (
@@ -111,35 +111,35 @@ export const ProfilePage = () => {
       <div className=" mb-6 bg-blue-50 dark:bg-card p-8 rounded-2xl border border-blue-100 dark:border-blue-950">
         <div className="flex  justify-between">
           <div className="flex flex-col items-start gap-3">
-            <div className="w-14 h-14 bg-gray-200 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-              <Lock className="w-6 h-6 text-gray-800" />
+            <div className="w-14 h-14 bg-gray-200 dark:bg-[#323679] rounded-lg flex items-center justify-center">
+              <Lock className="w-6 h-6 text-gray-800 dark:text-white" />
             </div>
             <span className="text-xl lg:text-2xl font-semibold text-black dark:text-white">
               Change Password
             </span>
           </div>
-          <div className="w-7 h-7 border border-gray-400 bg-transparent rounded-full">
-            <MoveUpRight className="w-6 h-6 p-1 text-gray-400" />
+          <div className="w-7 h-7 border justify-center items-center cursor-pointer border-gray-400 bg-transparent rounded-full">
+            <MoveUpRight className="w-6 h-6 p-1 text-gray-400 m-auto" />
           </div>
         </div>
       </div>
 
       {/* Delete Account Section */}
-      <div className="bg-white rounded-lg p-6 border border-[#f54a45]">
+      <div className="bg-gray-100 rounded-lg p-6 border border-[#f54a45]">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-[#f54a45] font-medium text-lg mb-2">
+            <h3 className="text-error font-medium text-xl lg:text-2xl mb-2">
               Delete Account
             </h3>
-            <p className="text-[#505050] text-sm">
+            <p className="text-gray-500 text-sm md:text-base">
               Contact our{" "}
-              <span className="text-[#148cff] underline cursor-pointer">
+              <span className="text-secondary underline cursor-pointer">
                 support team
               </span>{" "}
               to process the deletion of your account.
             </p>
           </div>
-          <Button className="bg-[#f54a45] hover:bg-[#f54a45]/90 text-white px-6">
+          <Button className="bg-error hover:bg-error/90 text-white px-2">
             Apply Delete
           </Button>
         </div>
