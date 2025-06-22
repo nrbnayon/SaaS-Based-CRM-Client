@@ -556,7 +556,7 @@ export const AccountPage = () => {
                 </div>
               </CardHeader>
 
-              <CardContent className='space-y-1 md:space-y-4 max-h-[500px] overflow-y-auto scrollbar-custom'>
+              <CardContent className='space-y-1 md:space-y-4 md:max-h-[660px] overflow-y-auto scrollbar-custom'>
                 {filteredClients.map((client, index) => (
                   <ClientItem
                     key={index}

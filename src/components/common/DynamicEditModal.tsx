@@ -1,6 +1,5 @@
 // src/components/common/DynamicEditModal.tsx
 "use client";
-
 import type React from "react";
 import { useState, useEffect } from "react";
 import { X, Save } from "lucide-react";
@@ -52,7 +51,7 @@ interface FormFieldConfig {
 interface DynamicEditModalProps {
   isOpen: boolean;
   onClose: () => void;
-  transaction: Transaction | null;
+  transaction?: Transaction | null;
   onSave: (updatedTransaction: Transaction) => void;
   title?: string;
   description?: string;
@@ -151,8 +150,7 @@ const getDefaultFieldConfigs = (modalType = "income"): FormFieldConfig[] => {
       key: "notes",
       label: "Notes",
       type: "textarea",
-      placeholder:
-        "It's important to include a detailed note that captures the reasons behind the issuance of this bill. This note should serve as a reminder for you in the future, outlining the specific circumstances that led to this charge. Consider mentioning any relevant dates, services rendered, or agreements made that justify the bill. By doing so, you will have a clear reference point that can help clarify any questions or concerns that may arise later regarding this financial obligation.",
+      placeholder: "Enter your notes",
       gridCol: "full",
       section: "notes",
     },
@@ -333,7 +331,7 @@ export const DynamicEditModal: React.FC<DynamicEditModalProps> = ({
               onChange={(e) => handleInputChange(config.key, e.target.value)}
               placeholder={config.placeholder}
               className={cn(
-                "min-h-[120px] resize-none bg-gray-50 border-gray-200 text-foreground placeholder:text-muted-custom",
+                "h-28 md:h-40 resize-y bg-gray-50 border-gray-200 text-foreground placeholder:text-muted-custom",
                 "focus:border-blue-500 focus:ring-blue-500/20",
                 hasError && "border-red-500 focus:border-red-500"
               )}
@@ -630,8 +628,7 @@ export const DynamicEditModal: React.FC<DynamicEditModalProps> = ({
               key: "notes",
               label: "Notes",
               type: "textarea",
-              placeholder:
-                "It's important to include a detailed note that captures the reasons behind the issuance of this bill. This note should serve as a reminder for you in the future, outlining the specific circumstances that led to this charge. Consider mentioning any relevant dates, services rendered, or agreements made that justify the bill. By doing so, you will have a clear reference point that can help clarify any questions or concerns that may arise later regarding this financial obligation.",
+              placeholder: "Enter your notes",
             })}
           </div>
         </div>

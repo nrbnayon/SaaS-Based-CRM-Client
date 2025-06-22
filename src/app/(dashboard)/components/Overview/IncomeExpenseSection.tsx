@@ -29,6 +29,7 @@ import {
 import { FinancialCard, TimePeriod, TransactionForm } from "@/types/allTypes";
 import { chartDataSets } from "@/data/chartDataSets";
 import { generateMockData } from "@/data/generateMockData";
+import { DynamicEditModal } from "@/components/common/DynamicEditModal";
 
 
 const financialCards: FinancialCard[] = [
@@ -90,6 +91,10 @@ export const IncomeExpenseSection: React.FC = () => {
   const [isIncomeDialogOpen, setIsIncomeDialogOpen] = useState(false);
   const [isExpenseDialogOpen, setIsExpenseDialogOpen] = useState(false);
 
+  const handleModalClose = () => {
+    setIsIncomeDialogOpen(false);
+  };
+
   const [incomeForm, setIncomeForm] = useState<TransactionForm>({
     amount: "",
     description: "",
@@ -144,10 +149,10 @@ export const IncomeExpenseSection: React.FC = () => {
   };
 
   return (
-    <div className="flex w-full justify-between items-center  gap-6 flex-col xl:flex-row">
-      <div className="flex flex-col justify-between items-center gap-6 flex-1 w-full md:w-1/2">
+    <div className='flex w-full justify-between items-center  gap-6 flex-col xl:flex-row'>
+      <div className='flex flex-col justify-between items-center gap-6 flex-1 w-full md:w-1/2'>
         {/* First Row - Expense and Income */}
-        <div className="flex items-center gap-6 w-full flex-col sm:flex-row">
+        <div className='flex items-center gap-6 w-full flex-col sm:flex-row'>
           {financialCards.slice(0, 2).map((card) => (
             <FinancialCardComponent
               key={card.id}
@@ -160,7 +165,7 @@ export const IncomeExpenseSection: React.FC = () => {
         </div>
 
         {/* Second Row - Savings and Add Accounts */}
-        <div className="flex items-center gap-6 w-full flex-col sm:flex-row">
+        <div className='flex items-center gap-6 w-full flex-col sm:flex-row'>
           <FinancialCardComponent
             key={financialCards[2].id}
             card={financialCards[2]}
@@ -170,33 +175,33 @@ export const IncomeExpenseSection: React.FC = () => {
           />
 
           {/* Add Accounts Card */}
-          <Card className="w-full flex flex-col bg-secondary dark:bg-background items-center gap-6 pt-2 border-none dark:border-t-8 pb-4 px-2 flex-1 rounded-[20px] dark:border-white min-h-[180px]">
-            <CardHeader className="flex-col items-start px-2 justify-start gap-1 py-1 w-full">
-              <CardTitle className="font-medium text-foreground dark:text-white text-base leading-5">
+          <Card className='w-full flex flex-col bg-secondary dark:bg-background items-center gap-6 pt-2 border-none dark:border-t-8 pb-4 px-2 flex-1 rounded-[20px] dark:border-white min-h-[180px]'>
+            <CardHeader className='flex-col items-start px-2 justify-start gap-1 py-1 w-full'>
+              <CardTitle className='font-medium text-foreground dark:text-white text-base leading-5'>
                 Add Accounts
               </CardTitle>
-              <p className="font-normal text-muted-foreground text-xs leading-4">
+              <p className='font-normal text-muted-foreground text-xs leading-4'>
                 You can add your daily income and expense
               </p>
             </CardHeader>
 
-            <CardContent className="flex items-center gap-3 p-2 flex-1 w-full">
+            <CardContent className='flex items-center gap-3 p-2 flex-1 w-full'>
               <Dialog
                 open={isIncomeDialogOpen}
                 onOpenChange={setIsIncomeDialogOpen}
               >
                 <DialogTrigger asChild>
                   <Button
-                    variant="default"
-                    className="flex items-center justify-center gap-2 px-4 py-3 flex-1 bg-white hover:bg-gray-50 rounded-xl border border-gray-200"
+                    variant='default'
+                    className='flex items-center justify-center gap-2 px-4 py-3 flex-1 bg-white hover:bg-gray-50 rounded-xl border border-gray-200'
                   >
-                    <SquarePlus className="text-[#34C724] h-4 w-4" />
-                    <span className="font-semibold text-[#34C724] text-base">
+                    <SquarePlus className='text-[#34C724] h-4 w-4' />
+                    <span className='font-semibold text-[#34C724] text-base'>
                       Income
                     </span>
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
+                <DialogContent className='sm:max-w-[425px]'>
                   <DialogHeader>
                     <DialogTitle>Add Income</DialogTitle>
                     <DialogDescription>
@@ -204,17 +209,17 @@ export const IncomeExpenseSection: React.FC = () => {
                     </DialogDescription>
                   </DialogHeader>
                   <form onSubmit={handleIncomeSubmit}>
-                    <div className="grid gap-4 py-4">
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="income-amount" className="text-right">
+                    <div className='grid gap-4 py-4'>
+                      <div className='grid grid-cols-4 items-center gap-4'>
+                        <Label htmlFor='income-amount' className='text-right'>
                           Amount
                         </Label>
                         <Input
-                          id="income-amount"
-                          type="number"
-                          step="0.01"
-                          placeholder="0.00"
-                          className="col-span-3"
+                          id='income-amount'
+                          type='number'
+                          step='0.01'
+                          placeholder='0.00'
+                          className='col-span-3'
                           value={incomeForm.amount}
                           onChange={(e) =>
                             setIncomeForm((prev) => ({
@@ -225,8 +230,8 @@ export const IncomeExpenseSection: React.FC = () => {
                           required
                         />
                       </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="income-category" className="text-right">
+                      <div className='grid grid-cols-4 items-center gap-4'>
+                        <Label htmlFor='income-category' className='text-right'>
                           Category
                         </Label>
                         <Select
@@ -238,31 +243,31 @@ export const IncomeExpenseSection: React.FC = () => {
                             }))
                           }
                         >
-                          <SelectTrigger className="col-span-3">
-                            <SelectValue placeholder="Select category" />
+                          <SelectTrigger className='col-span-3'>
+                            <SelectValue placeholder='Select category' />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="salary">Salary</SelectItem>
-                            <SelectItem value="freelance">Freelance</SelectItem>
-                            <SelectItem value="investment">
+                            <SelectItem value='salary'>Salary</SelectItem>
+                            <SelectItem value='freelance'>Freelance</SelectItem>
+                            <SelectItem value='investment'>
                               Investment
                             </SelectItem>
-                            <SelectItem value="business">Business</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
+                            <SelectItem value='business'>Business</SelectItem>
+                            <SelectItem value='other'>Other</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
+                      <div className='grid grid-cols-4 items-center gap-4'>
                         <Label
-                          htmlFor="income-description"
-                          className="text-right"
+                          htmlFor='income-description'
+                          className='text-right'
                         >
                           Description
                         </Label>
                         <Textarea
-                          id="income-description"
-                          placeholder="Enter description..."
-                          className="col-span-3"
+                          id='income-description'
+                          placeholder='Enter description...'
+                          className='col-span-3'
                           value={incomeForm.description}
                           onChange={(e) =>
                             setIncomeForm((prev) => ({
@@ -275,8 +280,8 @@ export const IncomeExpenseSection: React.FC = () => {
                     </div>
                     <DialogFooter>
                       <Button
-                        type="submit"
-                        className="bg-success hover:bg-success/90"
+                        type='submit'
+                        className='bg-success hover:bg-success/90'
                       >
                         Add Income
                       </Button>
@@ -291,16 +296,16 @@ export const IncomeExpenseSection: React.FC = () => {
               >
                 <DialogTrigger asChild>
                   <Button
-                    variant="default"
-                    className="flex items-center justify-center gap-2 px-4 py-3 flex-1 bg-white hover:bg-gray-50 rounded-xl border border-gray-200"
+                    variant='default'
+                    className='flex items-center justify-center gap-2 px-4 py-3 flex-1 bg-white hover:bg-gray-50 rounded-xl border border-gray-200'
                   >
-                    <SquarePlus className="text-error h-4 w-4" />
-                    <span className="font-semibold text-error text-base">
+                    <SquarePlus className='text-error h-4 w-4' />
+                    <span className='font-semibold text-error text-base'>
                       Expense
                     </span>
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
+                <DialogContent className='sm:max-w-[425px]'>
                   <DialogHeader>
                     <DialogTitle>Add Expense</DialogTitle>
                     <DialogDescription>
@@ -308,17 +313,17 @@ export const IncomeExpenseSection: React.FC = () => {
                     </DialogDescription>
                   </DialogHeader>
                   <form onSubmit={handleExpenseSubmit}>
-                    <div className="grid gap-4 py-4">
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor="expense-amount" className="text-right">
+                    <div className='grid gap-4 py-4'>
+                      <div className='grid grid-cols-4 items-center gap-4'>
+                        <Label htmlFor='expense-amount' className='text-right'>
                           Amount
                         </Label>
                         <Input
-                          id="expense-amount"
-                          type="number"
-                          step="0.01"
-                          placeholder="0.00"
-                          className="col-span-3"
+                          id='expense-amount'
+                          type='number'
+                          step='0.01'
+                          placeholder='0.00'
+                          className='col-span-3'
                           value={expenseForm.amount}
                           onChange={(e) =>
                             setExpenseForm((prev) => ({
@@ -329,10 +334,10 @@ export const IncomeExpenseSection: React.FC = () => {
                           required
                         />
                       </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
+                      <div className='grid grid-cols-4 items-center gap-4'>
                         <Label
-                          htmlFor="expense-category"
-                          className="text-right"
+                          htmlFor='expense-category'
+                          className='text-right'
                         >
                           Category
                         </Label>
@@ -345,39 +350,39 @@ export const IncomeExpenseSection: React.FC = () => {
                             }))
                           }
                         >
-                          <SelectTrigger className="col-span-3">
-                            <SelectValue placeholder="Select category" />
+                          <SelectTrigger className='col-span-3'>
+                            <SelectValue placeholder='Select category' />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="food">Food & Dining</SelectItem>
-                            <SelectItem value="transportation">
+                            <SelectItem value='food'>Food & Dining</SelectItem>
+                            <SelectItem value='transportation'>
                               Transportation
                             </SelectItem>
-                            <SelectItem value="shopping">Shopping</SelectItem>
-                            <SelectItem value="entertainment">
+                            <SelectItem value='shopping'>Shopping</SelectItem>
+                            <SelectItem value='entertainment'>
                               Entertainment
                             </SelectItem>
-                            <SelectItem value="bills">
+                            <SelectItem value='bills'>
                               Bills & Utilities
                             </SelectItem>
-                            <SelectItem value="healthcare">
+                            <SelectItem value='healthcare'>
                               Healthcare
                             </SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
+                            <SelectItem value='other'>Other</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
-                      <div className="grid grid-cols-4 items-center gap-4">
+                      <div className='grid grid-cols-4 items-center gap-4'>
                         <Label
-                          htmlFor="expense-description"
-                          className="text-right"
+                          htmlFor='expense-description'
+                          className='text-right'
                         >
                           Description
                         </Label>
                         <Textarea
-                          id="expense-description"
-                          placeholder="Enter description..."
-                          className="col-span-3"
+                          id='expense-description'
+                          placeholder='Enter description...'
+                          className='col-span-3'
                           value={expenseForm.description}
                           onChange={(e) =>
                             setExpenseForm((prev) => ({
@@ -390,8 +395,8 @@ export const IncomeExpenseSection: React.FC = () => {
                     </div>
                     <DialogFooter>
                       <Button
-                        type="submit"
-                        className="bg-error hover:bg-error/90"
+                        type='submit'
+                        className='bg-error hover:bg-error/90'
                       >
                         Add Expense
                       </Button>
@@ -405,9 +410,9 @@ export const IncomeExpenseSection: React.FC = () => {
       </div>
 
       {/* Analytics Card */}
-      <div className="w-full md:w-1/2">
+      <div className='w-full md:w-1/2'>
         <div
-          className="p-[1px] rounded-[20px] dark:p-0"
+          className='p-[1px] rounded-[20px] dark:p-0'
           style={{
             background:
               "radial-gradient(circle at center, #4787F5, #FFFFFF, #FF9233)",
@@ -418,8 +423,8 @@ export const IncomeExpenseSection: React.FC = () => {
               "flex flex-col h-96 justify-between items-start border-none shadow-none p-4 bg-[linear-gradient(45deg,var(--accent)_0%,white_50%,#FFF1E5_100%)] dark:bg-[linear-gradient(45deg,var(--dark-primary)_100%,var(--dark-primary)_100%,var(--dark-primary)_100%)] flex-1 rounded-[20px] w-full xl:w-auto min-w-2xs"
             )}
           >
-            <CardHeader className="flex flex-row items-center justify-between p-0 w-full">
-              <CardTitle className="inline-flex items-center justify-center gap-2 font-medium text-gray-800 dark:text-white text-base">
+            <CardHeader className='flex flex-row items-center justify-between p-0 w-full'>
+              <CardTitle className='inline-flex items-center justify-center gap-2 font-medium text-gray-800 dark:text-white text-base'>
                 Analytics
               </CardTitle>
               <Select
@@ -428,22 +433,22 @@ export const IncomeExpenseSection: React.FC = () => {
                   handlePeriodChange("analytics", value)
                 }
               >
-                <SelectTrigger className="inline-flex items-center text-muted-custom justify-center gap-1.5 px-3 py-2 h-auto bg-white/20 dark:bg-transparent rounded-lg border-[0.5px] border-solid border-gray-300 dark:border-[#505050]">
-                  <SelectValue className="font-normal dark:text-muted-foreground text-xs" />
+                <SelectTrigger className='inline-flex items-center text-muted-custom justify-center gap-1.5 px-3 py-2 h-auto bg-white/20 dark:bg-transparent rounded-lg border-[0.5px] border-solid border-gray-300 dark:border-[#505050]'>
+                  <SelectValue className='font-normal dark:text-muted-foreground text-xs' />
                   {/* <ChevronDownIcon className='h-4 w-4 text-muted-custom dark:text-muted-foreground' /> */}
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="daily">Daily</SelectItem>
-                  <SelectItem value="weekly">Weekly</SelectItem>
-                  <SelectItem value="monthly">Monthly</SelectItem>
-                  <SelectItem value="yearly">Yearly</SelectItem>
+                  <SelectItem value='daily'>Daily</SelectItem>
+                  <SelectItem value='weekly'>Weekly</SelectItem>
+                  <SelectItem value='monthly'>Monthly</SelectItem>
+                  <SelectItem value='yearly'>Yearly</SelectItem>
                 </SelectContent>
               </Select>
             </CardHeader>
 
-            <CardContent className="flex items-start justify-center overflow-x-auto md:overflow-hidden gap-4 px-2 py-0 h-full w-full flex-1">
+            <CardContent className='flex items-start justify-center overflow-x-auto md:overflow-hidden gap-4 px-2 py-0 h-full w-full flex-1'>
               {/* Y-axis labels - Fixed positioning */}
-              <div className="flex flex-col items-start justify-between h-full min-w-[40px] py-2">
+              <div className='flex flex-col items-start justify-between h-full min-w-[40px] py-2'>
                 {(() => {
                   const maxIncome = Math.max(...chartData.map((d) => d.income));
                   const maxExpense = Math.max(
@@ -460,13 +465,13 @@ export const IncomeExpenseSection: React.FC = () => {
 
                   return (
                     <>
-                      <div className="font-normal text-muted-custom dark:text-muted-foreground text-xs">
+                      <div className='font-normal text-muted-custom dark:text-muted-foreground text-xs'>
                         {formatValue(maxValue)}
                       </div>
-                      <div className="font-normal text-muted-custom dark:text-muted-foreground text-xs">
+                      <div className='font-normal text-muted-custom dark:text-muted-foreground text-xs'>
                         0
                       </div>
-                      <div className="font-normal text-muted-custom dark:text-muted-foreground text-xs">
+                      <div className='font-normal text-muted-custom dark:text-muted-foreground text-xs'>
                         {formatValue(maxValue)}
                       </div>
                     </>
@@ -474,9 +479,9 @@ export const IncomeExpenseSection: React.FC = () => {
                 })()}
               </div>
 
-              <div className="flex flex-col items-center gap-2 flex-1 py-2">
+              <div className='flex flex-col items-center gap-2 flex-1 py-2'>
                 {/* Income Chart (Top Half) */}
-                <div className="flex items-end justify-between w-full h-[120px]">
+                <div className='flex items-end justify-between w-full h-[120px]'>
                   {chartData.map((item, index) => {
                     const maxValue = Math.max(
                       ...chartData.map((d) => Math.max(d.income, d.expense))
@@ -509,11 +514,11 @@ export const IncomeExpenseSection: React.FC = () => {
                 </div>
 
                 {/* Center Labels */}
-                <div className="flex items-center justify-between w-full py-1">
+                <div className='flex items-center justify-between w-full py-1'>
                   {chartData.map((item, index) => (
                     <div
                       key={`label-${index}`}
-                      className="w-8 font-normal text-muted-custom dark:text-muted-foreground text-xs text-center"
+                      className='w-8 font-normal text-muted-custom dark:text-muted-foreground text-xs text-center'
                     >
                       {item.month}
                     </div>
@@ -521,7 +526,7 @@ export const IncomeExpenseSection: React.FC = () => {
                 </div>
 
                 {/* Expense Chart (Bottom Half) */}
-                <div className="flex items-start justify-between w-full h-[120px]">
+                <div className='flex items-start justify-between w-full h-[120px]'>
                   {chartData.map((item, index) => {
                     const maxValue = Math.max(
                       ...chartData.map((d) => Math.max(d.income, d.expense))
@@ -557,6 +562,14 @@ export const IncomeExpenseSection: React.FC = () => {
           </Card>
         </div>
       </div>
+      <DynamicEditModal
+        isOpen={isIncomeDialogOpen}
+        onClose={handleModalClose}
+        // transaction={selectedTransaction}
+        // onSave={handleModalSave}
+        title='Add Income'
+        description='Add your incom information below. All changes will be saved immediately.'
+      />
     </div>
   );
 };

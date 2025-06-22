@@ -15,10 +15,11 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Input } from "../ui/input";
-import { Calendar } from "lucide-react";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import { Transaction } from "@/types/allTypes";
+import { cn } from "@/lib/utils";
 
 // TransactionForm component that accepts a 'type' prop
 interface TransactionFormProps {
@@ -26,6 +27,8 @@ interface TransactionFormProps {
 }
 
 export const TransactionForm = ({ type }: TransactionFormProps) => {
+  const [formData, setFormData] = useState<Transaction | null>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [filePreviewUrls, setFilePreviewUrls] = useState<string[]>([]);
   const handleFileUpload = (files: FileList | null) => {
@@ -51,7 +54,25 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
     });
   };
 
-  console.log("Uploads file for add", uploadedFiles)
+  // Handle input changes
+  const handleInputChange = (key: string) => {
+    if (!formData) return;
+
+    setFormData((prev) => ({
+      ...prev!,
+    }));
+
+    // Clear error when user starts typing
+    if (errors[key]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[key];
+        return newErrors;
+      });
+    }
+  };
+
+  console.log("Uploads file for add", uploadedFiles);
 
   return (
     <div>
@@ -107,13 +128,15 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
               <label className='block text-sm md:text-base font-medium mb-2'>
                 Received Date
               </label>
-              <div className='relative'>
-                <Input
-                  readOnly
-                  className='bg-transparent text-sm md:text-base border-border pr-10'
-                />
-                <Calendar className='absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#a1a1a1]' />
-              </div>
+              <Input
+                type='date'
+                onChange={(e) => handleInputChange(e.target.value)}
+                className={cn(
+                  "bg-gray-50 border-gray-200 text-foreground",
+                  "focus:border-blue-500 focus:ring-blue-500/20"
+                  // hasError && "border-red-500 focus:border-red-500"
+                )}
+              />
             </div>
           </div>
 
@@ -153,7 +176,7 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
                   <SelectValue placeholder='Select one' />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value='primary'>Primary {type}</SelectItem>
+                  <SelectItem value='primary'>{type}</SelectItem>
                   <SelectItem value='secondary'>Secondary {type}</SelectItem>
                   <SelectItem value='passive'>Passive {type}</SelectItem>
                 </SelectContent>
@@ -215,8 +238,8 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
                           src={url || "/placeholder.svg"}
                           alt={`Upload ${index + 1}`}
                           className='w-20 h-20 object-cover rounded-lg border border-gray-200'
-                          width={40}
-                          height={40}
+                          width={80}
+                          height={80}
                         />
                         <button
                           type='button'
@@ -237,7 +260,7 @@ export const TransactionForm = ({ type }: TransactionFormProps) => {
               </label>
               <Textarea
                 placeholder={`Add any additional details about this ${type.toLowerCase()}...`}
-                className='bg-transparent text-sm md:text-base border-border h-20 md:h-28'
+                className='bg-transparent text-sm md:text-base border-border h-28 md:h-40 resize-y'
               />
             </div>
           </div>

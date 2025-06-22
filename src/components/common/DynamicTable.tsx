@@ -835,7 +835,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
         onClose={handleModalClose}
         transaction={selectedTransaction}
         onSave={handleModalSave}
-        title='Edit Transaction Details'
+        title='Atlas Tech Ltd. Income Details'
         description='Update your transaction information below. All changes will be saved immediately.'
       />
     </section>
