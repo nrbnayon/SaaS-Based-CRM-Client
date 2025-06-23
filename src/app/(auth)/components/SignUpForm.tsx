@@ -173,27 +173,29 @@ export default function SignUpForm() {
   const passwordStrength = getPasswordStrength(password);
 
   return (
-    <div className='min-h-screen flex bg-card'>
+    <div className="min-h-screen flex bg-white dark:bg-dark-primary font-manrope">
       {/* Left Side - Welcome Message */}
-      <div className='flex-1 bg-card flex items-center justify-center p-8 text-foreground font-oswald'>
-        <div className='max-w-md text-center space-y-6'>
-          <h1 className='text-4xl font-bold leading-tight'>Join Us Today!</h1>
-          <p className='text-lg'>
+      <div className="flex-1 bg-sidebar-gradient dark:bg-dark-primary flex items-center justify-center p-8 text-white">
+        <div className="max-w-md text-center space-y-6">
+          <h1 className="text-4xl font-manrope-bold leading-tight">
+            Join Us Today!
+          </h1>
+          <p className="text-lg font-manrope-regular opacity-90">
             Create your account and get started with our amazing platform
           </p>
-          <div className='pt-4 space-y-3'>
+          <div className="pt-4 space-y-3">
             <Button
-              variant='outline'
+              variant="outline"
               onClick={handleDemoSignup}
-              className='bg-white/10 border-white/20 text-secondary hover:bg-white/20 w-full'
+              className="bg-white/10 border-white/20 text-white hover:bg-white/20 w-full font-manrope-medium backdrop-blur-sm"
             >
               Fill Demo Information
             </Button>
-            <p className='text-sm'>
+            <p className="text-sm font-manrope-regular opacity-75">
               Already have an account?{" "}
               <Link
-                href='/login'
-                className='text-secondary underline font-medium hover:text-secondary/80'
+                href="/login"
+                className="text-white underline font-manrope-medium hover:opacity-80"
               >
                 Sign In
               </Link>
@@ -203,17 +205,17 @@ export default function SignUpForm() {
       </div>
 
       {/* Right Side - Signup Form */}
-      <div className='flex-1 bg-white font-oswald flex items-center justify-center p-8'>
-        <Card className='w-full max-w-md border-[#e2e2e2] shadow-lg'>
-          <CardHeader className='text-center pb-6'>
-            <h2 className='text-2xl font-semibold text-[#222222] mb-2'>
+      <div className="flex-1 bg-white dark:bg-dark-primary font-manrope flex items-center justify-center p-8">
+        <Card className="w-full p-2 lg:p-10 max-w-2xl rounded-4xl border border-gray-200 dark:border-gray-700 shadow-lg bg-white dark:bg-gray-800">
+          <CardHeader className="text-center pb-6">
+            <h2 className="text-2xl font-manrope-semibold text-gray-900 dark:text-white mb-2">
               Create Your Account
             </h2>
-            <p className='text-muted text-sm'>
+            <p className="text-gray-600 dark:text-gray-400 text-sm font-manrope-regular">
               Already have an account?{" "}
               <Link
-                href='/login'
-                className='text-[#222222] underline font-medium hover:text-[#001d38]'
+                href="/login"
+                className="text-indigo-600 dark:text-indigo-400 underline font-manrope-medium hover:text-indigo-500 dark:hover:text-indigo-300"
               >
                 Sign In
               </Link>
@@ -221,127 +223,127 @@ export default function SignUpForm() {
           </CardHeader>
 
           <CardContent>
-            <div className='space-y-6'>
+            <div className="space-y-6">
               {/* Full Name Field */}
-              <div className='space-y-2'>
+              <div className="space-y-2">
                 <label
-                  htmlFor='name'
-                  className='text-[#222222] font-medium text-sm block'
+                  htmlFor="name"
+                  className="text-gray-900 dark:text-white font-manrope-medium text-sm block"
                 >
                   Full Name
                 </label>
-                <div className='relative'>
+                <div className="relative">
                   <Input
-                    id='name'
-                    type='text'
-                    placeholder='Enter your full name'
-                    className={`pl-4 pr-10 h-12 border-[#e2e2e2] bg-[#fcfcff] text-[#222222] placeholder:text-muted ${
+                    id="name"
+                    type="text"
+                    placeholder="Enter your full name"
+                    className={`pl-4 pr-10 h-12 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 font-manrope-regular border ${
                       errors.name
                         ? "border-red-500 focus:border-red-500"
-                        : "focus:border-[#001d38]"
-                    }`}
+                        : "border-gray-300 dark:border-gray-600 focus:border-indigo-500 dark:focus:border-indigo-400"
+                    } focus:ring-2 focus:ring-indigo-500/20 dark:focus:ring-indigo-400/20`}
                     {...register("name")}
                     disabled={isLoading}
                   />
-                  <User className='absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted' />
+                  <User className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-gray-500" />
                 </div>
                 {errors.name && (
-                  <p className='text-red-500 text-xs mt-1'>
+                  <p className="text-red-500 text-xs mt-1 font-manrope-regular">
                     {errors.name.message}
                   </p>
                 )}
               </div>
 
               {/* Email Field */}
-              <div className='space-y-2'>
+              <div className="space-y-2">
                 <label
-                  htmlFor='email'
-                  className='text-[#222222] font-medium text-sm block'
+                  htmlFor="email"
+                  className="text-gray-900 dark:text-white font-manrope-medium text-sm block"
                 >
                   Email Address
                 </label>
-                <div className='relative'>
+                <div className="relative">
                   <Input
-                    id='email'
-                    type='email'
-                    placeholder='Enter your email address'
-                    className={`pl-4 pr-10 h-12 border-[#e2e2e2] bg-[#fcfcff] text-[#222222] placeholder:text-muted ${
+                    id="email"
+                    type="email"
+                    placeholder="Enter your email address"
+                    className={`pl-4 pr-10 h-12 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 font-manrope-regular border ${
                       errors.email
                         ? "border-red-500 focus:border-red-500"
-                        : "focus:border-[#001d38]"
-                    }`}
+                        : "border-gray-300 dark:border-gray-600 focus:border-indigo-500 dark:focus:border-indigo-400"
+                    } focus:ring-2 focus:ring-indigo-500/20 dark:focus:ring-indigo-400/20`}
                     {...register("email")}
                     disabled={isLoading}
                   />
-                  <Mail className='absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted' />
+                  <Mail className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-gray-500" />
                 </div>
                 {errors.email && (
-                  <p className='text-red-500 text-xs mt-1'>
+                  <p className="text-red-500 text-xs mt-1 font-manrope-regular">
                     {errors.email.message}
                   </p>
                 )}
               </div>
 
               {/* Password Field */}
-              <div className='space-y-2'>
+              <div className="space-y-2">
                 <label
-                  htmlFor='password'
-                  className='text-[#222222] font-medium text-sm block'
+                  htmlFor="password"
+                  className="text-gray-900 dark:text-white font-manrope-medium text-sm block"
                 >
                   Password
                 </label>
-                <div className='relative'>
+                <div className="relative">
                   <Input
-                    id='password'
+                    id="password"
                     type={showPassword ? "text" : "password"}
-                    placeholder='Create a strong password'
-                    className={`pl-4 pr-10 h-12 border-[#e2e2e2] bg-[#fcfcff] text-[#222222] placeholder:text-muted ${
+                    placeholder="Create a strong password"
+                    className={`pl-4 pr-10 h-12 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 font-manrope-regular border ${
                       errors.password
                         ? "border-red-500 focus:border-red-500"
-                        : "focus:border-[#001d38]"
-                    }`}
+                        : "border-gray-300 dark:border-gray-600 focus:border-indigo-500 dark:focus:border-indigo-400"
+                    } focus:ring-2 focus:ring-indigo-500/20 dark:focus:ring-indigo-400/20`}
                     {...register("password")}
                     disabled={isLoading}
                   />
                   <button
-                    type='button'
+                    type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className='absolute right-3 top-1/2 transform -translate-y-1/2 hover:text-[#001d38] transition-colors'
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                     disabled={isLoading}
                   >
                     {showPassword ? (
-                      <EyeOff className='h-5 w-5 text-muted' />
+                      <EyeOff className="h-5 w-5" />
                     ) : (
-                      <Eye className='h-5 w-5 text-muted' />
+                      <Eye className="h-5 w-5" />
                     )}
                   </button>
                 </div>
 
                 {/* Password Strength Indicator */}
                 {password && (
-                  <div className='space-y-1'>
-                    <div className='flex space-x-1'>
+                  <div className="space-y-1">
+                    <div className="flex space-x-1">
                       {[1, 2, 3, 4, 5].map((level) => (
                         <div
                           key={level}
                           className={`h-1 flex-1 rounded-full ${
                             level <= passwordStrength.strength
                               ? passwordStrength.color
-                              : "bg-gray-200"
+                              : "bg-gray-200 dark:bg-gray-600"
                           }`}
                         />
                       ))}
                     </div>
                     {passwordStrength.label && (
                       <p
-                        className={`text-xs ${
+                        className={`text-xs font-manrope-regular ${
                           passwordStrength.strength >= 4
-                            ? "text-green-600"
+                            ? "text-green-600 dark:text-green-400"
                             : passwordStrength.strength >= 3
-                            ? "text-blue-600"
+                            ? "text-blue-600 dark:text-blue-400"
                             : passwordStrength.strength >= 2
-                            ? "text-yellow-600"
-                            : "text-red-600"
+                            ? "text-yellow-600 dark:text-yellow-400"
+                            : "text-red-600 dark:text-red-400"
                         }`}
                       >
                         Password strength: {passwordStrength.label}
@@ -351,59 +353,59 @@ export default function SignUpForm() {
                 )}
 
                 {errors.password && (
-                  <p className='text-red-500 text-xs mt-1'>
+                  <p className="text-red-500 text-xs mt-1 font-manrope-regular">
                     {errors.password.message}
                   </p>
                 )}
               </div>
 
               {/* Confirm Password Field */}
-              <div className='space-y-2'>
+              <div className="space-y-2">
                 <label
-                  htmlFor='confirmPassword'
-                  className='text-[#222222] font-medium text-sm block'
+                  htmlFor="confirmPassword"
+                  className="text-gray-900 dark:text-white font-manrope-medium text-sm block"
                 >
                   Confirm Password
                 </label>
-                <div className='relative'>
+                <div className="relative">
                   <Input
-                    id='confirmPassword'
+                    id="confirmPassword"
                     type={showConfirmPassword ? "text" : "password"}
-                    placeholder='Confirm your password'
-                    className={`pl-4 pr-10 h-12 border-[#e2e2e2] bg-[#fcfcff] text-[#222222] placeholder:text-muted ${
+                    placeholder="Confirm your password"
+                    className={`pl-4 pr-10 h-12 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 font-manrope-regular border ${
                       errors.confirmPassword
                         ? "border-red-500 focus:border-red-500"
-                        : "focus:border-[#001d38]"
-                    }`}
+                        : "border-gray-300 dark:border-gray-600 focus:border-indigo-500 dark:focus:border-indigo-400"
+                    } focus:ring-2 focus:ring-indigo-500/20 dark:focus:ring-indigo-400/20`}
                     {...register("confirmPassword")}
                     disabled={isLoading}
                   />
                   <button
-                    type='button'
+                    type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className='absolute right-3 top-1/2 transform -translate-y-1/2 hover:text-[#001d38] transition-colors'
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                     disabled={isLoading}
                   >
                     {showConfirmPassword ? (
-                      <EyeOff className='h-5 w-5 text-muted' />
+                      <EyeOff className="h-5 w-5" />
                     ) : (
-                      <Eye className='h-5 w-5 text-muted' />
+                      <Eye className="h-5 w-5" />
                     )}
                   </button>
                 </div>
                 {errors.confirmPassword && (
-                  <p className='text-red-500 text-xs mt-1'>
+                  <p className="text-red-500 text-xs mt-1 font-manrope-regular">
                     {errors.confirmPassword.message}
                   </p>
                 )}
               </div>
 
               {/* Terms and Conditions */}
-              <div className='space-y-3'>
-                <div className='flex items-start space-x-3'>
+              <div className="space-y-3">
+                <div className="flex items-start space-x-3">
                   <Checkbox
-                    id='agreeToTerms'
-                    className={`border-[#e2e2e2] mt-0.5 ${
+                    id="agreeToTerms"
+                    className={`border-gray-300 dark:border-gray-600 mt-0.5 ${
                       errors.agreeToTerms ? "border-red-500" : ""
                     }`}
                     checked={agreeToTerms}
@@ -413,31 +415,31 @@ export default function SignUpForm() {
                     disabled={isLoading}
                   />
                   <label
-                    htmlFor='agreeToTerms'
-                    className='text-muted text-sm cursor-pointer leading-relaxed'
+                    htmlFor="agreeToTerms"
+                    className="text-gray-600 dark:text-gray-400 text-sm cursor-pointer leading-relaxed font-manrope-regular"
                   >
                     I agree to the{" "}
                     <Link
-                      href='/terms'
-                      className='text-[#001d38] underline hover:text-[#001d38]/80 font-medium'
-                      target='_blank'
-                      rel='noopener noreferrer'
+                      href="/terms"
+                      className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300 font-manrope-medium"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       Terms and Conditions
                     </Link>{" "}
                     and{" "}
                     <Link
-                      href='/privacy'
-                      className='text-[#001d38] underline hover:text-[#001d38]/80 font-medium'
-                      target='_blank'
-                      rel='noopener noreferrer'
+                      href="/privacy"
+                      className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300 font-manrope-medium"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       Privacy Policy
                     </Link>
                   </label>
                 </div>
                 {errors.agreeToTerms && (
-                  <p className='text-red-500 text-xs ml-7'>
+                  <p className="text-red-500 text-xs ml-7 font-manrope-regular">
                     {errors.agreeToTerms.message}
                   </p>
                 )}
@@ -446,17 +448,17 @@ export default function SignUpForm() {
               {/* Signup Button */}
               <Button
                 onClick={handleSubmit(onSubmit)}
-                className='w-full h-12 bg-primary hover:bg-[#001d38]/90 text-foreground hover:text-white font-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed'
+                className="w-full h-12 bg-primary-foreground hover:bg-indigo-700 text-white font-manrope-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-indigo-500/20"
                 disabled={isLoading || isSubmitting}
               >
                 {isLoading ? (
                   <>
-                    <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Creating Account...
                   </>
                 ) : (
                   <>
-                    <CheckCircle className='mr-2 h-4 w-4' />
+                    <CheckCircle className="mr-2 h-4 w-4" />
                     Create Account
                   </>
                 )}
@@ -464,8 +466,8 @@ export default function SignUpForm() {
             </div>
 
             {/* Additional Info */}
-            <div className='mt-6 text-center space-y-2'>
-              <p className='text-xs text-muted'>
+            <div className="mt-6 text-center space-y-2">
+              <p className="text-xs text-gray-500 dark:text-gray-400 font-manrope-regular">
                 By creating an account, you&apos;ll receive email notifications
                 about your account activity and our services.
               </p>
