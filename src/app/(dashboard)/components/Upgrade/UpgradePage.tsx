@@ -30,7 +30,7 @@ const UpgradePage = () => {
   ];
   return (
     <div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 space-x-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 space-x-4">
         {/* Current Plan */}
         <div className="lg:col-span-2">
           <Card className="bg-card border-border">
@@ -88,7 +88,7 @@ const UpgradePage = () => {
         </div>
 
         {/* Upgrade Plan */}
-        <div>
+        <div className="h-[310px] mx-0 md:mx-38 lg:mx-0">
           <div className=" h-full w-full overflow-hidden">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold text-foreground">
@@ -97,44 +97,6 @@ const UpgradePage = () => {
             </div>
             <Carousel slides={priceData} />
           </div>
-
-          {/* <Card className="bg-gradient-to-br from-[#4787f5] to-[#26337a] border-0">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-4 h-4 rounded-full border-2 border-white"></div>
-                <span className="text-white font-semibold">Standard</span>
-              </div>
-
-              <ul className="space-y-2 mb-6 text-white text-sm">
-                <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
-                  Automatic bot building
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
-                  Team collaboration
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
-                  AI model training
-                </li>
-                <li className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
-                  Multilingual AI
-                </li>
-              </ul>
-
-              <div className="text-right mb-4">
-                <div className="text-3xl font-bold text-white">$155</div>
-                <div className="text-white/80 text-sm">/yr</div>
-                <div className="text-white/60 text-xs">$295 Save: $140</div>
-              </div>
-
-              <Button className="w-full bg-white text-[#4787f5] hover:bg-[#e2e2e2] font-semibold">
-                Buy Now
-              </Button>
-            </CardContent>
-          </Card> */}
         </div>
       </div>
     </div>

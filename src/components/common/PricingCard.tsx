@@ -13,7 +13,7 @@ interface PricingCardProps {
 
 const PricingCard = ({ title, oldPrice, price, save }: PricingCardProps) => {
   return (
-    <div className="w-full h-full bg-[linear-gradient(45deg,#02DBD6_0%,#080635_50%,#02DBD6_100%)]">
+    <div className="w-full rounded-2xl h-full bg-[linear-gradient(45deg,#02DBD6_0%,#080635_50%,#02DBD6_100%)]">
       <Card className="bg-transparent border-0">
         <CardContent className="">
           <div className="flex items-center gap-2 ">
