@@ -6,13 +6,8 @@ import { useState, useRef, useId, useEffect } from "react";
 import PricingCard from "../common/PricingCard";
 import { Button } from "./button";
 import { ChevronRight } from "lucide-react";
-
-interface SlideData {
-  title: string;
-  oldPrice: number;
-  price: number;
-  save: number;
-}
+import type { SlideData } from "@/types/allTypes";
+import Link from "next/link";
 
 interface SlideProps {
   slide: SlideData;
@@ -180,13 +175,14 @@ export default function Carousel({ slides }: CarouselProps) {
         }}
       >
         {slides.map((slide, index) => (
-          <Slide
-            key={index}
-            slide={slide}
-            index={index}
-            current={current}
-            handleSlideClick={handleSlideClick}
-          />
+          <Link key={index} href="/upgrade/pricing">
+            <Slide
+              slide={slide}
+              index={index}
+              current={current}
+              handleSlideClick={handleSlideClick}
+            />
+          </Link>
         ))}
       </ul>
 

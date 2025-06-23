@@ -4,30 +4,11 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Carousel from "@/components/ui/carousel";
+import { priceData } from "@/data/priceData";
 import { BadgeCheck } from "lucide-react";
 import React from "react";
 
 const UpgradePage = () => {
-  const priceData = [
-    {
-      title: "Monthly",
-      oldPrice: 100,
-      price: 55,
-      save: 45,
-    },
-    {
-      title: "Half Year",
-      oldPrice: 300,
-      price: 255,
-      save: 45,
-    },
-    {
-      title: "Yearly",
-      oldPrice: 600,
-      price: 555,
-      save: 45,
-    },
-  ];
   return (
     <div>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 space-x-4">

@@ -1,4 +1,13 @@
+/** @format */
+
 // src\types\allTypes.ts
+
+export interface SlideData {
+  title: string;
+  oldPrice: number;
+  price: number;
+  save: number;
+}
 
 // Transaction type definitions
 export interface Transaction {

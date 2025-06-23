@@ -18,11 +18,13 @@ const PricingCard = ({ title, oldPrice, price, save }: PricingCardProps) => {
         <CardContent className="">
           <div className="flex items-center gap-2 ">
             <div className="w-4 h-4 rounded-full border-2 border-white"></div>
-            <span className="text-white text-xl font-semibold">{title}</span>
+            <span className="text-white text-base md:text-xl font-semibold">
+              {title}
+            </span>
           </div>
 
           <div className="pl-6">
-            <ul className="space-y-2 mb-6 text-white text-sm">
+            <ul className="space-y-2 mb-6 text-white text-xs md:text-sm">
               <li className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
                 Automatic bot building
@@ -44,13 +46,16 @@ const PricingCard = ({ title, oldPrice, price, save }: PricingCardProps) => {
 
           <div className="w-full flex justify-between items-end mb-4">
             <div>
-              <Button className=" bg-white text-black hover:bg-[#e2e2e2] font-semibold text-sm">
+              <Button className=" bg-white text-black hover:bg-[#e2e2e2] font-semibold text-xs md:text-sm">
                 Buy Now
               </Button>
             </div>
             <div>
-              <div className="flex text-3xl font-bold text-white">
-                ${price} <span className="text-base pt-3 text-whited">/yr</span>
+              <div className="flex text-xl md:text-3xl font-bold text-white">
+                ${price}{" "}
+                <span className="text-xs font-normal pt-4 text-whited">
+                  /{title}
+                </span>
               </div>
 
               <div className="flex space-x-3 items-end">
