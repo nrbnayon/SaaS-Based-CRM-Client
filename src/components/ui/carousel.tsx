@@ -1,10 +1,11 @@
 /** @format */
 
 "use client";
-import { IconArrowNarrowRight } from "@tabler/icons-react";
 
 import { useState, useRef, useId, useEffect } from "react";
 import PricingCard from "../common/PricingCard";
+import { Button } from "./button";
+import { ChevronRight } from "lucide-react";
 
 interface SlideData {
   title: string;
@@ -130,15 +131,15 @@ const CarouselControl = ({
   handleClick,
 }: CarouselControlProps) => {
   return (
-    <button
-      className={`w-8 h-8 flex items-center mx-2 justify-center bg-neutral-200 dark:bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 ${
+    <Button
+      className={`w-8 h-8 hover:bg-muted-custom  flex items-center mx-2 justify-center bg-neutral-200 dark:bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 ${
         type === "previous" ? "rotate-180" : ""
       }`}
       title={title}
       onClick={handleClick}
     >
-      <IconArrowNarrowRight className="text-neutral-600 dark:text-neutral-200" />
-    </button>
+      <ChevronRight className="text-neutral-600 dark:text-neutral-200" />
+    </Button>
   );
 };
 
