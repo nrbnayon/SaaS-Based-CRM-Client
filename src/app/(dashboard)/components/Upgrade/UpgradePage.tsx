@@ -2,15 +2,35 @@
 
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BadgeCheck, ChevronLeft, ChevronRight } from "lucide-react";
+import Carousel from "@/components/ui/carousel";
+import { BadgeCheck } from "lucide-react";
 import React from "react";
 
 const UpgradePage = () => {
+  const priceData = [
+    {
+      title: "Monthly",
+      oldPrice: 100,
+      price: 55,
+      save: 45,
+    },
+    {
+      title: "Half Year",
+      oldPrice: 300,
+      price: 255,
+      save: 45,
+    },
+    {
+      title: "Yearly",
+      oldPrice: 600,
+      price: 555,
+      save: 45,
+    },
+  ];
   return (
     <div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 space-x-4">
         {/* Current Plan */}
         <div className="lg:col-span-2">
           <Card className="bg-card border-border">
@@ -69,27 +89,16 @@ const UpgradePage = () => {
 
         {/* Upgrade Plan */}
         <div>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold text-white">Upgrade Plan</h2>
-            <div className="flex gap-2">
-              <Button
-                size="icon"
-                variant="ghost"
-                className="text-[#bbbbbb] hover:text-white"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </Button>
-              <Button
-                size="icon"
-                variant="ghost"
-                className="text-[#bbbbbb] hover:text-white"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </Button>
+          <div className=" h-full w-full overflow-hidden">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold text-foreground">
+                Upgrade Plan
+              </h2>
             </div>
+            <Carousel slides={priceData} />
           </div>
 
-          <Card className="bg-gradient-to-br from-[#4787f5] to-[#26337a] border-0">
+          {/* <Card className="bg-gradient-to-br from-[#4787f5] to-[#26337a] border-0">
             <CardContent className="p-6">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-4 h-4 rounded-full border-2 border-white"></div>
@@ -125,7 +134,7 @@ const UpgradePage = () => {
                 Buy Now
               </Button>
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
       </div>
     </div>
