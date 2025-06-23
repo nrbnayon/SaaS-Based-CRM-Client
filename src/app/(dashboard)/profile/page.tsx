@@ -2,12 +2,16 @@
 
 "use client";
 
+import DashboardHeader from "../components/dashboard-header";
 import ProfilePage from "../components/Profile/ProfilePage";
 
 export default function Profile() {
   return (
-    <div className="p-6 md:p-20 xl:p-24 ">
-      <ProfilePage />
+    <div>
+      <DashboardHeader title="Welcome  Nayon" />
+      <div className="p-6 md:px-12 xl:px-16 ">
+        <ProfilePage />
+      </div>
     </div>
   );
 }
