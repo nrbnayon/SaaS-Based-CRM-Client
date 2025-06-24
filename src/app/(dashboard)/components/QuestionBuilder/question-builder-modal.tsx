@@ -47,7 +47,7 @@ export function QuestionBuilderModal({
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="min-w-[90%]  max-h-[90vh] overflow-y-auto scrollbar-custom">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
