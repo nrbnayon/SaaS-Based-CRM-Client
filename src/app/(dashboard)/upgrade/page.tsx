@@ -3,17 +3,7 @@
 import { DynamicBillingTable } from "@/components/common/DynamicBillingTable";
 import DashboardHeader from "../components/dashboard-header";
 import UpgradePage from "../components/Upgrade/UpgradePage";
-
-// Plan interface
-interface Plan {
-  id: string;
-  plan: string;
-  issue: string;
-  expire: string;
-  amount: number | string;
-  download: string;
-  [key: string]: string | number;
-}
+import type { Plan } from "@/types/allTypes";
 
 // Sample billing data
 const billingPlans: Plan[] = [

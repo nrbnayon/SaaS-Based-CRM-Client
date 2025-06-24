@@ -1,8 +1,9 @@
 /** @format */
 
+import { DynamicBillingTable } from "@/components/common/DynamicBillingTable";
 import HrHeader from "@/components/common/HrHeader";
 import HRTestCard from "@/components/common/HrTestCard";
-import { hrTestCardData } from "@/data/hrTestData";
+import { candidateList, hrTestCardData } from "@/data/hrTestData";
 
 import React from "react";
 
@@ -24,6 +25,14 @@ const HrTestPage = () => {
             approvedCount={testData.approvedCount}
           />
         ))}
+      </div>
+      <div className="mt-2 lg:mt-8">
+        <DynamicBillingTable
+          title="Candidate List"
+          tableColumns={["Name", "Id", "Phone", "Email", "Download"]}
+          plans={candidateList}
+          itemsPerPage={8}
+        />
       </div>
     </div>
   );

@@ -1,7 +1,27 @@
 /** @format */
 
 // src\types\allTypes.ts
+// Plan interface
+export interface Plan {
+  image?: string;
+  id: string | number;
+  plan?: string;
+  issue?: string;
+  expire?: string;
+  amount?: number | string;
+  download: string;
+  [key: string]: unknown;
+}
 
+// Props interface
+export type PlanTableProps = {
+  title?: string;
+  plans?: Plan[];
+  tableColumns?: string[];
+  itemsPerPage?: number;
+  enableSearch?: boolean;
+  searchPlaceholder?: string;
+};
 // Hr test type definations
 export interface HRTestCardProps {
   testId?: string;
