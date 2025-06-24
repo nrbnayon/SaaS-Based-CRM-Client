@@ -121,7 +121,7 @@ const CandidateDetailsPage = () => {
               </CardContent>
             </Card>
           </div>
-          <div className="flex flex-col md:flex-row justify-between items-center gap-2 space-y-4">
+          <div className="w-full flex flex-col md:flex-row justify-between items-center gap-2 space-y-4">
             <DetailedSummary />
 
             {/* Full Width Bar Chart */}
