@@ -3,6 +3,7 @@
 // src\types\allTypes.ts
 // Plan interface
 export interface Plan {
+  names?: string;
   image?: string;
   id: string | number;
   plan?: string;

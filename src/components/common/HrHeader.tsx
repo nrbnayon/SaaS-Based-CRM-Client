@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { ModeToggle } from "../ui/mode-toggle";
 import { SquarePlus } from "lucide-react";
+import Link from "next/link";
 
 const HrHeader = () => {
   return (
@@ -25,10 +26,13 @@ const HrHeader = () => {
             <div className="flex items-center cursor-pointer space-x-3">
               <ModeToggle />
 
-              <div className="flex items-center py-1 px-2 rounded-md bg-black  dark:bg-white text-white dark:text-black cursor-pointer space-x-2">
+              <Link
+                href=""
+                className="flex items-center py-1 px-2 rounded-md bg-black  dark:bg-white text-white dark:text-black cursor-pointer space-x-2"
+              >
                 <SquarePlus className="h-4 w-4 " />
                 <p className="  text-xs md:text-base">New Test</p>
-              </div>
+              </Link>
             </div>
           </div>
         </div>
