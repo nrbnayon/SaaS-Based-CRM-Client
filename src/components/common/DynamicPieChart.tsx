@@ -92,7 +92,7 @@ const DynamicPieChart = ({
         </h2>
       </div>
 
-      {/* Legend positioned at top left */}
+      {/* Legend positioned at top left  */}
       {showLegend && (
         <div className='absolute top-8 left-8 flex flex-col gap-3'>
           {adjustedData.map((item, legendIndex) => (
