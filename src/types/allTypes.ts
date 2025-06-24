@@ -1,4 +1,23 @@
+/** @format */
+
 // src\types\allTypes.ts
+
+// Hr test type definations
+export interface HRTestCardProps {
+  testId?: string;
+  title?: string;
+  description?: string;
+  candidateCount?: number;
+  rejectedCount?: number;
+  approvedCount?: number;
+}
+
+export interface SlideData {
+  title: string;
+  oldPrice: number;
+  price: number;
+  save: number;
+}
 
 // Transaction type definitions
 export interface Transaction {

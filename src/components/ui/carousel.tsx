@@ -1,17 +1,13 @@
 /** @format */
 
 "use client";
-import { IconArrowNarrowRight } from "@tabler/icons-react";
 
 import { useState, useRef, useId, useEffect } from "react";
 import PricingCard from "../common/PricingCard";
-
-interface SlideData {
-  title: string;
-  oldPrice: number;
-  price: number;
-  save: number;
-}
+import { Button } from "./button";
+import { ChevronRight } from "lucide-react";
+import type { SlideData } from "@/types/allTypes";
+import Link from "next/link";
 
 interface SlideProps {
   slide: SlideData;
@@ -71,10 +67,10 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
   const { title, oldPrice, price, save } = slide;
 
   return (
-    <div className="[perspective:1200px] [transform-style:preserve-3d]">
+    <div className="[perspective:1200px]  [transform-style:preserve-3d]">
       <li
         ref={slideRef}
-        className="flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out w-96 h-72 z-10 "
+        className="flex flex-1 flex-col items-center justify-center relative text-center text-white opacity-100 transition-all duration-300 ease-in-out w-96 h-[267px] z-10 "
         onClick={() => handleSlideClick(index)}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -88,7 +84,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
         }}
       >
         <div
-          className="absolute top-0 left-0 w-full h-full bg-[#1D1F2F] rounded-[1%] overflow-hidden transition-all duration-150 ease-out"
+          className="absolute rounded-2xl top-0 left-0 w-full h-full bg-[#1D1F2F] overflow-hidden transition-all duration-150 ease-out"
           style={{
             transform:
               current === index
@@ -102,8 +98,8 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
         </div>
 
         <article
-          className={`relative  transition-opacity duration-1000 ease-in-out ${
-            current === index ? "opacity-100 visible" : "opacity-0 invisible"
+          className={`relative w-full h-full transition-opacity duration-1000 ease-in-out ${
+            current === index ? "opacity-100 visible" : "opacity-50 visible"
           }`}
         >
           <PricingCard
@@ -130,15 +126,15 @@ const CarouselControl = ({
   handleClick,
 }: CarouselControlProps) => {
   return (
-    <button
-      className={`w-8 h-8 flex items-center mx-2 justify-center bg-neutral-200 dark:bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 ${
+    <Button
+      className={`w-8 h-8 hover:bg-muted-custom  flex items-center mx-2 justify-center bg-neutral-200 dark:bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 ${
         type === "previous" ? "rotate-180" : ""
       }`}
       title={title}
       onClick={handleClick}
     >
-      <IconArrowNarrowRight className="text-neutral-600 dark:text-neutral-200" />
-    </button>
+      <ChevronRight className="text-neutral-600 dark:text-neutral-200" />
+    </Button>
   );
 };
 
@@ -169,23 +165,24 @@ export default function Carousel({ slides }: CarouselProps) {
 
   return (
     <div
-      className="relative w-full h-full  "
+      className="relative w-full h-full rounded-2xl "
       aria-labelledby={`carousel-heading-${id}`}
     >
       <ul
-        className="absolute flex  transition-transform duration-1000 ease-in-out"
+        className="absolute flex rounded-2xl transition-transform duration-1000 ease-in-out"
         style={{
           transform: `translateX(-${current * (100 / slides.length)}%)`,
         }}
       >
         {slides.map((slide, index) => (
-          <Slide
-            key={index}
-            slide={slide}
-            index={index}
-            current={current}
-            handleSlideClick={handleSlideClick}
-          />
+          <Link key={index} href="/upgrade/pricing">
+            <Slide
+              slide={slide}
+              index={index}
+              current={current}
+              handleSlideClick={handleSlideClick}
+            />
+          </Link>
         ))}
       </ul>
 

@@ -106,9 +106,9 @@ export default function Upgrade() {
   return (
     <div className="">
       <DashboardHeader title="Upgrade" />
-      <div className="p-2 md:p-4 space-y-4 md:space-y-10">
+      <div className="p-2 md:p-4 space-y-0 lg:space-y-10">
         <UpgradePage />
-        <div className="mt-8">
+        <div className="mt-2 lg:mt-8">
           <DynamicBillingTable
             title="Billing History"
             plans={billingPlans}
