@@ -11,7 +11,7 @@ const HrHeader = () => {
     <div>
       <header
         className={cn(
-          "sticky top-0 z-50 p-4 w-full transition-all duration-200bg-white/10 dark:bg-background/10 backdrop-blur-3xl"
+          "sticky top-0 z-50 pt-4 w-full transition-all duration-200bg-white/10 dark:bg-background/10 backdrop-blur-3xl"
         )}
       >
         <div className=" mx-auto">
@@ -27,7 +27,7 @@ const HrHeader = () => {
               <ModeToggle />
 
               <Link
-                href=""
+                href="git "
                 className="flex items-center py-1 px-2 rounded-md bg-black  dark:bg-white text-white dark:text-black cursor-pointer space-x-2"
               >
                 <SquarePlus className="h-4 w-4 " />

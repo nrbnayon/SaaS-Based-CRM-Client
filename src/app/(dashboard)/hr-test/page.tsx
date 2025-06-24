@@ -8,7 +8,7 @@ import MakeQuestions from "../components/Hr-Test/MakeQuestions";
 
 const HrTest = () => {
   return (
-    <div>
+    <div className="px-4">
       <HrTestPage />
       {/* <DynamicHRTestApp /> */}
       {/* <DynamicFormBuilder /> */}

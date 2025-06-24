@@ -7,11 +7,11 @@ import React from "react";
 
 const HrCandidateList = () => {
   return (
-    <div>
+    <div className="px-4">
       <div>
         <HrHeader />
       </div>
-      <div className="lg:mt-8 p-4">
+      <div className="lg:mt-8 py-4">
         <DynamicBillingTable
           title="Candidate List"
           tableColumns={["Name", "Id", "Phone", "Email", "Download"]}

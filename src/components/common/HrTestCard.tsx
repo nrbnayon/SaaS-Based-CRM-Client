@@ -15,7 +15,7 @@ const HRTestCard: React.FC<HRTestCardProps> = ({
 }) => {
   return (
     <Link href="/hr-test/hr-candidate-list">
-      <Card className="w-full max-w-md mx-auto bg-card shadow-2xl">
+      <Card className="w-full max-w-md mx-auto bg-card shadow-md">
         <CardHeader className="">
           <div className="flex  justify-between bg-secondary p-2 text-sm md:text-base font-medium items-center mb-4">
             <span className="text-foreground ">HR Test ID</span>
