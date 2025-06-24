@@ -11,7 +11,7 @@ const HrCandidateList = () => {
       <div>
         <HrHeader />
       </div>
-      <div className="lg:mt-8 py-4">
+      <div className=" py-0 lg:py-2">
         <DynamicBillingTable
           title="Candidate List"
           tableColumns={["Name", "Id", "Phone", "Email", "Download"]}

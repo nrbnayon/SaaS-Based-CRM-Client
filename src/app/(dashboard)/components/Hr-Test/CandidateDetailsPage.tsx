@@ -37,9 +37,9 @@ const CandidateDetailsPage = () => {
 
   return (
     <div className="mt-2 md:mt-4 bg-card p-1 md:p-4 rounded-2xl">
-      <h1 className="text-foreground text-lg md:text-2xl">Candidate</h1>
+      <h1 className="text-foreground text-lg md:text-2xl mb-3">Candidate</h1>
 
-      <div className="p-1.5 md:p-4 bg-background">
+      <div className="p-1.5 md:p-4 bg-background rounded-2xl">
         <h1 className="text-foreground text-lg md:text-2xl mb-3">
           Consistency
         </h1>
