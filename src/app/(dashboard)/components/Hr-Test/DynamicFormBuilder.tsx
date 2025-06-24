@@ -1,5 +1,5 @@
-"use client";
-import React, { useState } from "react";
+'use client';
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,7 +22,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Plus, Trash2, Copy, Edit, Save, X, Upload } from "lucide-react";
-// ### Types
+
+// Types
 type QuestionType =
   | "SHORT_ANSWER"
   | "PARAGRAPH"
@@ -49,7 +50,7 @@ interface FormAnswers {
   [questionId: string]: string | string[];
 }
 
-// ### Sample Data
+// Sample data
 const sampleFormData: FormData = {
   title: "Customer Feedback Survey",
   description: "Help us improve our services by sharing your feedback",
@@ -91,328 +92,6 @@ const sampleFormData: FormData = {
   ],
 };
 
-// ### QuestionBuilder Component
-const QuestionBuilder: React.FC<{
-  question: Question;
-  isEditing: boolean;
-  updateQuestion: (id: string, updates: Partial<Question>) => void;
-  deleteQuestion: (id: string) => void;
-  duplicateQuestion: (id: string) => void;
-  addOption: (questionId: string) => void;
-  removeOption: (questionId: string, optionIndex: number) => void;
-  updateOption: (
-    questionId: string,
-    optionIndex: number,
-    newText: string
-  ) => void;
-  setEditingQuestion: (id: string | null) => void;
-}> = ({
-  question,
-  isEditing,
-  updateQuestion,
-  deleteQuestion,
-  duplicateQuestion,
-  addOption,
-  removeOption,
-  updateOption,
-  setEditingQuestion,
-}) => {
-  return (
-    <Card className="mb-4 border-l-4 border-l-blue-500">
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <div className="flex-1">
-            {isEditing ? (
-              <Input
-                value={question.title}
-                onChange={(e) =>
-                  updateQuestion(question.id, { title: e.target.value })
-                }
-                placeholder="Question title"
-                className="mb-2"
-              />
-            ) : (
-              <CardTitle className="text-lg">{question.title}</CardTitle>
-            )}
-          </div>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setEditingQuestion(isEditing ? null : question.id)}
-            >
-              {isEditing ? (
-                <Save className="h-4 w-4" />
-              ) : (
-                <Edit className="h-4 w-4" />
-              )}
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => duplicateQuestion(question.id)}
-            >
-              <Copy className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => deleteQuestion(question.id)}
-              className="text-red-500"
-            >
-              <Trash2 className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          {isEditing && (
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label>Question Type</Label>
-                <Select
-                  value={question.type}
-                  onValueChange={(value: QuestionType) =>
-                    updateQuestion(question.id, { type: value })
-                  }
-                >
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="SHORT_ANSWER">Short Answer</SelectItem>
-                    <SelectItem value="PARAGRAPH">Paragraph</SelectItem>
-                    <SelectItem value="MULTIPLE_CHOICE">
-                      Multiple Choice
-                    </SelectItem>
-                    <SelectItem value="CHECKBOX">Checkbox</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label>Marks (Optional)</Label>
-                <Input
-                  type="number"
-                  value={question.marks || ""}
-                  onChange={(e) =>
-                    updateQuestion(question.id, {
-                      marks: parseInt(e.target.value) || undefined,
-                    })
-                  }
-                  placeholder="Enter marks"
-                />
-              </div>
-            </div>
-          )}
-
-          {/* Question Preview */}
-          <div className="border rounded-lg p-4 bg-gray-50">
-            {question.type === "SHORT_ANSWER" && (
-              <Input placeholder="Short answer text" disabled />
-            )}
-
-            {question.type === "PARAGRAPH" && (
-              <Textarea placeholder="Long answer text" disabled />
-            )}
-
-            {question.type === "MULTIPLE_CHOICE" && (
-              <RadioGroup>
-                {question.options?.map((option, index) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    <RadioGroupItem
-                      value={option}
-                      id={`${question.id}-${index}`}
-                      disabled
-                    />
-                    {isEditing ? (
-                      <div className="flex items-center flex-1 gap-2">
-                        <Input
-                          value={option}
-                          onChange={(e) =>
-                            updateOption(question.id, index, e.target.value)
-                          }
-                          className="flex-1"
-                        />
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeOption(question.id, index)}
-                          className="text-red-500"
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    ) : (
-                      <Label htmlFor={`${question.id}-${index}`}>
-                        {option}
-                      </Label>
-                    )}
-                  </div>
-                ))}
-                {isEditing && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => addOption(question.id)}
-                    className="mt-2"
-                  >
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add Option
-                  </Button>
-                )}
-              </RadioGroup>
-            )}
-
-            {question.type === "CHECKBOX" && (
-              <div className="space-y-2">
-                {question.options?.map((option, index) => (
-                  <div key={index} className="flex items-center space-x-2">
-                    <Checkbox
-                      id={`${question.id}-checkbox-${index}`}
-                      disabled
-                    />
-                    {isEditing ? (
-                      <div className="flex items-center flex-1 gap-2">
-                        <Input
-                          value={option}
-                          onChange={(e) =>
-                            updateOption(question.id, index, e.target.value)
-                          }
-                          className="flex-1"
-                        />
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeOption(question.id, index)}
-                          className="text-red-500"
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    ) : (
-                      <Label htmlFor={`${question.id}-checkbox-${index}`}>
-                        {option}
-                      </Label>
-                    )}
-                  </div>
-                ))}
-                {isEditing && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => addOption(question.id)}
-                    className="mt-2"
-                  >
-                    <Plus className="h-4 w-4 mr-2" />
-                    Add Option
-                  </Button>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Set Answer Section */}
-          {isEditing && (
-            <div className="border-t pt-4">
-              <Label className="text-sm font-medium">
-                Set Answer (Optional)
-              </Label>
-              <div className="mt-2">
-                {question.type === "SHORT_ANSWER" && (
-                  <Input
-                    value={(question.answer as string) || ""}
-                    onChange={(e) =>
-                      updateQuestion(question.id, { answer: e.target.value })
-                    }
-                    placeholder="Set correct answer"
-                  />
-                )}
-
-                {question.type === "PARAGRAPH" && (
-                  <Textarea
-                    value={(question.answer as string) || ""}
-                    onChange={(e) =>
-                      updateQuestion(question.id, { answer: e.target.value })
-                    }
-                    placeholder="Set sample answer"
-                  />
-                )}
-
-                {question.type === "MULTIPLE_CHOICE" && (
-                  <Select
-                    value={(question.answer as string) || ""}
-                    onValueChange={(value) =>
-                      updateQuestion(question.id, { answer: value })
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select correct answer" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {question.options?.map((option, index) => (
-                        <SelectItem key={index} value={option}>
-                          {option}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                )}
-
-                {question.type === "CHECKBOX" && (
-                  <div className="space-y-2">
-                    {question.options?.map((option, index) => (
-                      <div key={index} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={`answer-${question.id}-${index}`}
-                          checked={(
-                            (question.answer as string[]) || []
-                          ).includes(option)}
-                          onCheckedChange={(checked) => {
-                            const currentAnswers =
-                              (question.answer as string[]) || [];
-                            const newAnswers = checked
-                              ? [...currentAnswers, option]
-                              : currentAnswers.filter((a) => a !== option);
-                            updateQuestion(question.id, {
-                              answer: newAnswers,
-                            });
-                          }}
-                        />
-                        <Label htmlFor={`answer-${question.id}-${index}`}>
-                          {option}
-                        </Label>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          <div className="flex items-center gap-4 text-sm text-gray-600">
-            <label className="flex items-center gap-2">
-              <Checkbox
-                checked={question.required}
-                onCheckedChange={(checked) =>
-                  updateQuestion(question.id, { required: !!checked })
-                }
-              />
-              Required
-            </label>
-            {question.marks && (
-              <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                {question.marks} {question.marks === 1 ? "mark" : "marks"}
-              </span>
-            )}
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
-};
-
-// ### DynamicFormBuilder Component
 const DynamicFormBuilder: React.FC = () => {
   const [mode, setMode] = useState<"builder" | "preview">("builder");
   const [formData, setFormData] = useState<FormData>({
@@ -423,26 +102,6 @@ const DynamicFormBuilder: React.FC = () => {
   const [answers, setAnswers] = useState<FormAnswers>({});
   const [editingQuestion, setEditingQuestion] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Removed useEffect for formDataRef as it was undefined and unnecessary
-
-  const saveFormData = () => {
-    localStorage.setItem("formData", JSON.stringify(formData));
-    console.log("Form data saved manually");
-  };
-
-  const loadSavedData = () => {
-    const saved = localStorage.getItem("formData");
-    if (saved) {
-      try {
-        const parsedData = JSON.parse(saved);
-        setFormData(parsedData);
-        setAnswers({});
-      } catch (error) {
-        console.error("Error loading saved data:", error);
-      }
-    }
-  };
 
   // Generate unique ID
   const generateId = () =>
@@ -558,7 +217,391 @@ const DynamicFormBuilder: React.FC = () => {
     }));
   };
 
-  // ### FormPreview Component
+  // Question Builder Component
+  const QuestionBuilder = ({ question }: { question: Question }) => {
+    const [localQuestion, setLocalQuestion] = useState<Question>(question);
+    const isEditing = editingQuestion === question.id;
+
+    // Sync localQuestion with props.question when not editing
+    useEffect(() => {
+      if (!isEditing) {
+        setLocalQuestion(question);
+      }
+    }, [question, isEditing]);
+
+    // Save changes to global state
+    const handleSave = () => {
+      updateQuestion(question.id, {
+        title: localQuestion.title,
+        type: localQuestion.type,
+        options: localQuestion.options,
+        required: localQuestion.required,
+        answer: localQuestion.answer,
+        marks: localQuestion.marks,
+      });
+      setEditingQuestion(null);
+    };
+
+    // Cancel editing and revert to original question
+    const handleCancel = () => {
+      setEditingQuestion(null);
+    };
+
+    return (
+      <Card className="mb-4 border-l-4 border-l-blue-500">
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              {isEditing ? (
+                <Input
+                  value={localQuestion.title}
+                  onChange={(e) =>
+                    setLocalQuestion({ ...localQuestion, title: e.target.value })
+                  }
+                  placeholder="Question title"
+                  className="mb-2"
+                />
+              ) : (
+                <CardTitle className="text-lg">{question.title}</CardTitle>
+              )}
+            </div>
+            <div className="flex items-center gap-2">
+              {isEditing ? (
+                <>
+                  <Button variant="ghost" size="sm" onClick={handleSave}>
+                    <Save className="h-4 w-4" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={handleCancel}>
+                    <X className="h-4 w-4" />
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setEditingQuestion(question.id)}
+                >
+                  <Edit className="h-4 w-4" />
+                </Button>
+              )}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => duplicateQuestion(question.id)}
+              >
+                <Copy className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => deleteQuestion(question.id)}
+                className="text-red-500"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {isEditing && (
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label>Question Type</Label>
+                  <Select
+                    value={localQuestion.type}
+                    onValueChange={(value: QuestionType) =>
+                      setLocalQuestion({ ...localQuestion, type: value })
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="SHORT_ANSWER">Short Answer</SelectItem>
+                      <SelectItem value="PARAGRAPH">Paragraph</SelectItem>
+                      <SelectItem value="MULTIPLE_CHOICE">
+                        Multiple Choice
+                      </SelectItem>
+                      <SelectItem value="CHECKBOX">Checkbox</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label>Marks (Optional)</Label>
+                  <Input
+                    type="number"
+                    value={localQuestion.marks || ""}
+                    onChange={(e) =>
+                      setLocalQuestion({
+                        ...localQuestion,
+                        marks: parseInt(e.target.value) || undefined,
+                      })
+                    }
+                    placeholder="Enter marks"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Question Preview */}
+            <div className="border rounded-lg p-4 bg-gray-50">
+              {localQuestion.type === "SHORT_ANSWER" && (
+                <Input placeholder="Short answer text" disabled />
+              )}
+
+              {localQuestion.type === "PARAGRAPH" && (
+                <Textarea placeholder="Long answer text" disabled />
+              )}
+
+              {localQuestion.type === "MULTIPLE_CHOICE" && (
+                <RadioGroup>
+                  {localQuestion.options?.map((option, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <RadioGroupItem
+                        value={option}
+                        id={`${question.id}-${index}`}
+                        disabled
+                      />
+                      {isEditing ? (
+                        <div className="flex items-center flex-1 gap-2">
+                          <Input
+                            value={option}
+                            onChange={(e) => {
+                              const newOptions = [...(localQuestion.options || [])];
+                              newOptions[index] = e.target.value;
+                              setLocalQuestion({
+                                ...localQuestion,
+                                options: newOptions,
+                              });
+                            }}
+                            className="flex-1"
+                          />
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              const newOptions = (localQuestion.options || []).filter(
+                                (_, i) => i !== index
+                              );
+                              setLocalQuestion({
+                                ...localQuestion,
+                                options: newOptions,
+                              });
+                            }}
+                            className="text-red-500"
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <Label htmlFor={`${question.id}-${index}`}>
+                          {option}
+                        </Label>
+                      )}
+                    </div>
+                  ))}
+                  {isEditing && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        const newOptions = [
+                          ...(localQuestion.options || []),
+                          `Option ${Date.now()}`,
+                        ];
+                        setLocalQuestion({ ...localQuestion, options: newOptions });
+                      }}
+                      className="mt-2"
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add Option
+                    </Button>
+                  )}
+                </RadioGroup>
+              )}
+
+              {localQuestion.type === "CHECKBOX" && (
+                <div className="space-y-2">
+                  {localQuestion.options?.map((option, index) => (
+                    <div key={index} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={`${question.id}-checkbox-${index}`}
+                        disabled
+                      />
+                      {isEditing ? (
+                        <div className="flex items-center flex-1 gap-2">
+                          <Input
+                            value={option}
+                            onChange={(e) => {
+                              const newOptions = [...(localQuestion.options || [])];
+                              newOptions[index] = e.target.value;
+                              setLocalQuestion({
+                                ...localQuestion,
+                                options: newOptions,
+                              });
+                            }}
+                            className="flex-1"
+                          />
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              const newOptions = (localQuestion.options || []).filter(
+                                (_, i) => i !== index
+                              );
+                              setLocalQuestion({
+                                ...localQuestion,
+                                options: newOptions,
+                              });
+                            }}
+                            className="text-red-500"
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <Label htmlFor={`${question.id}-checkbox-${index}`}>
+                          {option}
+                        </Label>
+                      )}
+                    </div>
+                  ))}
+                  {isEditing && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        const newOptions = [
+                          ...(localQuestion.options || []),
+                          `Option ${Date.now()}`,
+                        ];
+                        setLocalQuestion({ ...localQuestion, options: newOptions });
+                      }}
+                      className="mt-2"
+                    >
+                      <Plus className="h-4 w-4 mr-2" />
+                      Add Option
+                    </Button>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Set Answer Section */}
+            {isEditing && (
+              <div className="border-t pt-4">
+                <Label className="text-sm font-medium">
+                  Set Answer (Optional)
+                </Label>
+                <div className="mt-2">
+                  {localQuestion.type === "SHORT_ANSWER" && (
+                    <Input
+                      value={(localQuestion.answer as string) || ""}
+                      onChange={(e) =>
+                        setLocalQuestion({
+                          ...localQuestion,
+                          answer: e.target.value,
+                        })
+                      }
+                      placeholder="Set correct answer"
+                    />
+                  )}
+
+                  {localQuestion.type === "PARAGRAPH" && (
+                    <Textarea
+                      value={(localQuestion.answer as string) || ""}
+                      onChange={(e) =>
+                        setLocalQuestion({
+                          ...localQuestion,
+                          answer: e.target.value,
+                        })
+                      }
+                      placeholder="Set sample answer"
+                    />
+                  )}
+
+                  {localQuestion.type === "MULTIPLE_CHOICE" && (
+                    <Select
+                      value={(localQuestion.answer as string) || ""}
+                      onValueChange={(value) =>
+                        setLocalQuestion({ ...localQuestion, answer: value })
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select correct answer" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {localQuestion.options?.map((option, index) => (
+                          <SelectItem key={index} value={option}>
+                            {option}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+
+                  {localQuestion.type === "CHECKBOX" && (
+                    <div className="space-y-2">
+                      {localQuestion.options?.map((option, index) => (
+                        <div
+                          key={index}
+                          className="flex items-center space-x-2"
+                        >
+                          <Checkbox
+                            id={`answer-${question.id}-${index}`}
+                            checked={(
+                              (localQuestion.answer as string[]) || []
+                            ).includes(option)}
+                            onCheckedChange={(checked) => {
+                              const currentAnswers =
+                                (localQuestion.answer as string[]) || [];
+                              const newAnswers = checked
+                                ? [...currentAnswers, option]
+                                : currentAnswers.filter((a) => a !== option);
+                              setLocalQuestion({
+                                ...localQuestion,
+                                answer: newAnswers,
+                              });
+                            }}
+                          />
+                          <Label htmlFor={`answer-${question.id}-${index}`}>
+                            {option}
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+
+            <div className="flex items-center gap-4 text-sm text-gray-600">
+              <label className="flex items-center gap-2">
+                <Checkbox
+                  checked={localQuestion.required}
+                  onCheckedChange={(checked) =>
+                    setLocalQuestion({
+                      ...localQuestion,
+                      required: !!checked,
+                    })
+                  }
+                />
+                Required
+              </label>
+              {localQuestion.marks && (
+                <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                  {localQuestion.marks} {localQuestion.marks === 1 ? "mark" : "marks"}
+                </span>
+              )}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  };
+
+  // Form Preview Component
   const FormPreview = () => {
     return (
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -666,7 +709,7 @@ const DynamicFormBuilder: React.FC = () => {
     );
   };
 
-  // ### Main Content Component
+  // Main Component
   const MainContent = () => (
     <div className="max-w-4xl mx-auto p-6">
       {/* Header */}
@@ -678,27 +721,11 @@ const DynamicFormBuilder: React.FC = () => {
         <div className="flex items-center gap-2">
           <Button
             variant="outline"
-            onClick={loadSavedData}
-            className="flex items-center gap-2"
-          >
-            <Upload className="h-4 w-4" />
-            Load Saved
-          </Button>
-          <Button
-            variant="outline"
             onClick={loadSampleData}
             className="flex items-center gap-2"
           >
             <Upload className="h-4 w-4" />
             Load Sample
-          </Button>
-          <Button
-            variant="outline"
-            onClick={saveFormData}
-            className="flex items-center gap-2"
-          >
-            <Save className="h-4 w-4" />
-            Save Form
           </Button>
           <Button
             variant={mode === "builder" ? "default" : "outline"}
@@ -803,18 +830,7 @@ const DynamicFormBuilder: React.FC = () => {
               </Card>
             ) : (
               formData.questions.map((question) => (
-                <QuestionBuilder
-                  key={question.id}
-                  question={question}
-                  isEditing={editingQuestion === question.id}
-                  updateQuestion={updateQuestion}
-                  deleteQuestion={deleteQuestion}
-                  duplicateQuestion={duplicateQuestion}
-                  addOption={addOption}
-                  removeOption={removeOption}
-                  updateOption={updateOption}
-                  setEditingQuestion={setEditingQuestion}
-                />
+                <QuestionBuilder key={question.id} question={question} />
               ))
             )}
           </div>
