@@ -154,3 +154,62 @@ export const candidateList: Plan[] = [
     image: "https://i.pravatar.cc/150?img=15",
   },
 ];
+
+export const summaryData = [
+  {
+    id: 1,
+    pair: "Pair 1",
+    status: "Consistent",
+    frequency: "3%",
+    statusColor: "text-green-400",
+  },
+  {
+    id: 2,
+    pair: "Pair 2",
+    status: "Slightly Varied",
+    frequency: "3%",
+    statusColor: "text-gray-300",
+  },
+  {
+    id: 3,
+    pair: "Pair 3",
+    status: "Moderately Varied",
+    frequency: "3%",
+    statusColor: "text-gray-300",
+  },
+  {
+    id: 4,
+    pair: "Pair 4",
+    status: "Mostly Consistent",
+    frequency: "3%",
+    statusColor: "text-green-400",
+  },
+  {
+    id: 5,
+    pair: "Pair 5",
+    status: "Somewhat Inconsistent",
+    frequency: "3%",
+    statusColor: "text-gray-300",
+  },
+  {
+    id: 6,
+    pair: "Pair 6",
+    status: "Inconsistent",
+    frequency: "3%",
+    statusColor: "text-red-400",
+  },
+  {
+    id: 7,
+    pair: "Pair 7",
+    status: "Highly Inconsistent",
+    frequency: "5%",
+    statusColor: "text-gray-300",
+  },
+  {
+    id: 8,
+    pair: "Pair 8",
+    status: "Contradictory",
+    frequency: "0%",
+    statusColor: "text-gray-300",
+  },
+];
