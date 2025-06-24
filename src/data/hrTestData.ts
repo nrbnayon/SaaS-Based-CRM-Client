@@ -1,5 +1,7 @@
 /** @format */
 
+import type { Plan } from "@/types/allTypes";
+
 export const hrTestCardData = [
   {
     testId: "41515",
@@ -27,5 +29,128 @@ export const hrTestCardData = [
     candidateCount: 24,
     rejectedCount: 10,
     approvedCount: 14,
+  },
+];
+
+export const candidateList: Plan[] = [
+  {
+    id: 1,
+    name: "Rafiul Hasan",
+    phone: "+8801712345678",
+    email: "rafiul@example.com",
+    download: "https://example.com/files/rafiul.pdf",
+    image: "https://i.pravatar.cc/150?img=1",
+  },
+  {
+    id: 2,
+    name: "Nusrat Jahan",
+    phone: "+8801812345679",
+    email: "nusrat@example.com",
+    download: "https://example.com/files/nusrat.pdf",
+    image: "https://i.pravatar.cc/150?img=2",
+  },
+  {
+    id: 3,
+    name: "Tanvir Ahmed",
+    phone: "+8801912345680",
+    email: "tanvir@example.com",
+    download: "https://example.com/files/tanvir.pdf",
+    image: "https://i.pravatar.cc/150?img=3",
+  },
+  {
+    id: 4,
+    name: "Sumaiya Akter",
+    phone: "+8801512345681",
+    email: "sumaiya@example.com",
+    download: "https://example.com/files/sumaiya.pdf",
+    image: "https://i.pravatar.cc/150?img=4",
+  },
+  {
+    id: 5,
+    name: "Sabbir Rahman",
+    phone: "+8801612345682",
+    email: "sabbir@example.com",
+    download: "https://example.com/files/sabbir.pdf",
+    image: "https://i.pravatar.cc/150?img=5",
+  },
+  {
+    id: 6,
+    name: "Jannatul Ferdous",
+    phone: "+8801712345683",
+    email: "jannatul@example.com",
+    download: "https://example.com/files/jannatul.pdf",
+    image: "https://i.pravatar.cc/150?img=6",
+  },
+  {
+    id: 7,
+    name: "Mahmudul Hasan",
+    phone: "+8801812345684",
+    email: "mahmudul@example.com",
+    download: "https://example.com/files/mahmudul.pdf",
+    image: "https://i.pravatar.cc/150?img=7",
+  },
+  {
+    id: 8,
+    name: "Farzana Yasmin",
+    phone: "+8801912345685",
+    email: "farzana@example.com",
+    download: "https://example.com/files/farzana.pdf",
+    image: "https://i.pravatar.cc/150?img=8",
+  },
+  {
+    id: 9,
+    name: "Hasan Mahmud",
+    phone: "+8801512345686",
+    email: "hasan@example.com",
+    download: "https://example.com/files/hasan.pdf",
+    image: "https://i.pravatar.cc/150?img=9",
+  },
+  {
+    id: 10,
+    name: "Nazia Haque",
+    phone: "+8801612345687",
+    email: "nazia@example.com",
+    download: "https://example.com/files/nazia.pdf",
+    image: "https://i.pravatar.cc/150?img=10",
+  },
+  {
+    id: 11,
+    name: "Shahriar Kabir",
+    phone: "+8801712345688",
+    email: "shahriar@example.com",
+    download: "https://example.com/files/shahriar.pdf",
+    image: "https://i.pravatar.cc/150?img=11",
+  },
+  {
+    id: 12,
+    name: "Ayesha Siddiqua",
+    phone: "+8801812345689",
+    email: "ayesha@example.com",
+    download: "https://example.com/files/ayesha.pdf",
+    image: "https://i.pravatar.cc/150?img=12",
+  },
+  {
+    id: 13,
+    name: "Rasel Mia",
+    phone: "+8801912345690",
+    email: "rasel@example.com",
+    download: "https://example.com/files/rasel.pdf",
+    image: "https://i.pravatar.cc/150?img=13",
+  },
+  {
+    id: 14,
+    name: "Tanjina Islam",
+    phone: "+8801512345691",
+    email: "tanjina@example.com",
+    download: "https://example.com/files/tanjina.pdf",
+    image: "https://i.pravatar.cc/150?img=14",
+  },
+  {
+    id: 15,
+    name: "Fahim Chowdhury",
+    phone: "+8801612345692",
+    email: "fahim@example.com",
+    download: "https://example.com/files/fahim.pdf",
+    image: "https://i.pravatar.cc/150?img=15",
   },
 ];
