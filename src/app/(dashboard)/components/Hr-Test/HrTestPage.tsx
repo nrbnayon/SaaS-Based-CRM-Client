@@ -1,6 +1,7 @@
 /** @format */
 
 import HRTestCard from "@/components/common/HrTestCard";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 import { hrTestCardData } from "@/data/hrTestData";
 import { cn } from "@/lib/utils";
 import { SquarePlus } from "lucide-react";
@@ -21,15 +22,20 @@ const HrTestPage = () => {
                 Hr Test
               </h1>
             </div>
+
             {/* Mobile Navigation */}
-            <div className="flex items-center py-1 px-2 rounded-md bg-black  dark:bg-white text-white dark:text-black cursor-pointer space-x-2">
-              <SquarePlus className="h-4 w-4 " />
-              <p className="  text-xs md:text-base">New Test</p>
+            <div className="flex items-center cursor-pointer space-x-3">
+              <ModeToggle />
+
+              <div className="flex items-center py-1 px-2 rounded-md bg-black  dark:bg-white text-white dark:text-black cursor-pointer space-x-2">
+                <SquarePlus className="h-4 w-4 " />
+                <p className="  text-xs md:text-base">New Test</p>
+              </div>
             </div>
           </div>
         </div>
       </header>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4">
         {hrTestCardData.map((testData, index) => (
           <HRTestCard
             key={index}
