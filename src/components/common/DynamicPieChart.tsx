@@ -70,7 +70,7 @@ const DynamicPieChart = ({
       <text
         x={x}
         y={y}
-        fill='bg-foreground'
+        fill='#ffffff'
         textAnchor='middle'
         dominantBaseline='central'
         fontSize='18'

@@ -124,48 +124,46 @@ const CandidateDetailsPage = () => {
             </Card>
           </div>
         </div>
-      </div>
-      <div className='w-full h-full flex flex-col md:flex-row justify-between items-center gap-2 space-y-4'>
-        <div className='w-full h-full md:w-1/2 bg-background rounded-3xl p-4'>
-          <DetailedSummary />
-        </div>
-        {/* Full Width Bar Chart */}
-        <div className='w-full md:w-1/2 space-y-6'>
-          {/* <WeeklyBarChart /> */}
-          <DynamicBarChart
-            data={[
-              { label: "Sun", value: 15 },
-              { label: "Mon", value: 22 },
-              { label: "Tue", value: 25 },
-              { label: "Wed", value: 75 },
-              { label: "Thu", value: 32 },
-              { label: "Fri", value: 30 },
-              { label: "Sat", value: 52 },
-            ]}
-            threshold={50}
-            highColor='#FFAD66'
-            lowColor='#FFF06A'
-            title='Response'
-            subtitle='Comparison'
-            legend={[
-              { label: "Consistent", color: "#FFAD66" },
-              { label: "Varied", color: "#FFF06A" },
-            ]}
-            ticks={[0, 25, 50, 75, 100]}
-          />
-          <div className='mt-6'>
-            <DynamicPieChart
+        <div className='w-full h-full flex mt-6 flex-col md:flex-row justify-between items-center gap-8'>
+          <div className='w-full h-full md:w-1/2'>
+            <DetailedSummary />
+          </div>
+          {/* Full Width Bar Chart */}
+          <div className='w-full md:w-1/2 space-y-6'>
+            {/* <WeeklyBarChart /> */}
+            <DynamicBarChart
               data={[
-                { label: "Matrices FARE", value: 77396, color: "#ef4444" },
-                { label: "Matrices ESSERE", value: 77396, color: "#22c55e" },
+                { label: "Sun", value: 15 },
+                { label: "Mon", value: 22 },
+                { label: "Tue", value: 25 },
+                { label: "Wed", value: 75 },
+                { label: "Thu", value: 32 },
+                { label: "Fri", value: 30 },
+                { label: "Sat", value: 52 },
               ]}
-              title='Matrices'
-              width={400}
-              height={300}
-              showLabels={true}
-              showLegend={true}
-              showValues={true}
+              threshold={50}
+              highColor='#FFAD66'
+              lowColor='#FFF06A'
+              title='Response'
+              subtitle='Comparison'
+              legend={[
+                { label: "Consistent", color: "#FFAD66" },
+                { label: "Varied", color: "#FFF06A" },
+              ]}
+              ticks={[0, 25, 50, 75, 100]}
             />
+              <DynamicPieChart
+                data={[
+                  { label: "Matrices FARE", value: 77396, color: "#ef4444" },
+                  { label: "Matrices ESSERE", value: 77396, color: "#22c55e" },
+                ]}
+                title='Matrices'
+                width={400}
+                height={300}
+                showLabels={true}
+                showLegend={true}
+                showValues={true}
+              />
           </div>
         </div>
       </div>
