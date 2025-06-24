@@ -22,41 +22,21 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Input } from "../ui/input";
-
-// Plan interface
-interface Plan {
-  id: string;
-  plan: string;
-  issue: string;
-  expire: string;
-  amount: number | string;
-  download: string;
-  [key: string]: string | number;
-}
-
-// Props interface
-interface PlanTableProps {
-  title?: string;
-  plans: Plan[];
-  className?: string;
-  itemsPerPage?: number;
-  enableSearch?: boolean;
-  searchPlaceholder?: string;
-}
+import type { PlanTableProps } from "@/types/allTypes";
+import type { Plan } from "@/types/allTypes";
+// Define table columns
+const defaultTableColumns = ["Plan", "Issue", "Expire", "Amount", "Download"];
 
 export const DynamicBillingTable: React.FC<PlanTableProps> = ({
-  title = "Plan Management",
+  title,
   plans = [],
+  tableColumns = defaultTableColumns,
   itemsPerPage = 12,
   enableSearch = true,
   searchPlaceholder = "Search your plans",
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-
-  // Debug: Log props
-  console.log("DynamicBillingTable - Received plans:", plans);
-  console.log("DynamicBillingTable - Plans length:", plans.length);
 
   // Filtered plans
   const filteredPlans = useMemo(() => {
@@ -85,8 +65,6 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
     });
   }, [plans, searchTerm]);
 
-  console.log("Filtered plans:", filteredPlans);
-
   // Pagination
   const totalPages = Math.ceil(filteredPlans.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -94,8 +72,6 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
     startIndex,
     startIndex + itemsPerPage
   );
-
-  console.log("Current data:", currentData, "Total pages:", totalPages);
 
   // Handle page change
   const handlePageChange = (page: number) => {
@@ -146,9 +122,6 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
     }
   };
 
-  // Define table columns
-  const tableColumns = ["Plan", "Issue", "Expire", "Amount", "Download"];
-
   // Render cell content
   const renderCellContent = (plan: Plan, column: string) => {
     if (!plan) return "-";
@@ -177,7 +150,7 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
       case "Amount":
         return (
           <div className="font-semibold text-foreground">
-            {formatCurrency(plan.amount)}
+            {formatCurrency(plan.amount ?? 0)}
           </div>
         );
       case "Download":
@@ -186,7 +159,12 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
             {plan.download && plan.download.trim() !== "" ? (
               <a
                 className="h-8 px-3 underline cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800"
-                onClick={() => handleDownload(plan.download, plan.plan)}
+                onClick={() =>
+                  handleDownload(
+                    plan.download ?? "",
+                    plan.plan ?? "Unknown Plan"
+                  )
+                }
               >
                 Download PDF
               </a>

@@ -128,14 +128,14 @@ export function QuestionBuilder({
           <div className="flex items-center space-x-4">
             {/* Saved/Clear Draft Buttons */}
             <div className="flex items-center space-x-2">
-              <Button
+              {/* <Button
                 variant="ghost"
                 size="sm"
                 className="text-green-600 hover:text-green-700"
               >
                 <Save className="h-4 w-4 mr-1" />
                 Saved
-              </Button>
+              </Button> */}
               <Button
                 variant="ghost"
                 size="sm"
@@ -220,7 +220,7 @@ export function QuestionBuilder({
             <CardContent className="pt-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-medium">
-                  Questions ({formData.questions.length})
+                  Add Questions ({formData.questions.length})
                 </h3>
                 <div className="flex items-center space-x-2">
                   {questionTypes.map((type) => (
