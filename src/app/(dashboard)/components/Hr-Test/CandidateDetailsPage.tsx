@@ -5,6 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import React, { useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import DetailedSummary from "./detailed-summary";
+import MatricesDonutChart from "./matrices-donut-chart";
+import WeeklyBarChart from "./weekly-bar-chart";
 
 const CandidateDetailsPage = () => {
   // Array to store content
@@ -117,6 +120,19 @@ const CandidateDetailsPage = () => {
                   ))}
               </CardContent>
             </Card>
+          </div>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-2 space-y-4">
+            <DetailedSummary />
+
+            {/* Full Width Bar Chart */}
+            <div className="space-y-6">
+              <WeeklyBarChart />
+              <div className="mt-6">
+                <MatricesDonutChart />
+              </div>
+
+              {/* Charts Section */}
+            </div>
           </div>
         </div>
       </div>
