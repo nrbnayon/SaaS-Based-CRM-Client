@@ -22,7 +22,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Plus, Trash2, Copy, Edit, Save, X, Upload } from "lucide-react";
-
 // ### Types
 type QuestionType =
   | "SHORT_ANSWER"
