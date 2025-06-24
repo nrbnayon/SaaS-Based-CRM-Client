@@ -43,21 +43,21 @@ export default function MakeQuestions() {
   };
 
   return (
-    <div className="container mx-auto py-8 space-y-8">
+    <div className="w-full mx-auto py-8 space-y-8">
       <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">Dynamic Question Builder</h1>
+        <h1 className="text-4xl font-bold">Make Question</h1>
         <p className="text-xl text-gray-600">
           Create, edit, and manage forms dynamically with real-time preview
         </p>
       </div>
 
       <Tabs defaultValue="builder" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="builder">Form Builder</TabsTrigger>
           <TabsTrigger value="saved">
-            Saved Forms ({savedForms.length})
+            Saved Question ({savedForms.length})
           </TabsTrigger>
-          <TabsTrigger value="modal">Modal Demo</TabsTrigger>
+          {/* <TabsTrigger value="modal">Modal Demo</TabsTrigger> */}
         </TabsList>
 
         <TabsContent value="builder" className="space-y-6">
@@ -66,7 +66,7 @@ export default function MakeQuestions() {
 
         <TabsContent value="saved" className="space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold">Saved Forms</h2>
+            <h2 className="text-2xl font-bold">Saved Question</h2>
             <QuestionBuilderModal
               onSave={handleSaveForm}
               trigger={
@@ -83,7 +83,7 @@ export default function MakeQuestions() {
               <CardContent className="flex items-center justify-center py-12">
                 <div className="text-center">
                   <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  <h3 className="text-lg font-medium text-muted-custom mb-2">
                     No forms saved yet
                   </h3>
                   <p className="text-gray-500 mb-4">
@@ -177,7 +177,7 @@ export default function MakeQuestions() {
           )}
         </TabsContent>
 
-        <TabsContent value="modal" className="space-y-6">
+        {/* <TabsContent value="modal" className="space-y-6">
           <Card>
             <CardHeader>
               <CardTitle>Modal Integration Demo</CardTitle>
@@ -208,7 +208,7 @@ export default function MakeQuestions() {
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
+        </TabsContent> */}
       </Tabs>
     </div>
   );
