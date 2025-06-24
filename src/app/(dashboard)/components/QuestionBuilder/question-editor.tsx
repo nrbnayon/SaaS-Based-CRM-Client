@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import type { Question, QuestionType, QuestionOption } from "@/types/form";
 import { Button } from "@/components/ui/button";
@@ -16,6 +15,8 @@ import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Trash2, Plus, GripVertical, Copy } from "lucide-react";
 import { generateId } from "@/lib/utils";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface QuestionEditorProps {
   question: Question;
@@ -212,6 +213,79 @@ export function QuestionEditor({
               onChange={(e) => handleUpdate({ answer: e.target.value })}
               placeholder="Enter sample answer"
             />
+          ) : localQuestion.type === "MULTIPLE_CHOICE" ? (
+            <div className="space-y-2">
+              <Label className="text-sm text-gray-600">
+                Select correct answer:
+              </Label>
+              <RadioGroup
+                value={
+                  typeof localQuestion.answer === "string"
+                    ? localQuestion.answer
+                    : ""
+                }
+                onValueChange={(value) => handleUpdate({ answer: value })}
+              >
+                {localQuestion.options?.map((option) => (
+                  <div key={option.id} className="flex items-center space-x-2">
+                    <RadioGroupItem
+                      value={option.label}
+                      id={`answer-${localQuestion.id}-${option.id}`}
+                    />
+                    <Label
+                      htmlFor={`answer-${localQuestion.id}-${option.id}`}
+                      className="text-sm"
+                    >
+                      {option.label}
+                    </Label>
+                  </div>
+                ))}
+              </RadioGroup>
+            </div>
+          ) : localQuestion.type === "CHECKBOX" ? (
+            <div className="space-y-2">
+              <Label className="text-sm text-gray-600">
+                Select correct answers:
+              </Label>
+              <div className="space-y-2">
+                {localQuestion.options?.map((option) => (
+                  <div key={option.id} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`answer-${localQuestion.id}-${option.id}`}
+                      checked={
+                        Array.isArray(localQuestion.answer)
+                          ? localQuestion.answer.includes(option.label)
+                          : false
+                      }
+                      onCheckedChange={(checked) => {
+                        const currentAnswers = Array.isArray(
+                          localQuestion.answer
+                        )
+                          ? localQuestion.answer
+                          : [];
+                        if (checked) {
+                          handleUpdate({
+                            answer: [...currentAnswers, option.label],
+                          });
+                        } else {
+                          handleUpdate({
+                            answer: currentAnswers.filter(
+                              (a) => a !== option.label
+                            ),
+                          });
+                        }
+                      }}
+                    />
+                    <Label
+                      htmlFor={`answer-${localQuestion.id}-${option.id}`}
+                      className="text-sm"
+                    >
+                      {option.label}
+                    </Label>
+                  </div>
+                ))}
+              </div>
+            </div>
           ) : null}
         </div>
 
