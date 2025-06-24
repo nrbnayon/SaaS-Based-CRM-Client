@@ -465,26 +465,28 @@ const ChatInterface: React.FC = () => {
   ];
 
   return (
-    <div className='flex flex-col h-screen max-w-4xl mx-auto bg-background'>
+    <div className="flex flex-col min-h-[calc(100vh-80px)] max-w-4xl mx-auto bg-background dark:bg-dark-primary border-2 border-border rounded-3xl">
       {/* Header - Clean and minimal */}
-      <div className='flex items-center justify-between p-4 bg-white border-b border-gray-200 shadow-sm'>
-        <div className='flex items-center space-x-3'>
-          <div className='w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center'>
-            <BarChart3 className='w-5 h-5 text-white' />
+      <div className="flex items-center justify-between p-4 bg-background text-foreground border-b border-gray-200 shadow-sm rounded-t-3xl">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
+            <BarChart3 className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className='text-lg font-semibold text-gray-900'>Expense AI</h1>
-            <p className='text-sm text-gray-500'>Smart expense tracking</p>
+            <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
+              Expense AI
+            </h1>
+            <p className="text-sm text-gray-500">Smart expense tracking</p>
           </div>
         </div>
-        <div className='flex items-center space-x-2'>
-          <div className='w-2 h-2 bg-green-500 rounded-full'></div>
-          <span className='text-sm text-gray-600'>Online</span>
+        <div className="flex items-center space-x-2">
+          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+          <span className="text-sm text-gray-600">Online</span>
         </div>
       </div>
 
       {/* Messages Area */}
-      <div className='flex-1 overflow-y-auto p-4 space-y-4 scrollbar-custom'>
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-custom">
         {messages.map((message) => (
           <div
             key={message.id}
@@ -492,7 +494,7 @@ const ChatInterface: React.FC = () => {
               message.type === "user" ? "justify-end" : "justify-start"
             }`}
           >
-            <div className='max-w-xs md:max-w-md lg:max-w-lg'>
+            <div className="max-w-xs md:max-w-md lg:max-w-lg">
               <div
                 className={`px-4 py-3 rounded-2xl ${
                   message.type === "user"
@@ -502,26 +504,26 @@ const ChatInterface: React.FC = () => {
               >
                 {/* Message Files */}
                 {message.files && message.files.length > 0 && (
-                  <div className='mb-3 space-y-2'>
+                  <div className="mb-3 space-y-2">
                     {message.files.map((file, idx) => (
-                      <div key={idx} className='relative'>
+                      <div key={idx} className="relative">
                         {file.type === "image" ? (
                           <Image
                             src={file.url}
                             alt={file.name}
                             width={250}
                             height={200}
-                            className='max-w-full h-auto rounded-lg border border-gray-200'
+                            className="max-w-full h-auto rounded-lg border border-gray-200"
                           />
                         ) : (
-                          <div className='flex items-center space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200'>
-                            <FileText className='w-8 h-8 text-blue-600 flex-shrink-0' />
-                            <div className='flex-1 min-w-0'>
-                              <p className='text-sm font-medium text-gray-900 truncate'>
+                          <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                            <FileText className="w-8 h-8 text-blue-600 flex-shrink-0" />
+                            <div className="flex-1 min-w-0">
+                              <p className="text-sm font-medium text-gray-900 truncate">
                                 {file.name}
                               </p>
                               {file.size && (
-                                <p className='text-xs text-gray-500'>
+                                <p className="text-xs text-gray-500">
                                   {file.size}
                                 </p>
                               )}
@@ -533,20 +535,20 @@ const ChatInterface: React.FC = () => {
                   </div>
                 )}
 
-                <div className='prose prose-sm max-w-none'>
-                  <p className='text-sm whitespace-pre-line leading-relaxed m-0'>
+                <div className="prose prose-sm max-w-none">
+                  <p className="text-sm whitespace-pre-line leading-relaxed m-0">
                     {message.content}
                   </p>
                 </div>
 
                 {/* Message status for user messages */}
                 {message.type === "user" && (
-                  <div className='flex items-center justify-end mt-2'>
+                  <div className="flex items-center justify-end mt-2">
                     {message.status === "sending" && (
-                      <div className='w-3 h-3 border border-white/50 border-t-transparent rounded-full animate-spin'></div>
+                      <div className="w-3 h-3 border border-white/50 border-t-transparent rounded-full animate-spin"></div>
                     )}
                     {message.status === "error" && (
-                      <AlertCircle className='w-3 h-3 text-red-300' />
+                      <AlertCircle className="w-3 h-3 text-red-300" />
                     )}
                   </div>
                 )}
@@ -565,21 +567,21 @@ const ChatInterface: React.FC = () => {
 
         {/* Typing Indicator */}
         {isTyping && (
-          <div className='flex justify-start'>
-            <div className='bg-white border border-gray-200 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm'>
-              <div className='flex items-center space-x-3'>
-                <div className='flex space-x-1'>
-                  <div className='w-2 h-2 bg-gray-400 rounded-full animate-bounce'></div>
+          <div className="flex justify-start">
+            <div className="bg-white border border-gray-200 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
+              <div className="flex items-center space-x-3">
+                <div className="flex space-x-1">
+                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                   <div
-                    className='w-2 h-2 bg-gray-400 rounded-full animate-bounce'
+                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
                     style={{ animationDelay: "0.1s" }}
                   ></div>
                   <div
-                    className='w-2 h-2 bg-gray-400 rounded-full animate-bounce'
+                    className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
                     style={{ animationDelay: "0.2s" }}
                   ></div>
                 </div>
-                <span className='text-gray-500 text-xs'>
+                <span className="text-gray-500 text-xs">
                   AI is analyzing...
                 </span>
               </div>
@@ -592,39 +594,39 @@ const ChatInterface: React.FC = () => {
 
       {/* File Preview */}
       {uploadedFiles.length > 0 && (
-        <div className='px-4 pb-2'>
-          <div className='bg-white rounded-lg p-4 border border-gray-200 shadow-sm'>
-            <div className='flex items-center space-x-2 mb-3'>
-              <Paperclip className='w-4 h-4 text-blue-600' />
-              <span className='text-gray-900 text-sm font-medium'>
+        <div className="px-4 pb-2">
+          <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
+            <div className="flex items-center space-x-2 mb-3">
+              <Paperclip className="w-4 h-4 text-blue-600" />
+              <span className="text-gray-900 text-sm font-medium">
                 {uploadedFiles.length} file
                 {uploadedFiles.length > 1 ? "s" : ""} ready to send
               </span>
             </div>
-            <div className='flex space-x-3 overflow-x-auto pb-1'>
+            <div className="flex space-x-3 overflow-x-auto pb-1">
               {uploadedFiles.map((file) => (
-                <div key={file.id} className='relative flex-shrink-0'>
+                <div key={file.id} className="relative flex-shrink-0">
                   {file.type === "image" ? (
                     <Image
                       src={file.url}
                       alt={file.name}
                       width={80}
                       height={80}
-                      className='w-20 h-20 object-cover rounded-lg border-2 border-gray-200'
+                      className="w-20 h-20 object-cover rounded-lg border-2 border-gray-200"
                     />
                   ) : (
-                    <div className='w-20 h-20 flex flex-col items-center justify-center bg-gray-50 rounded-lg border-2 border-gray-200 p-2'>
-                      <FileText className='w-8 h-8 text-blue-600' />
-                      <span className='text-xs text-gray-600 truncate w-full text-center mt-1'>
+                    <div className="w-20 h-20 flex flex-col items-center justify-center bg-gray-50 rounded-lg border-2 border-gray-200 p-2">
+                      <FileText className="w-8 h-8 text-blue-600" />
+                      <span className="text-xs text-gray-600 truncate w-full text-center mt-1">
                         {file.name.split(".").pop()?.toUpperCase()}
                       </span>
                     </div>
                   )}
                   <button
                     onClick={() => removeFile(file.id)}
-                    className='absolute -top-2 -right-2 w-6 h-6 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center shadow-md transition-colors'
+                    className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center shadow-md transition-colors"
                   >
-                    <X className='w-3 h-3 text-white' />
+                    <X className="w-3 h-3 text-white" />
                   </button>
                 </div>
               ))}
@@ -635,9 +637,9 @@ const ChatInterface: React.FC = () => {
 
       {/* Quick Actions */}
       {showQuickActions && (
-        <div className='px-4 pb-2'>
-          <div className='bg-white rounded-lg p-4 border border-gray-200 shadow-sm'>
-            <div className='grid grid-cols-3 gap-3'>
+        <div className="px-4 pb-2">
+          <div className="bg-white rounded-lg p-4 border border-gray-200 shadow-sm">
+            <div className="grid grid-cols-3 gap-3">
               {quickActions.map((action, index) => (
                 <button
                   key={index}
@@ -645,10 +647,10 @@ const ChatInterface: React.FC = () => {
                     action.action();
                     setShowQuickActions(false);
                   }}
-                  className='flex flex-col items-center space-y-2 bg-gray-50 hover:bg-gray-100 transition-colors rounded-lg p-4 text-gray-700 border border-gray-200 hover:border-gray-300'
+                  className="flex flex-col items-center space-y-2 bg-gray-50 hover:bg-gray-100 transition-colors rounded-lg p-4 text-gray-700 border border-gray-200 hover:border-gray-300"
                 >
-                  <action.icon className='w-5 h-5' />
-                  <span className='text-xs font-medium'>{action.label}</span>
+                  <action.icon className="w-5 h-5" />
+                  <span className="text-xs font-medium">{action.label}</span>
                 </button>
               ))}
             </div>
@@ -657,41 +659,41 @@ const ChatInterface: React.FC = () => {
       )}
 
       {/* Input Area */}
-      <div className='p-4 bg-white border-t border-gray-200'>
-        <div className='flex items-end space-x-3'>
-          <div className='flex-1'>
-            <div className='flex items-end bg-gray-100 rounded-2xl px-4 py-3 border border-gray-300 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20'>
+      <div className="p-4 border-t border-border rounded-b-3xl">
+        <div className="flex items-center space-x-3">
+          <div className="flex-1">
+            <div className="flex items-end bg-gray-100 rounded-2xl px-4 py-3 border border-gray-300 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20">
               <textarea
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder='Type your message...'
+                placeholder="Type your message..."
                 disabled={isTyping || isSending}
                 rows={1}
-                className='flex-1 bg-transparent text-gray-900 placeholder-gray-500 outline-none resize-none text-sm disabled:opacity-50'
-                style={{ minHeight: "20px", maxHeight: "100px" }}
+                className="flex-1 bg-transparent text-gray-900 placeholder-gray-500 outline-none resize-none text-sm disabled:opacity-50"
+                style={{ minHeight: "24px", maxHeight: "120px" }}
               />
 
-              <div className='flex items-center space-x-2 ml-3'>
+              <div className="flex items-center space-x-2 ml-3">
                 <button
                   onClick={() => setShowQuickActions(!showQuickActions)}
-                  className='p-1.5 rounded-full hover:bg-gray-200 transition-colors'
+                  className="p-1.5 rounded-full hover:bg-gray-200 transition-colors"
                 >
-                  <Plus className='w-4 h-4 text-gray-600' />
+                  <Plus className="w-4 h-4 text-gray-600" />
                 </button>
 
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className='p-1.5 rounded-full hover:bg-gray-200 transition-colors'
+                  className="p-1.5 rounded-full hover:bg-gray-200 transition-colors"
                 >
-                  <Paperclip className='w-4 h-4 text-gray-600' />
+                  <Paperclip className="w-4 h-4 text-gray-600" />
                 </button>
 
                 <button
                   onClick={() => cameraInputRef.current?.click()}
-                  className='p-1 rounded-full hover:bg-gray-200 transition-colors'
+                  className="p-1 rounded-full hover:bg-gray-200 transition-colors"
                 >
-                  <Camera className='w-4 h-4 text-gray-600' />
+                  <Camera className="w-4 h-4 text-gray-600" />
                 </button>
               </div>
             </div>
@@ -704,12 +706,12 @@ const ChatInterface: React.FC = () => {
               isTyping ||
               isSending
             }
-            className='p-2 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm'
+            className="p-2 rounded-full bg-blue-600 hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
           >
             {isSending ? (
-              <div className='w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin'></div>
+              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
             ) : (
-              <Send className='w-5 h-5 text-white' />
+              <Send className="w-5 h-5 text-white" />
             )}
           </button>
         </div>
@@ -718,20 +720,20 @@ const ChatInterface: React.FC = () => {
       {/* Hidden File Inputs */}
       <input
         ref={fileInputRef}
-        type='file'
-        accept='image/*,.pdf,.doc,.docx,.txt,.csv,.xlsx,.xls'
+        type="file"
+        accept="image/*,.pdf,.doc,.docx,.txt,.csv,.xlsx,.xls"
         multiple
         onChange={handleFileUpload}
-        className='hidden'
+        className="hidden"
       />
 
       <input
         ref={cameraInputRef}
-        type='file'
-        accept='image/*'
-        capture='environment'
+        type="file"
+        accept="image/*"
+        capture="environment"
         onChange={handleFileUpload}
-        className='hidden'
+        className="hidden"
       />
     </div>
   );
