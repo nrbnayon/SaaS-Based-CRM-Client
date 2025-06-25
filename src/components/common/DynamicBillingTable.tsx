@@ -3,6 +3,7 @@
 "use client";
 import { SearchIcon } from "lucide-react";
 import React, { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   Table,
@@ -24,6 +25,7 @@ import {
 import { Input } from "../ui/input";
 import type { PlanTableProps } from "@/types/allTypes";
 import type { Plan } from "@/types/allTypes";
+
 // Define table columns
 const defaultTableColumns = ["Plan", "Issue", "Expire", "Amount", "Download"];
 
@@ -37,6 +39,7 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
 
   // Filtered plans
   const filteredPlans = useMemo(() => {
@@ -80,8 +83,47 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
     }
   };
 
+  // Handle row click for navigation
+  const handleRowClick = (plan: Plan) => {
+    // Check if this is a candidate table (has Name, Id, Phone, Email columns)
+    const isCandidateTable =
+      tableColumns.includes("Name") &&
+      tableColumns.includes("Id") &&
+      tableColumns.includes("Phone") &&
+      tableColumns.includes("Email");
+
+    if (isCandidateTable) {
+      // Extract candidate data
+      const candidateData = {
+        name: plan.plan || plan.name || "",
+        id: plan.issue || plan.id || "",
+        phone: plan.expire || plan.phone || "",
+        email: plan.amount || plan.email || "",
+      };
+
+      // Navigate to candidate details page with query parameters
+      const queryParams = new URLSearchParams({
+        name: String(candidateData.name),
+        id: String(candidateData.id),
+        phone: String(candidateData.phone),
+        email: String(candidateData.email),
+      });
+
+      router.push(
+        `/hr-test/hr-candidate-list/candidate-details?${queryParams.toString()}`
+      );
+    }
+  };
+
   // Handle download
-  const handleDownload = (pdfUrl: string, planName: string) => {
+  const handleDownload = (
+    pdfUrl: string,
+    planName: string,
+    event: React.MouseEvent
+  ) => {
+    // Prevent row click when download is clicked
+    event.stopPropagation();
+
     console.log(`Downloading PDF for ${planName}: ${pdfUrl}`);
     if (pdfUrl && pdfUrl.trim() !== "") {
       const link = document.createElement("a");
@@ -122,10 +164,50 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
     }
   };
 
+  // Check if this is a candidate table
+  const isCandidateTable =
+    tableColumns.includes("Name") &&
+    tableColumns.includes("Id") &&
+    tableColumns.includes("Phone") &&
+    tableColumns.includes("Email");
+
   // Render cell content
   const renderCellContent = (plan: Plan, column: string) => {
     if (!plan) return "-";
 
+    // Handle candidate table columns
+    if (isCandidateTable) {
+      switch (column) {
+        case "Name":
+          return (
+            <div className="flex items-center gap-2">
+              <div className="font-medium text-foreground dark:text-white">
+                {(plan.plan ?? plan.name ?? "Unknown Name").toString()}
+              </div>
+            </div>
+          );
+        case "Id":
+          return (
+            <div className="text-foreground">
+              {plan.issue || plan.id || "Unknown ID"}
+            </div>
+          );
+        case "Phone":
+          return (
+            <div className="text-foreground">
+              {(plan.expire ?? plan.phone ?? "Unknown Phone").toString()}
+            </div>
+          );
+        case "Email":
+          return (
+            <div className="text-foreground">
+              {(plan.amount ?? plan.email ?? "Unknown Email").toString()}
+            </div>
+          );
+      }
+    }
+
+    // Handle regular billing table columns
     switch (column) {
       case "Plan":
         return (
@@ -159,10 +241,11 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
             {plan.download && plan.download.trim() !== "" ? (
               <a
                 className="h-8 px-3 underline cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800"
-                onClick={() =>
+                onClick={(e) =>
                   handleDownload(
                     plan.download ?? "",
-                    plan.plan ?? "Unknown Plan"
+                    plan.plan ?? "Unknown Plan",
+                    e
                   )
                 }
               >
@@ -221,9 +304,10 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
             {title}
           </h2>
         </div>
-        <div className="flex items-center gap-2 px-4 py-3 rounded-xl border border-solid border-border w-full sm:max-w-[300px] lg:max-w-[356px] bg-background">
-          <SearchIcon className="w-5 h-5 text-muted-custom flex-shrink-0" />
-          {enableSearch && (
+        {enableSearch && (
+          <div className="flex items-center gap-2 px-4 py-3 rounded-xl border border-solid border-border w-full sm:max-w-[300px] lg:max-w-[356px] bg-background">
+            <SearchIcon className="w-5 h-5 text-muted-custom flex-shrink-0" />
+
             <Input
               className={cn(
                 "border-none bg-transparent text-foreground text-base focus-visible:ring-0 focus-visible:ring-offset-0 p-0 h-6 placeholder:text-muted-custom"
@@ -232,8 +316,8 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Table */}
@@ -269,8 +353,10 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
                         : "bg-gray-50 dark:bg-gray-800/50",
                       "[&>td]:px-4 [&>td]:py-3",
                       index === currentData.length - 1 &&
-                        "[&>td:first-child]:rounded-bl-lg [&>td:last-child]:rounded-br-lg"
+                        "[&>td:first-child]:rounded-bl-lg [&>td:last-child]:rounded-br-lg",
+                      isCandidateTable && "cursor-pointer"
                     )}
+                    onClick={() => isCandidateTable && handleRowClick(plan)}
                   >
                     {tableColumns.map((column) => (
                       <TableCell
@@ -300,7 +386,7 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
       </div>
 
       {/* Results Summary */}
-      {filteredPlans.length > 0 && (
+      {filteredPlans.length > 8 && (
         <div className="text-sm text-muted-foreground dark:text-gray-400">
           Showing {startIndex + 1} to{" "}
           {Math.min(startIndex + itemsPerPage, filteredPlans.length)} of{" "}
