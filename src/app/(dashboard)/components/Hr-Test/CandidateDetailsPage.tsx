@@ -100,8 +100,8 @@ const CandidateDetailsPage = () => {
             enableSearch={false}
           />
         </div>
-        <div className="bg-card">
-          <h4></h4>
+        <div className="bg-card p-2 md:p-4 border border-border rounded-2xl">
+          <h2 className="text-foreground text-base"> Candidate Analysis</h2>
           <DynamicBarChart
             data={candidateBarChartData}
             threshold={20}
