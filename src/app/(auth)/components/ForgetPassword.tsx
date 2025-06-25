@@ -1,3 +1,5 @@
+/** @format */
+
 // src\app\(auth)\components\ForgetPassword.tsx
 "use client";
 import { useState } from "react";
@@ -158,7 +160,7 @@ export default function ForgetPassword() {
               {/* Send OTP Button */}
               <Button
                 type="submit"
-                className="w-full h-12 bg-primary-foreground hover:bg-indigo-700 text-white font-manrope-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-indigo-500/20"
+                className="w-full h-12 bg-indigo-600 hover:bg-indigo-700 text-white font-manrope-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-indigo-500/20"
                 disabled={isLoading || isSubmitting}
               >
                 {isLoading ? (
