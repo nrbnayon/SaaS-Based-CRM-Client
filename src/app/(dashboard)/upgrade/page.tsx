@@ -91,7 +91,7 @@ const billingPlans: Plan[] = [
 
 // Server Component
 export default function Upgrade() {
-  console.log("Upgrade - Billing plans:", billingPlans);
+  // console.log("Upgrade - Billing plans:", billingPlans);
 
   return (
     <div className="">
