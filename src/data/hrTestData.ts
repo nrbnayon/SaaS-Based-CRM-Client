@@ -2,6 +2,25 @@
 
 import type { Plan } from "@/types/allTypes";
 
+export const candidateBarChartData = [
+  { label: "Area", value: 75 },
+  { label: "DET", value: 12 },
+  { label: "PS", value: 35 },
+  { label: "ADT", value: 55 },
+  { label: "STM", value: 32 },
+  { label: "ORG", value: 65 },
+  { label: "CRE", value: 90 },
+  { label: "EXE", value: 75 },
+  { label: "PRI", value: 12 },
+  { label: "LDR", value: 35 },
+  { label: "HRM", value: 55 },
+  { label: "MOT", value: 32 },
+  { label: "COM", value: 65 },
+  { label: "TWK", value: 90 },
+  { label: "EMP", value: 65 },
+  { label: "AST", value: 90 },
+];
+
 export const hrTestCardData = [
   {
     testId: "41515",

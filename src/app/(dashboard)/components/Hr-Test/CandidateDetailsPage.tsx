@@ -12,6 +12,7 @@ import DetailedSummary from "./detailed-summary";
 import DynamicBarChart from "@/components/common/DynamicBarChart";
 import DynamicPieChart from "@/components/common/DynamicPieChart";
 import { DynamicBillingTable } from "@/components/common/DynamicBillingTable";
+import { candidateBarChartData } from "@/data/hrTestData";
 
 interface CandidateData {
   name: string;
@@ -99,7 +100,20 @@ const CandidateDetailsPage = () => {
             enableSearch={false}
           />
         </div>
-        <div className="bg-card">heeloo</div>
+        <div className="bg-card">
+          <h4></h4>
+          <DynamicBarChart
+            data={candidateBarChartData}
+            threshold={20}
+            threshold2={60}
+            highColor="#7DFF56"
+            midColor="#FFD900"
+            lowColor="#FF6767"
+            title=""
+            subtitle=""
+            ticks={[0, 25, 50, 75, 100]}
+          />
+        </div>
       </div>
 
       <div className="w-full p-2 md:p-4 bg-background rounded-2xl border border-border">
@@ -199,8 +213,10 @@ const CandidateDetailsPage = () => {
                 { label: "Fri", value: 30 },
                 { label: "Sat", value: 52 },
               ]}
-              threshold={50}
+              threshold={40}
+              threshold2={100}
               highColor="#FFAD66"
+              midColor="#FFAD66"
               lowColor="#FFF06A"
               title="Response"
               subtitle="Comparison"

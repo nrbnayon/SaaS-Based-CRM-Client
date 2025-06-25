@@ -1,3 +1,5 @@
+/** @format */
+
 export type BarChartDataItem = {
   label: string;
   value: number;
@@ -17,7 +19,9 @@ export type DynamicBarChartProps = {
   height?: number;
   barSize?: number;
   threshold?: number;
+  threshold2?: number;
   highColor?: string;
+  midColor?: string;
   lowColor?: string;
   ticks?: number[];
   [key: string]: unknown;
