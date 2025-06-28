@@ -2,21 +2,21 @@
 
 export const priceData = [
   {
-    title: "Monthly",
-    oldPrice: 100,
-    price: 55,
-    save: 45,
+    title: "Basic",
+    oldPrice: 49,
+    price: 49,
+    save: 0,
   },
   {
-    title: "Half Year",
-    oldPrice: 300,
-    price: 255,
-    save: 45,
+    title: "Premium",
+    oldPrice: 99,
+    price: 99,
+    save: 0,
   },
   {
-    title: "Yearly",
-    oldPrice: 600,
-    price: 555,
-    save: 45,
+    title: "Elite",
+    oldPrice: 129,
+    price: 129,
+    save: 0,
   },
 ];
