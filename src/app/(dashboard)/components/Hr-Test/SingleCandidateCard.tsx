@@ -26,8 +26,8 @@ const SingleCandidateCard: React.FC<SingleCandidateCardProps> = ({
   candidate,
 }) => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-8 bg-card border border-border p-4 rounded-lg gap-4">
-      <div className="lg:col-span-4 flex justify-start items-center gap-3 text-foreground dark:text-white">
+    <div className="grid  md:grid-cols-8 bg-card border border-border p-4 rounded-lg gap-4">
+      <div className="lg:col-span-2 flex justify-start items-center gap-3 text-foreground dark:text-white">
         <Avatar className="h-12 w-12">
           <AvatarImage src={candidate.image} alt={candidate.name} />
           <AvatarFallback>
@@ -49,19 +49,19 @@ const SingleCandidateCard: React.FC<SingleCandidateCardProps> = ({
         </div>
       </div>
 
-      <div className="lg:col-span-3 flex flex-col justify-center">
+      <div className="md:col-span-5 flex flex-col justify-center">
         <div className="text-sm md:text-base text-foreground font-medium mb-2">
           Match Score
         </div>
-        <div className="flex items-center gap-2">
-          <Progress value={candidate.progress} className="flex-1" />
-          <div className="text-sm md:text-base text-muted-foreground font-semibold">
+        <div className="flex items-center gap-2 relative">
+          <Progress value={candidate.progress} className="flex-1 h-6 " />
+          <div className="text-sm text-muted-foreground font-semibold absolute right-4">
             {candidate.progress}%
           </div>
         </div>
       </div>
 
-      <div className="lg:col-span-1 flex items-center">
+      <div className="md:col-span-1 flex items-center justify-end">
         <Button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded hover:from-orange-600 hover:to-red-600 transition-all duration-200">
           View Data
         </Button>
