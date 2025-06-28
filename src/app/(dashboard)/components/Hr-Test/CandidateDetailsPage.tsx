@@ -20,6 +20,7 @@ interface CandidateData {
   phone: string;
   email: string;
   image?: string;
+  download?: string;
 }
 
 const CandidateDetailsPage = () => {
@@ -35,6 +36,7 @@ const CandidateDetailsPage = () => {
     const phone = searchParams.get("phone");
     const email = searchParams.get("email");
     const image = searchParams.get("image");
+    const download = searchParams.get("download");
 
     if (name && id && phone && email) {
       setCandidateData({
@@ -43,6 +45,7 @@ const CandidateDetailsPage = () => {
         phone,
         email,
         image: image || undefined,
+        download: download || undefined,
       });
     }
   }, [searchParams]);
@@ -55,7 +58,7 @@ const CandidateDetailsPage = () => {
           issue: candidateData.id,
           expire: candidateData.phone,
           amount: candidateData.email,
-          download: "", // Empty for this use case
+          download: candidateData.download ?? "", // Ensure it's always a string
           id: candidateData.id,
           image: candidateData.image,
         },
@@ -100,7 +103,7 @@ const CandidateDetailsPage = () => {
           <DynamicBillingTable
             title=""
             plans={tableData}
-            tableColumns={["Name", "Id", "Phone", "Email"]}
+            tableColumns={["Name", "Id", "Phone", "Email", "Download"]}
             enableSearch={false}
           />
         </div>

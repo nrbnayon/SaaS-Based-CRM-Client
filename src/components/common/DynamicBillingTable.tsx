@@ -91,7 +91,8 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
       tableColumns.includes("Name") &&
       tableColumns.includes("Id") &&
       tableColumns.includes("Phone") &&
-      tableColumns.includes("Email");
+      tableColumns.includes("Email") &&
+      tableColumns.includes("Download");
 
     if (isCandidateTable) {
       // Extract candidate data
@@ -101,6 +102,7 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
         phone: plan.expire || plan.phone || "",
         email: plan.amount || plan.email || "",
         image: plan.image,
+        download: plan.download || "",
       };
 
       // Navigate to candidate details page with query parameters
@@ -109,6 +111,7 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
         id: String(candidateData.id),
         phone: String(candidateData.phone),
         email: String(candidateData.email),
+        download: String(candidateData.download),
         image: String(candidateData.image),
       });
 
@@ -209,6 +212,29 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
           return (
             <div className="text-foreground">
               {(plan.amount ?? plan.email ?? "Unknown Email").toString()}
+            </div>
+          );
+        case "Download":
+          return (
+            <div className="flex items-center justify-center gap-2">
+              {plan.download && plan.download.trim() !== "" ? (
+                <a
+                  className="h-8 px-3 underline cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800"
+                  onClick={(e) =>
+                    handleDownload(
+                      plan.download ?? "",
+                      plan.plan ?? "Unknown Plan",
+                      e
+                    )
+                  }
+                >
+                  Download PDF
+                </a>
+              ) : (
+                <div className="flex items-center text-muted-foreground dark:text-gray-400">
+                  <span className="text-xs">No PDF</span>
+                </div>
+              )}
             </div>
           );
       }
