@@ -57,9 +57,9 @@ const UpgradePage = () => {
                 </div>
                 <div className="text-right">
                   <div className="text-3xl md:text-4xl font-bold text-foreground">
-                    $55
+                    $49
                     <span className="text-foreground font-medium text-sm md:text-base">
-                      /mo
+                      /Basic
                     </span>
                   </div>
                 </div>
