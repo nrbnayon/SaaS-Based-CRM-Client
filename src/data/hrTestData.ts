@@ -59,6 +59,7 @@ export const candidateList: Plan[] = [
     email: "rafiul@example.com",
     download: "https://example.com/files/rafiul.pdf",
     image: "https://i.pravatar.cc/150?img=1",
+    progress: 45, // Fixed progress value
   },
   {
     id: 2,
@@ -67,6 +68,7 @@ export const candidateList: Plan[] = [
     email: "nusrat@example.com",
     download: "https://example.com/files/nusrat.pdf",
     image: "https://i.pravatar.cc/150?img=2",
+    progress: 60, // Fixed progress value
   },
   {
     id: 3,
@@ -75,6 +77,7 @@ export const candidateList: Plan[] = [
     email: "tanvir@example.com",
     download: "https://example.com/files/tanvir.pdf",
     image: "https://i.pravatar.cc/150?img=3",
+    progress: 80, // Fixed progress value
   },
   {
     id: 4,
@@ -83,6 +86,7 @@ export const candidateList: Plan[] = [
     email: "sumaiya@example.com",
     download: "https://example.com/files/sumaiya.pdf",
     image: "https://i.pravatar.cc/150?img=4",
+    progress: 20, // Fixed progress value
   },
   {
     id: 5,
@@ -91,6 +95,7 @@ export const candidateList: Plan[] = [
     email: "sabbir@example.com",
     download: "https://example.com/files/sabbir.pdf",
     image: "https://i.pravatar.cc/150?img=5",
+    progress: 90, // Fixed progress value
   },
   {
     id: 6,
@@ -99,6 +104,7 @@ export const candidateList: Plan[] = [
     email: "jannatul@example.com",
     download: "https://example.com/files/jannatul.pdf",
     image: "https://i.pravatar.cc/150?img=6",
+    progress: 35, // Fixed progress value
   },
   {
     id: 7,
@@ -107,6 +113,7 @@ export const candidateList: Plan[] = [
     email: "mahmudul@example.com",
     download: "https://example.com/files/mahmudul.pdf",
     image: "https://i.pravatar.cc/150?img=7",
+    progress: 55, // Fixed progress value
   },
   {
     id: 8,
@@ -115,6 +122,7 @@ export const candidateList: Plan[] = [
     email: "farzana@example.com",
     download: "https://example.com/files/farzana.pdf",
     image: "https://i.pravatar.cc/150?img=8",
+    progress: 75, // Fixed progress value
   },
   {
     id: 9,
@@ -123,6 +131,7 @@ export const candidateList: Plan[] = [
     email: "hasan@example.com",
     download: "https://example.com/files/hasan.pdf",
     image: "https://i.pravatar.cc/150?img=9",
+    progress: 50, // Fixed progress value
   },
   {
     id: 10,
@@ -131,6 +140,7 @@ export const candidateList: Plan[] = [
     email: "nazia@example.com",
     download: "https://example.com/files/nazia.pdf",
     image: "https://i.pravatar.cc/150?img=10",
+    progress: 40, // Fixed progress value
   },
   {
     id: 11,
@@ -139,6 +149,7 @@ export const candidateList: Plan[] = [
     email: "shahriar@example.com",
     download: "https://example.com/files/shahriar.pdf",
     image: "https://i.pravatar.cc/150?img=11",
+    progress: 65, // Fixed progress value
   },
   {
     id: 12,
@@ -147,6 +158,7 @@ export const candidateList: Plan[] = [
     email: "ayesha@example.com",
     download: "https://example.com/files/ayesha.pdf",
     image: "https://i.pravatar.cc/150?img=12",
+    progress: 25, // Fixed progress value
   },
   {
     id: 13,
@@ -155,6 +167,7 @@ export const candidateList: Plan[] = [
     email: "rasel@example.com",
     download: "https://example.com/files/rasel.pdf",
     image: "https://i.pravatar.cc/150?img=13",
+    progress: 70, // Fixed progress value
   },
   {
     id: 14,
@@ -163,6 +176,7 @@ export const candidateList: Plan[] = [
     email: "tanjina@example.com",
     download: "https://example.com/files/tanjina.pdf",
     image: "https://i.pravatar.cc/150?img=14",
+    progress: 85, // Fixed progress value
   },
   {
     id: 15,
@@ -171,6 +185,7 @@ export const candidateList: Plan[] = [
     email: "fahim@example.com",
     download: "https://example.com/files/fahim.pdf",
     image: "https://i.pravatar.cc/150?img=15",
+    progress: 30, // Fixed progress value
   },
 ];
 
