@@ -28,6 +28,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import DynamicPieChart from "@/components/common/DynamicPieChart";
 
 // Financial planning specific cards
 const financialPlanCards: FinancialCard[] = [
@@ -221,12 +222,32 @@ const FinancialReport = () => {
           />
         </TabsContent>
         <TabsContent value="Cost-Analysis">
-          <DynamicFinancialTable
-            chartData={currentChartData}
-            selectedPeriod={selectedPeriods.analytics}
-            onPeriodChange={(period) => handlePeriodChange("analytics", period)}
-            chartType="expense-only"
-          />
+          <div className="space-y-2 md:space-y-5">
+            <div>
+              <DynamicFinancialTable
+                chartData={currentChartData}
+                selectedPeriod={selectedPeriods.analytics}
+                onPeriodChange={(period) =>
+                  handlePeriodChange("analytics", period)
+                }
+                chartType="expense-only"
+              />
+            </div>
+            <div>
+              <DynamicPieChart
+                data={[
+                  { label: "Matrices FARE", value: 77396, color: "#ef4444" },
+                  { label: "Matrices ESSERE", value: 77396, color: "#22c55e" },
+                ]}
+                title="Matrices"
+                width={400}
+                height={300}
+                showLabels={true}
+                showLegend={true}
+                showValues={true}
+              />
+            </div>
+          </div>
         </TabsContent>
         <TabsContent value="Cash-Flow">
           <div className="w-full ">
