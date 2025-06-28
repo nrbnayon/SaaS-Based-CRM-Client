@@ -1,8 +1,9 @@
+/** @format */
+
 "use client";
-import {
-  DynamicTable,
-} from "@/components/common/DynamicTable";
+import { DynamicTable } from "@/components/common/DynamicTable";
 import { FinancialCardComponent } from "@/components/common/FinancialCardComponent";
+import { DynamicFinancialTable } from "./DynamicFinancialTable";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Select,
@@ -19,8 +20,6 @@ import { cn } from "@/lib/utils";
 import { FinancialCard, TimePeriod, Transaction } from "@/types/allTypes";
 import React, { useState } from "react";
 import {
-  Bar,
-  BarChart,
   Legend,
   Line,
   LineChart,
@@ -213,73 +212,11 @@ const FinancialReport = () => {
         </TabsList>
 
         <TabsContent value="Overview">
-          <div className="w-full ">
-            <Card
-              className={cn(
-                "flex flex-col h-96 justify-between items-start p-4 bg-[linear-gradient(45deg,var(--accent)_0%,white_50%,#FFF1E5_100%)] dark:bg-[linear-gradient(45deg,var(--dark-primary)_100%,var(--dark-primary)_100%,var(--dark-primary)_100%)] flex-1 rounded-[20px] w-full xl:w-auto min-w-2xs"
-              )}
-            >
-              <CardHeader className="flex flex-row items-center justify-between p-0 w-full">
-                <CardTitle className="inline-flex items-center justify-center gap-2 font-medium text-gray-800 dark:text-white text-base">
-                  Analytics
-                </CardTitle>
-                <Select
-                  value={selectedPeriods.analytics}
-                  onValueChange={(value: TimePeriod) =>
-                    handlePeriodChange("analytics", value)
-                  }
-                >
-                  <SelectTrigger className="inline-flex items-center text-muted-custom justify-center gap-1.5 px-3 py-2 h-auto bg-white/20 dark:bg-transparent rounded-lg border-[0.5px] border-solid border-gray-300 dark:border-[#505050]">
-                    <SelectValue className="font-normal dark:text-muted-foreground text-xs" />
-                    {/* <ChevronDownIcon className='h-4 w-4 text-muted-custom dark:text-muted-foreground' /> */}
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="daily">Daily</SelectItem>
-                    <SelectItem value="weekly">Weekly</SelectItem>
-                    <SelectItem value="monthly">Monthly</SelectItem>
-                    <SelectItem value="yearly">Yearly</SelectItem>
-                  </SelectContent>
-                </Select>
-              </CardHeader>
-
-              <CardContent className="w-full flex-1 p-0 pt-4">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart
-                    width={500}
-                    height={300}
-                    data={currentChartData}
-                    margin={{
-                      top: 5,
-                      right: 30,
-                      left: 20,
-                      bottom: 5,
-                    }}
-                  >
-                    <XAxis dataKey="month" axisLine={false} tickLine={false} />
-                    <YAxis axisLine={false} tickLine={false} />
-                    <Tooltip cursor={{ fill: "transparent" }} />
-                    <Legend />
-                    <Bar
-                      dataKey="expense"
-                      fill="#FFAD66"
-                      name="Expense"
-                      barSize={20}
-                      radius={[10, 10, 10, 10]}
-                      activeBar={{ fill: "#FFAD66" }}
-                    />
-                    <Bar
-                      dataKey="income"
-                      fill="#88F77C"
-                      name="Income"
-                      barSize={20}
-                      radius={[10, 10, 10, 10]}
-                      activeBar={{ fill: "#88F77C" }}
-                    />
-                  </BarChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
-          </div>
+          <DynamicFinancialTable
+            chartData={currentChartData}
+            selectedPeriod={selectedPeriods.analytics}
+            onPeriodChange={(period) => handlePeriodChange("analytics", period)}
+          />
         </TabsContent>
         <TabsContent value="Cash-Flow">
           <div className="w-full ">
