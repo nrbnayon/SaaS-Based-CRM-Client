@@ -236,10 +236,13 @@ const FinancialReport = () => {
             <div>
               <DynamicPieChart
                 data={[
-                  { label: "Matrices FARE", value: 77396, color: "#ef4444" },
-                  { label: "Matrices ESSERE", value: 77396, color: "#22c55e" },
+                  { label: "AI equipement", value: 77396, color: "#ef4444" },
+                  { label: "Gpt subscription", value: 77396, color: "#22c55e" },
+                  { label: "Maintainance cost", value: 7396, color: "#D2691E" },
+                  { label: "Exam Maintainance", value: 9396, color: "#483D8B" },
+                  { label: "Conference Cost", value: 1396, color: "#FFD700" },
                 ]}
-                title="Matrices"
+                title="Expenses"
                 width={400}
                 height={300}
                 showLabels={true}
