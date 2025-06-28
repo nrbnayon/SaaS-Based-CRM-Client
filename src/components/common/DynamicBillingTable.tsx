@@ -25,6 +25,7 @@ import {
 import { Input } from "../ui/input";
 import type { PlanTableProps } from "@/types/allTypes";
 import type { Plan } from "@/types/allTypes";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 // Define table columns
 const defaultTableColumns = ["Plan", "Issue", "Expire", "Amount", "Download"];
@@ -99,6 +100,7 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
         id: plan.issue || plan.id || "",
         phone: plan.expire || plan.phone || "",
         email: plan.amount || plan.email || "",
+        image: plan.image,
       };
 
       // Navigate to candidate details page with query parameters
@@ -107,6 +109,7 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
         id: String(candidateData.id),
         phone: String(candidateData.phone),
         email: String(candidateData.email),
+        image: String(candidateData.image),
       });
 
       router.push(
@@ -181,7 +184,11 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
         case "Name":
           return (
             <div className="flex items-center gap-2">
-              <div className="font-medium text-foreground dark:text-white">
+              <div className="flex justify-center items-center gap-2 font-medium text-foreground dark:text-white">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src={plan.image} alt="@shadcn" />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
                 {(plan.plan ?? plan.name ?? "Unknown Name").toString()}
               </div>
             </div>

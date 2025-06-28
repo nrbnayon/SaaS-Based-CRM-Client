@@ -19,6 +19,7 @@ interface CandidateData {
   id: string;
   phone: string;
   email: string;
+  image?: string;
 }
 
 const CandidateDetailsPage = () => {
@@ -33,6 +34,7 @@ const CandidateDetailsPage = () => {
     const id = searchParams.get("id");
     const phone = searchParams.get("phone");
     const email = searchParams.get("email");
+    const image = searchParams.get("image");
 
     if (name && id && phone && email) {
       setCandidateData({
@@ -40,6 +42,7 @@ const CandidateDetailsPage = () => {
         id,
         phone,
         email,
+        image: image || undefined,
       });
     }
   }, [searchParams]);
@@ -54,6 +57,7 @@ const CandidateDetailsPage = () => {
           amount: candidateData.email,
           download: "", // Empty for this use case
           id: candidateData.id,
+          image: candidateData.image,
         },
       ]
     : [];
