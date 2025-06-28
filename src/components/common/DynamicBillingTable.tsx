@@ -300,7 +300,7 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between w-full gap-4">
         <div>
-          <h2 className="font-bold text-xl lg:text-2xl leading-7 text-foreground">
+          <h2 className="font-bold  text-xl lg:text-2xl leading-7 text-foreground">
             {title}
           </h2>
         </div>
@@ -325,12 +325,12 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
         <div className="w-full">
           <Table>
             <TableHeader className="bg-accent dark:bg-secondary">
-              <TableRow className="hover:bg-transparent border-b-0">
+              <TableRow className="hover:bg-transparent justify-center border-b-0">
                 {tableColumns.map((column) => (
                   <TableHead
                     key={column}
                     className={cn(
-                      "text-center font-semibold text-sm lg:text-base text-foreground py-4 px-2",
+                      " text-center font-semibold text-sm lg:text-base text-foreground py-4 px-2",
                       "first:rounded-tl-lg last:rounded-tr-lg",
                       "dark:text-white"
                     )}
