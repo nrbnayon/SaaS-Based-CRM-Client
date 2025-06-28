@@ -210,12 +210,22 @@ const FinancialReport = () => {
             Taxes & Deadlines
           </TabsTrigger>
         </TabsList>
-
+        {/* // Only showing the updated TabsContent sections - replace these in your
+        existing component */}
         <TabsContent value="Overview">
           <DynamicFinancialTable
             chartData={currentChartData}
             selectedPeriod={selectedPeriods.analytics}
             onPeriodChange={(period) => handlePeriodChange("analytics", period)}
+            chartType="both"
+          />
+        </TabsContent>
+        <TabsContent value="Cost-Analysis">
+          <DynamicFinancialTable
+            chartData={currentChartData}
+            selectedPeriod={selectedPeriods.analytics}
+            onPeriodChange={(period) => handlePeriodChange("analytics", period)}
+            chartType="expense-only"
           />
         </TabsContent>
         <TabsContent value="Cash-Flow">

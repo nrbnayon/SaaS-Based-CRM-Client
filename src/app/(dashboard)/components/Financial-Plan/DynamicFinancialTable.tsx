@@ -35,6 +35,7 @@ interface DynamicFinancialTableProps {
   selectedPeriod: TimePeriod;
   onPeriodChange: (period: TimePeriod) => void;
   className?: string;
+  chartType?: "both" | "income-only" | "expense-only";
 }
 
 export const DynamicFinancialTable: React.FC<DynamicFinancialTableProps> = ({
@@ -42,7 +43,42 @@ export const DynamicFinancialTable: React.FC<DynamicFinancialTableProps> = ({
   selectedPeriod,
   onPeriodChange,
   className,
+  chartType = "both",
 }) => {
+  const renderBars = () => {
+    const bars = [];
+
+    if (chartType === "both" || chartType === "expense-only") {
+      bars.push(
+        <Bar
+          key="expense"
+          dataKey="expense"
+          fill="#FFAD66"
+          name="Expense"
+          barSize={20}
+          radius={[10, 10, 10, 10]}
+          activeBar={{ fill: "#FFAD66" }}
+        />
+      );
+    }
+
+    if (chartType === "both" || chartType === "income-only") {
+      bars.push(
+        <Bar
+          key="income"
+          dataKey="income"
+          fill="#88F77C"
+          name="Income"
+          barSize={20}
+          radius={[10, 10, 10, 10]}
+          activeBar={{ fill: "#88F77C" }}
+        />
+      );
+    }
+
+    return bars;
+  };
+
   return (
     <div className={cn("w-full", className)}>
       <Card
@@ -87,22 +123,7 @@ export const DynamicFinancialTable: React.FC<DynamicFinancialTableProps> = ({
               <YAxis axisLine={false} tickLine={false} />
               <Tooltip cursor={{ fill: "transparent" }} />
               <Legend />
-              <Bar
-                dataKey="expense"
-                fill="#FFAD66"
-                name="Expense"
-                barSize={20}
-                radius={[10, 10, 10, 10]}
-                activeBar={{ fill: "#FFAD66" }}
-              />
-              <Bar
-                dataKey="income"
-                fill="#88F77C"
-                name="Income"
-                barSize={20}
-                radius={[10, 10, 10, 10]}
-                activeBar={{ fill: "#88F77C" }}
-              />
+              {renderBars()}
             </BarChart>
           </ResponsiveContainer>
         </CardContent>
