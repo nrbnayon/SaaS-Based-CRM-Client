@@ -3,7 +3,6 @@
 "use client";
 import { SearchIcon } from "lucide-react";
 import React, { useState, useMemo } from "react";
-import { useRouter } from "next/navigation";
 
 import {
   Table,
@@ -40,7 +39,6 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const router = useRouter();
 
   // Filtered plans
   const filteredPlans = useMemo(() => {
@@ -81,43 +79,6 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
-    }
-  };
-
-  // Handle row click for navigation
-  const handleRowClick = (plan: Plan) => {
-    // Check if this is a candidate table (has Name, Id, Phone, Email columns)
-    const isCandidateTable =
-      tableColumns.includes("Name") &&
-      tableColumns.includes("Id") &&
-      tableColumns.includes("Phone") &&
-      tableColumns.includes("Email") &&
-      tableColumns.includes("Download");
-
-    if (isCandidateTable) {
-      // Extract candidate data
-      const candidateData = {
-        name: plan.plan || plan.name || "",
-        id: plan.issue || plan.id || "",
-        phone: plan.expire || plan.phone || "",
-        email: plan.amount || plan.email || "",
-        image: plan.image,
-        download: plan.download || "",
-      };
-
-      // Navigate to candidate details page with query parameters
-      const queryParams = new URLSearchParams({
-        name: String(candidateData.name),
-        id: String(candidateData.id),
-        phone: String(candidateData.phone),
-        email: String(candidateData.email),
-        download: String(candidateData.download),
-        image: String(candidateData.image),
-      });
-
-      router.push(
-        `/hr-test/hr-candidate-list/candidate-details?${queryParams.toString()}`
-      );
     }
   };
 
@@ -386,10 +347,8 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
                         : "bg-gray-50 dark:bg-gray-800/50",
                       "[&>td]:px-4 [&>td]:py-3",
                       index === currentData.length - 1 &&
-                        "[&>td:first-child]:rounded-bl-lg [&>td:last-child]:rounded-br-lg",
-                      isCandidateTable && "cursor-pointer"
+                        "[&>td:first-child]:rounded-bl-lg [&>td:last-child]:rounded-br-lg"
                     )}
-                    onClick={() => isCandidateTable && handleRowClick(plan)}
                   >
                     {tableColumns.map((column) => (
                       <TableCell
