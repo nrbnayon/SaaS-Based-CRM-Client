@@ -16,14 +16,7 @@ const HrCandidateList = () => {
       <div>
         <HrHeader />
       </div>
-      <div className=" py-0 lg:py-2">
-        <DynamicBillingTable
-          title="Candidate List"
-          tableColumns={["Name", "Id", "Phone", "Email", "Download"]}
-          plans={candidateList}
-          itemsPerPage={8}
-        />
-      </div>
+
       <div className=" py-0 lg:py-2 border border-border rounded-2xl p-2 md:p-4">
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between w-full gap-4 mb-3">
