@@ -1,8 +1,10 @@
 /** @format */
+"use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { useRouter } from "next/navigation";
 
 import React from "react";
 
@@ -26,6 +28,8 @@ interface SingleCandidateCardProps {
 const SingleCandidateCard: React.FC<SingleCandidateCardProps> = ({
   candidate,
 }) => {
+  const router = useRouter();
+
   // Function to get colors and status based on progress
   const getProgressStyles = (progress: number = 0) => {
     if (progress <= 30) {
@@ -70,6 +74,24 @@ const SingleCandidateCard: React.FC<SingleCandidateCardProps> = ({
       statusText: "",
       statusBorder: "",
     };
+  };
+
+  // Handler for View Data button click
+  const handleViewData = () => {
+    const queryParams = new URLSearchParams();
+
+    // Add candidate data to query parameters
+    if (candidate.name) queryParams.set("name", candidate.name);
+    if (candidate.id) queryParams.set("id", candidate.id.toString());
+    if (candidate.phone) queryParams.set("phone", candidate.phone);
+    if (candidate.email) queryParams.set("email", candidate.email);
+    if (candidate.image) queryParams.set("image", candidate.image);
+    if (candidate.download) queryParams.set("download", candidate.download);
+
+    // Navigate to candidate details page
+    router.push(
+      `/hr-test/hr-candidate-list/candidate-details?${queryParams.toString()}`
+    );
   };
 
   const styles = getProgressStyles(candidate.progress);
@@ -121,7 +143,10 @@ const SingleCandidateCard: React.FC<SingleCandidateCardProps> = ({
       </div>
 
       <div className="md:col-span-1 flex items-center justify-end">
-        <Button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-0.5 md:py-2 rounded hover:from-orange-600 hover:to-red-600 transition-all duration-200">
+        <Button
+          onClick={handleViewData}
+          className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-0.5 md:py-2 rounded hover:from-orange-600 hover:to-red-600 transition-all duration-200"
+        >
           View Data
         </Button>
       </div>
