@@ -1,15 +1,43 @@
 /** @format */
+"use client";
 
 import HrHeader from "@/components/common/HrHeader";
 import { candidateList } from "@/data/hrTestData";
-import React from "react";
+import React, { useState, useMemo } from "react";
 import SingleCandidateCard from "../../components/Hr-Test/SingleCandidateCard";
 import { SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-// Define the Plan interface to match your data structure
+
+// Define Candidate type if not already imported
+type Candidate = {
+  id: string | number;
+  name?: string;
+  names?: string;
+  phone?: string;
+  email?: string;
+  download: string;
+  image?: string;
+  progress?: number;
+  [key: string]: unknown;
+};
 
 const HrCandidateList = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Filter candidates based on search term
+  const filteredCandidates = useMemo(() => {
+    if (!searchTerm.trim()) {
+      return candidateList as unknown as Candidate[];
+    }
+
+    return (candidateList as unknown as Candidate[]).filter(
+      (candidate) =>
+        typeof candidate.name === "string" &&
+        candidate.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [searchTerm]);
+
   return (
     <div className="px-4">
       <div>
@@ -39,9 +67,15 @@ const HrCandidateList = () => {
           </div>
         </div>
         <div className="space-y-4 ">
-          {candidateList.map((candidate) => (
-            <SingleCandidateCard key={candidate.id} candidate={candidate} />
-          ))}
+          {filteredCandidates.length > 0 ? (
+            filteredCandidates.map((candidate) => (
+              <SingleCandidateCard key={candidate.id} candidate={candidate} />
+            ))
+          ) : (
+            <div className="text-center py-8 text-muted-foreground">
+              No candidates found matching {searchTerm}
+            </div>
+          )}
         </div>
       </div>
     </div>
