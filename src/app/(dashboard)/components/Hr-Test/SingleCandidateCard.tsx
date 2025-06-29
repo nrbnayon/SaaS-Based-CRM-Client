@@ -57,13 +57,7 @@ const SingleCandidateCard: React.FC<SingleCandidateCardProps> = ({
         <div className="flex items-center gap-2 relative">
           <Progress
             value={candidate.progress}
-            className="flex-1 h-5 md:h-6 bg-red-500"
-            style={
-              { ["--progress-indicator-color"]: "#f97316" } as Record<
-                string,
-                string
-              >
-            } // Orange-500
+            className="flex-1 h-5 md:h-6 bg-red-100 [&>*]:bg-red-500"
           />
           <div className="text-sm text-muted-foreground font-semibold absolute right-4">
             {candidate.progress}%
