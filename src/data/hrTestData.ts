@@ -77,7 +77,7 @@ export const candidateList: Plan[] = [
     email: "tanvir@example.com",
     download: "https://example.com/files/tanvir.pdf",
     image: "https://i.pravatar.cc/150?img=3",
-    progress: 80, // Fixed progress value
+    progress: 97, // Fixed progress value
   },
   {
     id: 4,

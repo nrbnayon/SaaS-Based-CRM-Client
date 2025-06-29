@@ -52,28 +52,27 @@ const SingleCandidateCard: React.FC<SingleCandidateCardProps> = ({
       return {
         progressBg: "bg-green-100",
         progressFill: "[&>*]:bg-green-500",
-        textColor: "text-green-500",
+        textColor: "text-lime-950",
         status: "High",
         statusBg: "bg-green-100",
         statusText: "text-green-500",
         statusBorder: "border-green-500",
       };
-    } else if (progress > 90) {
-      return {
-        textColor: "text-green-900",
-      };
     }
+
+    // Default styles if no condition matches
+    return {
+      progressBg: "",
+      progressFill: "",
+      textColor: "",
+      status: "",
+      statusBg: "",
+      statusText: "",
+      statusBorder: "",
+    };
   };
 
-  const styles = getProgressStyles(candidate.progress) || {
-    progressBg: "",
-    progressFill: "",
-    textColor: "",
-    status: "",
-    statusBg: "",
-    statusText: "",
-    statusBorder: "",
-  };
+  const styles = getProgressStyles(candidate.progress);
 
   return (
     <div className="grid  md:grid-cols-8 bg-card border border-border p-4 rounded-lg gap-4">
