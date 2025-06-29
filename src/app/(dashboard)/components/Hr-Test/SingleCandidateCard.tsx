@@ -50,11 +50,21 @@ const SingleCandidateCard: React.FC<SingleCandidateCardProps> = ({
       </div>
 
       <div className="md:col-span-5 flex flex-col justify-center">
-        <div className="text-sm md:text-base text-foreground font-medium mb-2">
-          Match Score
+        <div className="w-full flex justify-between text-sm md:text-base text-foreground font-medium mb-2">
+          <div>Match Score</div>
+          <div className="border px-2 py-0.5 rounded-lg ">medium</div>
         </div>
         <div className="flex items-center gap-2 relative">
-          <Progress value={candidate.progress} className="flex-1 h-6 " />
+          <Progress
+            value={candidate.progress}
+            className="flex-1 h-5 md:h-6 bg-red-500"
+            style={
+              { ["--progress-indicator-color"]: "#f97316" } as Record<
+                string,
+                string
+              >
+            } // Orange-500
+          />
           <div className="text-sm text-muted-foreground font-semibold absolute right-4">
             {candidate.progress}%
           </div>
@@ -62,7 +72,7 @@ const SingleCandidateCard: React.FC<SingleCandidateCardProps> = ({
       </div>
 
       <div className="md:col-span-1 flex items-center justify-end">
-        <Button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded hover:from-orange-600 hover:to-red-600 transition-all duration-200">
+        <Button className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-0.5 md:py-2 rounded hover:from-orange-600 hover:to-red-600 transition-all duration-200">
           View Data
         </Button>
       </div>
