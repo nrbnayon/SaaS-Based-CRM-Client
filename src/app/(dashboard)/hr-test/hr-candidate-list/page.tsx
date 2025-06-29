@@ -1,6 +1,5 @@
 /** @format */
 
-import { DynamicBillingTable } from "@/components/common/DynamicBillingTable";
 import HrHeader from "@/components/common/HrHeader";
 import { candidateList } from "@/data/hrTestData";
 import React from "react";
@@ -33,6 +32,9 @@ const HrCandidateList = () => {
               className={cn(
                 "border-none bg-transparent text-foreground text-base focus-visible:ring-0 focus-visible:ring-offset-0 p-0 h-6 placeholder:text-muted-custom"
               )}
+              placeholder="Search by name"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
         </div>
