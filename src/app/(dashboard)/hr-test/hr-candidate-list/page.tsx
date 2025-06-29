@@ -46,7 +46,7 @@ const HrCandidateList = () => {
 
       <div className=" py-0 lg:py-2 border border-border rounded-2xl p-2 md:p-4">
         {/* Header */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between w-full gap-4 mb-3">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between w-full gap-4 mb-3 lg:mb-5">
           <div>
             <h2 className="font-bold  text-xl lg:text-2xl leading-7 text-foreground">
               Candidate List
@@ -66,7 +66,7 @@ const HrCandidateList = () => {
             />
           </div>
         </div>
-        <div className="space-y-4 ">
+        <div className="space-y-2 md:space-y-4 ">
           {filteredCandidates.length > 0 ? (
             filteredCandidates.map((candidate) => (
               <SingleCandidateCard key={candidate.id} candidate={candidate} />
