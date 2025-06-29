@@ -3,6 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+
 import React from "react";
 
 export interface Candidate {
@@ -25,6 +26,55 @@ interface SingleCandidateCardProps {
 const SingleCandidateCard: React.FC<SingleCandidateCardProps> = ({
   candidate,
 }) => {
+  // Function to get colors and status based on progress
+  const getProgressStyles = (progress: number = 0) => {
+    if (progress <= 30) {
+      return {
+        progressBg: "bg-red-100",
+        progressFill: "[&>*]:bg-red-500",
+        textColor: "text-red-500",
+        status: "Low",
+        statusBg: "bg-red-100",
+        statusText: "text-red-500",
+        statusBorder: "border-red-500",
+      };
+    } else if (progress <= 60) {
+      return {
+        progressBg: "bg-amber-100",
+        progressFill: "[&>*]:bg-amber-500",
+        textColor: "text-amber-500",
+        status: "Medium",
+        statusBg: "bg-amber-100",
+        statusText: "text-amber-500",
+        statusBorder: "border-amber-500",
+      };
+    } else if (progress > 60) {
+      return {
+        progressBg: "bg-green-100",
+        progressFill: "[&>*]:bg-green-500",
+        textColor: "text-green-500",
+        status: "High",
+        statusBg: "bg-green-100",
+        statusText: "text-green-500",
+        statusBorder: "border-green-500",
+      };
+    } else if (progress > 90) {
+      return {
+        textColor: "text-green-900",
+      };
+    }
+  };
+
+  const styles = getProgressStyles(candidate.progress) || {
+    progressBg: "",
+    progressFill: "",
+    textColor: "",
+    status: "",
+    statusBg: "",
+    statusText: "",
+    statusBorder: "",
+  };
+
   return (
     <div className="grid  md:grid-cols-8 bg-card border border-border p-4 rounded-lg gap-4">
       <div className="lg:col-span-2 flex justify-start items-center gap-3 text-foreground dark:text-white">
@@ -52,14 +102,20 @@ const SingleCandidateCard: React.FC<SingleCandidateCardProps> = ({
       <div className="md:col-span-5 flex flex-col justify-center">
         <div className="w-full flex justify-between text-sm md:text-base text-foreground font-medium mb-2">
           <div>Match Score</div>
-          <div className="border px-2 py-0.5 rounded-lg ">medium</div>
+          <div
+            className={`border px-2 py-0.5 rounded-lg ${styles.statusBg} ${styles.statusText} ${styles.statusBorder}`}
+          >
+            {styles.status}
+          </div>
         </div>
         <div className="flex items-center gap-2 relative">
           <Progress
             value={candidate.progress}
-            className="flex-1 h-5 md:h-6 bg-red-100 [&>*]:bg-red-500"
+            className={`flex-1 h-5 md:h-6 ${styles.progressBg} ${styles.progressFill}`}
           />
-          <div className="text-sm text-muted-foreground font-semibold absolute right-4">
+          <div
+            className={`text-sm font-semibold absolute right-4 ${styles.textColor}`}
+          >
             {candidate.progress}%
           </div>
         </div>
