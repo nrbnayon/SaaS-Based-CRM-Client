@@ -120,35 +120,36 @@ const SingleCandidateCard: React.FC<SingleCandidateCardProps> = ({
         </div>
       </div>
 
-      <div className="lg:col-span-5 flex flex-col justify-center">
-        <div className="w-full flex justify-between text-sm md:text-base text-foreground font-medium mb-2">
-          <div>Match Score</div>
-          <div
-            className={`border px-2 py-0.5 rounded-lg ${styles.statusBg} ${styles.statusText} ${styles.statusBorder}`}
-          >
-            {styles.status}
+      <div className="lg:col-span-6 flex flex-row justify-center gap-2 md:gap-16 items-center">
+        <div className="w-full flex flex-col justify-center">
+          <div className="w-full flex justify-between text-sm md:text-base text-foreground font-medium mb-2">
+            <div>Match Score</div>
+            <div
+              className={`border px-2 py-0.5 rounded-lg ${styles.statusBg} ${styles.statusText} ${styles.statusBorder}`}
+            >
+              {styles.status}
+            </div>
+          </div>
+          <div className="flex items-center gap-2 relative">
+            <Progress
+              value={candidate.progress}
+              className={`flex-1 h-5 md:h-6 ${styles.progressBg} ${styles.progressFill}`}
+            />
+            <div
+              className={`text-sm font-semibold absolute right-4 ${styles.textColor}`}
+            >
+              {candidate.progress}%
+            </div>
           </div>
         </div>
-        <div className="flex items-center gap-2 relative">
-          <Progress
-            value={candidate.progress}
-            className={`flex-1 h-5 md:h-6 ${styles.progressBg} ${styles.progressFill}`}
-          />
-          <div
-            className={`text-sm font-semibold absolute right-4 ${styles.textColor}`}
+        <div className="lg:col-span-1 flex items-center justify-end">
+          <Button
+            onClick={handleViewData}
+            className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-0.5 md:py-2 rounded hover:from-orange-600 hover:to-red-600 transition-all duration-200"
           >
-            {candidate.progress}%
-          </div>
+            View Data
+          </Button>
         </div>
-      </div>
-
-      <div className="lg:col-span-1 flex items-center justify-end">
-        <Button
-          onClick={handleViewData}
-          className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-0.5 md:py-2 rounded hover:from-orange-600 hover:to-red-600 transition-all duration-200"
-        >
-          View Data
-        </Button>
       </div>
     </div>
   );
