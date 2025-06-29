@@ -97,7 +97,7 @@ const SingleCandidateCard: React.FC<SingleCandidateCardProps> = ({
   const styles = getProgressStyles(candidate.progress);
 
   return (
-    <div className="grid  md:grid-cols-8 bg-card border border-border p-4 rounded-lg gap-4">
+    <div className="grid  lg:grid-cols-8 bg-card border border-border p-4 rounded-lg gap-4">
       <div className="lg:col-span-2 flex justify-start items-center gap-3 text-foreground dark:text-white">
         <Avatar className="h-12 w-12">
           <AvatarImage src={candidate.image} alt={candidate.name} />
@@ -120,7 +120,7 @@ const SingleCandidateCard: React.FC<SingleCandidateCardProps> = ({
         </div>
       </div>
 
-      <div className="md:col-span-5 flex flex-col justify-center">
+      <div className="lg:col-span-5 flex flex-col justify-center">
         <div className="w-full flex justify-between text-sm md:text-base text-foreground font-medium mb-2">
           <div>Match Score</div>
           <div
@@ -142,7 +142,7 @@ const SingleCandidateCard: React.FC<SingleCandidateCardProps> = ({
         </div>
       </div>
 
-      <div className="md:col-span-1 flex items-center justify-end">
+      <div className="lg:col-span-1 flex items-center justify-end">
         <Button
           onClick={handleViewData}
           className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-0.5 md:py-2 rounded hover:from-orange-600 hover:to-red-600 transition-all duration-200"
