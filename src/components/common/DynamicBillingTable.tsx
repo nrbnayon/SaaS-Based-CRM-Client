@@ -206,7 +206,7 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
       case "Plan":
         return (
           <div className="flex items-center gap-2">
-            <div className="font-medium text-foreground dark:text-white">
+            <div className="font-medium w-full text-center text-foreground dark:text-white">
               {plan.plan || "Unknown Plan"}
             </div>
           </div>
