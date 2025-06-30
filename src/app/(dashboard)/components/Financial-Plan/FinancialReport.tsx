@@ -233,7 +233,7 @@ const FinancialReport = () => {
                 chartType="expense-only"
               />
             </div>
-            <div>
+            <div className="overflow-hidden">
               <DynamicPieChart
                 data={[
                   { label: "AI equipement", value: 77396, color: "#ef4444" },
