@@ -39,7 +39,7 @@ const DynamicPieChart = ({
   // Calculate total for percentage calculation
   const total = adjustedData.reduce((sum, item) => sum + item.value, 0);
 
-  // Custom label renderer
+  // Custom label renderer for label lines
   type PieLabelRenderProps = {
     cx: number;
     cy: number;
@@ -54,7 +54,7 @@ const DynamicPieChart = ({
     cx,
     cy,
     midAngle,
-    innerRadius,
+
     outerRadius,
     value,
     index,
@@ -62,25 +62,29 @@ const DynamicPieChart = ({
     if (!showLabels) return null;
 
     const RADIAN = Math.PI / 180;
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.6;
+    // Position label at the end of label line (further out from the pie)
+    const radius = outerRadius + 30; // Extended beyond the pie chart
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
     const percentage = Math.round((value / total) * 100);
     const originalValue = adjustedData[index]?.originalValue || value;
 
+    // Determine text anchor based on which side of the chart the label is on
+    const textAnchor = x > cx ? "start" : "end";
+
     return (
       <text
         x={x}
         y={y}
-        fill="#ffffff"
-        textAnchor="middle"
+        fill="#666666"
+        textAnchor={textAnchor}
         dominantBaseline="central"
-        fontSize="18"
-        fontWeight="700"
+        fontSize="14"
+        fontWeight="600"
       >
         {showValues
-          ? `${percentage}% (${originalValue.toLocaleString()})`
-          : `${percentage}%`}
+          ? ` ${percentage}% (${originalValue.toLocaleString()})`
+          : ` ${percentage}%`}
       </text>
     );
   };
@@ -114,14 +118,17 @@ const DynamicPieChart = ({
               {title}
             </h2>
           </div>
-          {/* Pie Chart */}
-          <div style={{ width: `${width}px`, height: `${height}px` }}>
+          {/* Pie Chart with extra padding for labels */}
+          <div
+            style={{ width: `${width + 100}px`, height: `${height + 60}px` }}
+          >
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
                   data={adjustedData}
                   cx="50%"
                   cy="50%"
+                  labelLine={true}
                   label={renderCustomLabel}
                   outerRadius={outerRadius}
                   innerRadius={innerRadius}
