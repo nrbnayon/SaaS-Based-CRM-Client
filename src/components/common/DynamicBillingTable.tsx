@@ -147,8 +147,8 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
       switch (column) {
         case "Name":
           return (
-            <div className="flex items-center gap-2">
-              <div className="flex justify-center items-center gap-2 font-medium text-foreground dark:text-white">
+            <div className="flex text-center items-center gap-2">
+              <div className="flex w-full text-center justify-center items-center gap-2 font-medium text-foreground dark:text-white">
                 <Avatar className="h-8 w-8">
                   <AvatarImage src={plan.image} alt="@shadcn" />
                   <AvatarFallback>CN</AvatarFallback>
