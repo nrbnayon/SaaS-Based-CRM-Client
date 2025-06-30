@@ -122,7 +122,6 @@ const DynamicPieChart = ({
                   data={adjustedData}
                   cx="50%"
                   cy="50%"
-                  labelLine={false}
                   label={renderCustomLabel}
                   outerRadius={outerRadius}
                   innerRadius={innerRadius}
