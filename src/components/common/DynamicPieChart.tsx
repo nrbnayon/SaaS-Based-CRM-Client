@@ -86,7 +86,7 @@ const DynamicPieChart = ({
   };
 
   return (
-    <div className=" w-full bg-background dark:bg-card  rounded-3xl border border-border dark:border-none p-6 text-foreground   overflow-x-scroll">
+    <div className=" w-full bg-background dark:bg-card  rounded-3xl border border-border dark:border-none p-6 text-foreground overflow-x-auto scrollbar-custom  xl:overflow-hidden">
       {/* Title positioned at top center */}
 
       <div className="flex flex-col md:flex-row">
