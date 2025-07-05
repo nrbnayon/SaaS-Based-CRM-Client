@@ -24,7 +24,7 @@ export const candidateBarChartData = [
 export const hrTestCardData = [
   {
     testId: "41515",
-    title: "Production HR Test",
+    title: "AI-PRIME APTITUDE TEST",
     description:
       "A comprehensive evaluation designed to assess the effectiveness and efficiency of Human Resource...",
     candidateCount: 34,
@@ -33,7 +33,7 @@ export const hrTestCardData = [
   },
   {
     testId: "41520",
-    title: "Production HR Test",
+    title: "AI-PROFILE 2.0 TEST",
     description:
       "A comprehensive evaluation designed to assess the effectiveness and efficiency of Human Resource...",
     candidateCount: 54,
@@ -42,7 +42,7 @@ export const hrTestCardData = [
   },
   {
     testId: "41515",
-    title: "Production HR Test",
+    title: "AI-PROFILE 3.0 TEST",
     description:
       "A comprehensive evaluation designed to assess the effectiveness and efficiency of Human Resource...",
     candidateCount: 24,
