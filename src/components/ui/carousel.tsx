@@ -64,7 +64,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
   //   event.currentTarget.style.opacity = "1";
   // };
 
-  const { title, oldPrice, price, save } = slide;
+  const { title, oldPrice, price, planfor } = slide;
 
   return (
     <div className="[perspective:1200px]  [transform-style:preserve-3d]">
@@ -106,7 +106,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
             title={title}
             oldPrice={oldPrice}
             price={price}
-            save={save}
+            planfor={planfor}
           />
         </article>
       </li>

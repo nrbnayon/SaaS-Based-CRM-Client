@@ -37,7 +37,7 @@ export interface SlideData {
   title: string;
   oldPrice: number;
   price: number;
-  save: number;
+  planfor: string;
 }
 
 // Transaction type definitions
