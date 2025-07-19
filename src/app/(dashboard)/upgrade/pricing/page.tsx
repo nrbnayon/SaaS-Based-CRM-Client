@@ -16,7 +16,7 @@ const Pricing = () => {
             title={plan.title}
             oldPrice={plan.oldPrice}
             price={plan.price}
-            save={plan.save}
+            planfor={plan.planfor}
           />
         ))}
       </div>

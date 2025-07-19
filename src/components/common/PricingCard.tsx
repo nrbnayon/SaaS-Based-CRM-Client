@@ -8,10 +8,10 @@ interface PricingCardProps {
   title: string;
   oldPrice: number;
   price: number;
-  save: number;
+  planfor: string;
 }
 
-const PricingCard = ({ title, oldPrice, price, save }: PricingCardProps) => {
+const PricingCard = ({ title, oldPrice, price, planfor }: PricingCardProps) => {
   return (
     <div className="w-full rounded-2xl h-full bg-[linear-gradient(45deg,#02DBD6_0%,#080635_50%,#02DBD6_100%)]">
       <Card className="bg-transparent border-0">
@@ -54,7 +54,7 @@ const PricingCard = ({ title, oldPrice, price, save }: PricingCardProps) => {
               <div className="flex text-xl md:text-3xl font-bold text-white">
                 ${price}{" "}
                 <span className="text-xs font-normal pt-4 text-whited">
-                  /{title}
+                  /{planfor}
                 </span>
               </div>
 
@@ -63,7 +63,7 @@ const PricingCard = ({ title, oldPrice, price, save }: PricingCardProps) => {
                   ${oldPrice}{" "}
                 </div>
                 <div className="text-black bg-white px-3 py-0.5 rounded-2xl text-xs">
-                  Save: ${save}
+                  Save: ${oldPrice - price}
                 </div>
               </div>
             </div>
