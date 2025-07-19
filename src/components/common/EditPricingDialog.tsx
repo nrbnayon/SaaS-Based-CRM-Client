@@ -121,7 +121,7 @@ const EditPricingDialog = ({
 
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="title" className="text-right">
+            <Label htmlFor="title" className="text-left">
               Title
             </Label>
             <div className="col-span-3">
@@ -138,7 +138,7 @@ const EditPricingDialog = ({
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="oldPrice" className="text-right">
+            <Label htmlFor="oldPrice" className="text-left">
               Old Price
             </Label>
             <div className="col-span-3">
@@ -158,7 +158,7 @@ const EditPricingDialog = ({
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="price" className="text-right">
+            <Label htmlFor="price" className=" text-left">
               Current Price
             </Label>
             <div className="col-span-3">
@@ -178,7 +178,7 @@ const EditPricingDialog = ({
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="planfor" className="text-right">
+            <Label htmlFor="planfor" className="text-left">
               Plan Duration
             </Label>
             <div className="col-span-3">
