@@ -16,6 +16,7 @@ import {
   CircleUserRound,
   CrownIcon,
   LogOut,
+  MonitorCog,
   UserSquare2Icon,
 } from "lucide-react";
 
@@ -30,37 +31,42 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
     {
       label: "Overview",
       href: "/overview",
-      icon: <MdDashboard className='h-5 w-5 flex-shrink-0' />,
+      icon: <MdDashboard className="h-5 w-5 flex-shrink-0" />,
     },
     {
       label: "Financial Plan",
       href: "/financial-plan",
-      icon: <PiRankingLight className='h-5 w-5 flex-shrink-0' />,
+      icon: <PiRankingLight className="h-5 w-5 flex-shrink-0" />,
     },
     {
       label: "Accounts",
       href: "/accounts",
-      icon: <MdAccountBalance className='h-5 w-5 flex-shrink-0' />,
+      icon: <MdAccountBalance className="h-5 w-5 flex-shrink-0" />,
     },
     {
       label: "Reports",
       href: "/reports",
-      icon: <HiOutlineDocumentText className='h-5 w-5 flex-shrink-0' />,
+      icon: <HiOutlineDocumentText className="h-5 w-5 flex-shrink-0" />,
     },
     {
       label: "HR Test",
       href: "/hr-test",
-      icon: <UserSquare2Icon className='h-5 w-5 flex-shrink-0' />,
+      icon: <UserSquare2Icon className="h-5 w-5 flex-shrink-0" />,
     },
     {
       label: "Chat AI",
       href: "/chat-ai",
-      icon: <BotMessageSquare className='h-5 w-5 flex-shrink-0' />,
+      icon: <BotMessageSquare className="h-5 w-5 flex-shrink-0" />,
     },
     {
       label: "Upgrade",
       href: "/upgrade",
-      icon: <CrownIcon className='h-5 w-5 flex-shrink-0' />,
+      icon: <CrownIcon className="h-5 w-5 flex-shrink-0" />,
+    },
+    {
+      label: "Tutorial",
+      href: "/tutorial",
+      icon: <MonitorCog className="h-5 w-5 flex-shrink-0" />,
     },
   ];
 

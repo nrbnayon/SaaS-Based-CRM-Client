@@ -23,7 +23,7 @@ const UpgradePage = () => {
                 <div className="flex space-x-2">
                   <BadgeCheck className="h-7 w-7" />
                   <h1 className="text-black dark:text-white text-lg md:text-xl font-bold">
-                    Basic
+                    Accountant package
                   </h1>
                 </div>
               </div>
@@ -57,9 +57,9 @@ const UpgradePage = () => {
                 </div>
                 <div className="text-right">
                   <div className="text-3xl md:text-4xl font-bold text-foreground">
-                    $49
+                    $69
                     <span className="text-foreground font-medium text-sm md:text-base">
-                      /Basic
+                      /Monthly
                     </span>
                   </div>
                 </div>
