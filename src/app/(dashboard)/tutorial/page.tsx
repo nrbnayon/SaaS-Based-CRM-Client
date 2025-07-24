@@ -53,8 +53,8 @@ export default function TutorialPage() {
     {
       id: 3,
       title: "Advanced Tips",
-      duration: "3:45",
-      startTime: 845,
+      duration: "7:45",
+      startTime: 545,
       completed: false,
       description: "Pro tips for efficient workflow",
     },
@@ -64,30 +64,64 @@ export default function TutorialPage() {
     const video = videoRef.current;
     if (!video) return;
 
-    const updateTime = () => setCurrentTime(video.currentTime);
-    const updateDuration = () => setDuration(video.duration);
+    const updateTime = () => {
+      setCurrentTime(video.currentTime);
+      // Also update duration if it wasn't set yet
+      if (video.duration && !duration) {
+        setDuration(video.duration);
+      }
+    };
 
+    const updateDuration = () => {
+      if (video.duration && isFinite(video.duration)) {
+        setDuration(video.duration);
+      }
+    };
+
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+    const handleEnded = () => setIsPlaying(false);
+
+    // Multiple events to ensure duration is captured
     video.addEventListener("timeupdate", updateTime);
     video.addEventListener("loadedmetadata", updateDuration);
-    video.addEventListener("ended", () => setIsPlaying(false));
+    video.addEventListener("loadeddata", updateDuration);
+    video.addEventListener("canplay", updateDuration);
+    video.addEventListener("durationchange", updateDuration);
+    video.addEventListener("play", handlePlay);
+    video.addEventListener("pause", handlePause);
+    video.addEventListener("ended", handleEnded);
+
+    // Force check duration if video is already loaded
+    if (video.duration && isFinite(video.duration)) {
+      setDuration(video.duration);
+    }
 
     return () => {
       video.removeEventListener("timeupdate", updateTime);
       video.removeEventListener("loadedmetadata", updateDuration);
-      video.removeEventListener("ended", () => setIsPlaying(false));
+      video.removeEventListener("loadeddata", updateDuration);
+      video.removeEventListener("canplay", updateDuration);
+      video.removeEventListener("durationchange", updateDuration);
+      video.removeEventListener("play", handlePlay);
+      video.removeEventListener("pause", handlePause);
+      video.removeEventListener("ended", handleEnded);
     };
-  }, []);
+  }, [duration]);
 
-  const togglePlay = () => {
+  const togglePlay = async () => {
     const video = videoRef.current;
     if (!video) return;
 
-    if (isPlaying) {
-      video.pause();
-    } else {
-      video.play();
+    try {
+      if (isPlaying) {
+        video.pause();
+      } else {
+        await video.play();
+      }
+    } catch (error) {
+      console.error("Error playing video:", error);
     }
-    setIsPlaying(!isPlaying);
   };
 
   const toggleMute = () => {
@@ -128,6 +162,7 @@ export default function TutorialPage() {
   };
 
   const formatTime = (time: number) => {
+    if (!time || isNaN(time)) return "0:00";
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
@@ -173,12 +208,20 @@ export default function TutorialPage() {
           <div className="lg:col-span-3">
             <div className="bg-card rounded-2xl border border-border overflow-hidden card-shadow">
               {/* Video Player */}
-              {/* <div className="relative aspect-video bg-dark-primary rounded-t-2xl overflow-hidden">
+              <div className="relative aspect-video bg-dark-primary rounded-t-2xl overflow-hidden">
                 <video
                   ref={videoRef}
                   className="w-full h-full object-cover"
-                  src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4"
+                  src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
                   poster="https://via.placeholder.com/1280x720/080635/ffffff?text=Tutorial+Video"
+                  preload="metadata"
+                  playsInline
+                  onLoadedMetadata={() => {
+                    const video = videoRef.current;
+                    if (video && video.duration && isFinite(video.duration)) {
+                      setDuration(video.duration);
+                    }
+                  }}
                 />
 
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6">
@@ -289,14 +332,14 @@ export default function TutorialPage() {
                     {completedChapters} of {tutorialSections.length} Complete
                   </div>
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
             {/* Progress Overview */}
-            {/* <div className="bg-card rounded-2xl border border-border card-shadow p-6 mb-6">
+            <div className="bg-card rounded-2xl border border-border card-shadow p-6 mb-6">
               <h3 className="font-manrope-bold text-lg text-primary mb-4">
                 Your Progress
               </h3>
@@ -342,10 +385,10 @@ export default function TutorialPage() {
                   {progressPercentage === 100 ? "Completed!" : "Keep going!"}
                 </p>
               </div>
-            </div> */}
+            </div>
 
             {/* Chapter Navigation */}
-            {/* <div className="bg-card rounded-2xl border border-border card-shadow p-6">
+            <div className="bg-card rounded-2xl border border-border card-shadow p-6">
               <h3 className="font-manrope-bold text-lg text-primary mb-4">
                 Chapters
               </h3>
@@ -389,7 +432,7 @@ export default function TutorialPage() {
                 <RotateCcw className="w-4 h-4 mr-2" />
                 Restart Tutorial
               </button>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

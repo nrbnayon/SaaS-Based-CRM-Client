@@ -6,13 +6,13 @@ export const siteConfig = {
   shortName: "SBCRMAD",
   description: "Saas Based CRM Admin Dashboard",
   url: "https://fun-engagement-dashboard.vercel.app",
-  ogImage: "/logo.png",
+  ogImage: "/nlogo.png",
   logo: {
-    default: "/logo.png",
-    dark: "/logo.png",
+    default: "/nlogo.png",
+    dark: "/nlogo.png",
     favicon: "/favicon.ico",
-    apple: "/logo1.png",
-    external: "https://i.postimg.cc/g2SgRtQk/logo.png",
+    apple: "/nlogo.png",
+    external: "https://i.postimg.cc/g2SgRtQk/nlogo.png",
     altText: "Saas Based CRM Admin Dashboard",
   },
   creator: "@nrbnayon",
@@ -117,7 +117,7 @@ export const layoutMetadata: Metadata = {
   },
   icons: {
     icon: [{ url: "/favicon.ico" }],
-    apple: [{ url: "/logo.png", sizes: "180x180" }],
+    apple: [{ url: "/nlogo.png", sizes: "180x180" }],
     other: [{ rel: "mask-icon", url: "/logo.svg", color: "#000000" }],
   },
   //   manifest: "/site.webmanifest",
@@ -276,7 +276,7 @@ export const layoutMetadata: Metadata = {
 //     name: siteConfig.name,
 //     logo: {
 //       "@type": "ImageObject",
-//       url: `${siteConfig.url}/logo.png`,
+//       url: `${siteConfig.url}/nlogo.png`,
 //     },
 //   },
 //   mainEntityOfPage: {
