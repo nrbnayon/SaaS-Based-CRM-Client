@@ -175,14 +175,14 @@ const Logo = () => {
       className="font-normal flex space-x-3 items-center text-sm py-3 relative z-20 w-full"
     >
       {/* Fixed container for image to prevent jumping */}
-      <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center">
-        <Image
+      <div className=" w-5 h-10 flex-shrink-0 flex items-center justify-center">
+        {/* <Image
           className="w-full h-full object-contain z-10"
           alt="PrimeFlow Logo"
-          src="/nlogo.png"
-          width={80}
-          height={80}
-        />
+          src="/logo.png"
+          width={100}
+          height={100}
+        /> */}
       </div>
       <motion.span
         initial={{ opacity: 0 }}
@@ -190,7 +190,13 @@ const Logo = () => {
         transition={{ duration: 0.2 }}
         className="font-semibold text-white whitespace-pre text-lg"
       >
-        PrimeFlow
+        <Image
+          alt="PrimeFlow Logo"
+          src="/logo.png"
+          width={100}
+          height={100}
+          className="w-full h-full object-contain z-10"
+        />
       </motion.span>
     </Link>
   );
@@ -207,9 +213,9 @@ const LogoIcon = () => {
         <Image
           className="w-full h-full object-contain"
           alt="PrimeFlow Logo"
-          src="/nlogo.png"
-          width={80}
-          height={80}
+          src="/logo.png"
+          width={100}
+          height={100}
         />
       </div>
       <motion.span
@@ -220,7 +226,13 @@ const LogoIcon = () => {
         transition={{ duration: 0.2 }}
         className="font-medium text-lg bg-clip-text text-transparent dark:text-white whitespace-pre overflow-hidden"
       >
-        PrimeFlow
+        <Image
+          className="w-full h-full object-contain"
+          alt="PrimeFlow Logo"
+          src="/logo.png"
+          width={100}
+          height={100}
+        />
       </motion.span>
     </Link>
   );

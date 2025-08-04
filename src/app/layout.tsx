@@ -4,6 +4,7 @@ import { Geist, Geist_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/theme-provider";
+import Script from "next/script";
 import { layoutMetadata } from "@/lib/seo/metadata";
 
 const geistSans = Geist({
@@ -30,10 +31,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
-          type='application/ld+json'
+          type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
@@ -51,15 +52,19 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeProvider
-          attribute='class'
-          defaultTheme='light'
+          attribute="class"
+          defaultTheme="light"
           enableSystem={false}
           disableTransitionOnChange
           // forcedTheme='light'
         >
           {children}
-          <Toaster richColors position='top-center' />
+          <Toaster richColors position="top-center" />
         </ThemeProvider>
+        <Script
+          src="https://cdn.lordicon.com/lordicon.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
