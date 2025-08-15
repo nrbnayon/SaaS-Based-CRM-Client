@@ -14,7 +14,23 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { loginValidationSchema } from "@/lib/formDataValidation";
 
-type LoginFormData = z.infer<typeof loginValidationSchema>;
+// Extended validation schema for GDPR compliance
+const loginValidationSchemaExtended = loginValidationSchema.extend({
+  acceptTerms: z.boolean().refine((val) => val === true, {
+    message: "You must accept the Terms and Conditions of Use",
+  }),
+  acceptPrivacyPolicy: z.boolean().refine((val) => val === true, {
+    message: "You must accept the Privacy Policy",
+  }),
+  acceptOpenBanking: z.boolean().refine((val) => val === true, {
+    message: "You must accept the use of Open Banking/PSD2",
+  }),
+  acceptAIUsage: z.boolean().refine((val) => val === true, {
+    message: "You must accept the information on the use of AI",
+  }),
+});
+
+type LoginFormData = z.infer<typeof loginValidationSchemaExtended>;
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,15 +44,23 @@ export default function LoginForm() {
     watch,
     setValue,
   } = useForm<LoginFormData>({
-    resolver: zodResolver(loginValidationSchema),
+    resolver: zodResolver(loginValidationSchemaExtended),
     defaultValues: {
       email: "",
       password: "",
       rememberMe: false,
+      acceptTerms: false,
+      acceptPrivacyPolicy: false,
+      acceptOpenBanking: false,
+      acceptAIUsage: false,
     },
   });
 
   const rememberMe = watch("rememberMe");
+  const acceptTerms = watch("acceptTerms");
+  const acceptPrivacyPolicy = watch("acceptPrivacyPolicy");
+  const acceptOpenBanking = watch("acceptOpenBanking");
+  const acceptAIUsage = watch("acceptAIUsage");
 
   const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
@@ -50,6 +74,10 @@ export default function LoginForm() {
         email: data.email,
         password: data.password,
         rememberMe: data.rememberMe,
+        acceptTerms: data.acceptTerms,
+        acceptPrivacyPolicy: data.acceptPrivacyPolicy,
+        acceptOpenBanking: data.acceptOpenBanking,
+        acceptAIUsage: data.acceptAIUsage,
         timestamp: new Date().toISOString(),
       });
 
@@ -78,7 +106,7 @@ export default function LoginForm() {
     setValue("email", "demo@gmail.com");
     setValue("password", "demo123");
     toast.info("Demo credentials filled", {
-      description: "Click Login to continue with demo account",
+      description: "Please accept all required terms to continue",
     });
   };
 
@@ -242,6 +270,158 @@ export default function LoginForm() {
                 >
                   Forgot Password?
                 </Link>
+              </div>
+
+              {/* GDPR Compliance Section */}
+              <div className="space-y-4 p-4 border border-gray-200 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700/50">
+                <h3 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">
+                  Required Acceptances
+                </h3>
+
+                {/* Terms and Conditions */}
+                <div className="flex items-start space-x-2">
+                  <Checkbox
+                    id="acceptTerms"
+                    className={`border-primary/30 mt-0.5 ${
+                      errors.acceptTerms ? "border-error" : ""
+                    }`}
+                    checked={acceptTerms}
+                    onCheckedChange={(checked) =>
+                      setValue("acceptTerms", !!checked)
+                    }
+                    disabled={isLoading}
+                    required
+                  />
+                  <label
+                    htmlFor="acceptTerms"
+                    className="text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed"
+                  >
+                    <span className="text-red-500">*</span> I accept the{" "}
+                    <Link
+                      href="/terms"
+                      className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Terms and Conditions of Use (ToS)
+                    </Link>
+                  </label>
+                </div>
+                {errors.acceptTerms && (
+                  <p className="text-error text-xs ml-6">
+                    {errors.acceptTerms.message}
+                  </p>
+                )}
+
+                {/* Privacy Policy */}
+                <div className="flex items-start space-x-2">
+                  <Checkbox
+                    id="acceptPrivacyPolicy"
+                    className={`border-primary/30 mt-0.5 ${
+                      errors.acceptPrivacyPolicy ? "border-error" : ""
+                    }`}
+                    checked={acceptPrivacyPolicy}
+                    onCheckedChange={(checked) =>
+                      setValue("acceptPrivacyPolicy", !!checked)
+                    }
+                    disabled={isLoading}
+                    required
+                  />
+                  <label
+                    htmlFor="acceptPrivacyPolicy"
+                    className="text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed"
+                  >
+                    <span className="text-red-500">*</span> I accept the{" "}
+                    <Link
+                      href="/privacy"
+                      className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Privacy Policy (GDPR Art. 13-14)
+                    </Link>{" "}
+                    including data security provisions
+                  </label>
+                </div>
+                {errors.acceptPrivacyPolicy && (
+                  <p className="text-error text-xs ml-6">
+                    {errors.acceptPrivacyPolicy.message}
+                  </p>
+                )}
+
+                {/* Open Banking/PSD2 */}
+                <div className="flex items-start space-x-2">
+                  <Checkbox
+                    id="acceptOpenBanking"
+                    className={`border-primary/30 mt-0.5 ${
+                      errors.acceptOpenBanking ? "border-error" : ""
+                    }`}
+                    checked={acceptOpenBanking}
+                    onCheckedChange={(checked) =>
+                      setValue("acceptOpenBanking", !!checked)
+                    }
+                    disabled={isLoading}
+                    required
+                  />
+                  <label
+                    htmlFor="acceptOpenBanking"
+                    className="text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed"
+                  >
+                    <span className="text-red-500">*</span> I explicitly accept
+                    the use of{" "}
+                    <Link
+                      href="/open-banking"
+                      className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Open Banking/PSD2
+                    </Link>{" "}
+                    for processing sensitive banking data
+                  </label>
+                </div>
+                {errors.acceptOpenBanking && (
+                  <p className="text-error text-xs ml-6">
+                    {errors.acceptOpenBanking.message}
+                  </p>
+                )}
+
+                {/* AI Usage */}
+                <div className="flex items-start space-x-2">
+                  <Checkbox
+                    id="acceptAIUsage"
+                    className={`border-primary/30 mt-0.5 ${
+                      errors.acceptAIUsage ? "border-error" : ""
+                    }`}
+                    checked={acceptAIUsage}
+                    onCheckedChange={(checked) =>
+                      setValue("acceptAIUsage", !!checked)
+                    }
+                    disabled={isLoading}
+                    required
+                  />
+                  <label
+                    htmlFor="acceptAIUsage"
+                    className="text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed"
+                  >
+                    <span className="text-red-500">*</span> I acknowledge and
+                    accept the{" "}
+                    <Link
+                      href="/ai-usage"
+                      className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      information on the use of AI
+                    </Link>{" "}
+                    in this service
+                  </label>
+                </div>
+                {errors.acceptAIUsage && (
+                  <p className="text-error text-xs ml-6">
+                    {errors.acceptAIUsage.message}
+                  </p>
+                )}
               </div>
 
               {/* Login Button */}

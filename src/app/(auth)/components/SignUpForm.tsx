@@ -20,9 +20,62 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { signupValidationSchema } from "@/lib/formDataValidation";
 
-type SignupFormData = z.infer<typeof signupValidationSchema>;
+// Base validation schema without refinements
+const baseSignupSchema = z.object({
+  full_name: z
+    .string()
+    .min(1, "Full name is required")
+    .min(2, "Name must be at least 2 characters")
+    .max(50, "Name must be less than 50 characters")
+    .regex(
+      /^[a-zA-Z\s'-]+$/,
+      "Name can only contain letters, spaces, hyphens, and apostrophes"
+    )
+    .trim(),
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email("Please enter a valid email address")
+    .max(100, "Email must be less than 100 characters")
+    .trim(),
+  password: z
+    .string()
+    .min(1, "Password is required")
+    .min(8, "Password must be at least 8 characters")
+    .max(100, "Password must be less than 100 characters")
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+      "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+    )
+    .refine((val) => !/\s/.test(val), {
+      message: "Password cannot contain spaces",
+    }),
+  confirmPassword: z.string().min(1, "Please confirm your password"),
+});
+
+// Extended validation schema for GDPR compliance
+const signupValidationSchemaExtended = baseSignupSchema
+  .extend({
+    acceptTerms: z.boolean().refine((val) => val === true, {
+      message: "You must accept the Terms and Conditions of Use",
+    }),
+    acceptPrivacyPolicy: z.boolean().refine((val) => val === true, {
+      message: "You must accept the Privacy Policy",
+    }),
+    acceptOpenBanking: z.boolean().refine((val) => val === true, {
+      message: "You must accept the use of Open Banking/PSD2",
+    }),
+    acceptAIUsage: z.boolean().refine((val) => val === true, {
+      message: "You must accept the information on the use of AI",
+    }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
+
+type SignupFormData = z.infer<typeof signupValidationSchemaExtended>;
 
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -37,24 +90,33 @@ export default function SignUpForm() {
     watch,
     setValue,
   } = useForm<SignupFormData>({
-    resolver: zodResolver(signupValidationSchema),
+    resolver: zodResolver(signupValidationSchemaExtended),
     defaultValues: {
       full_name: "",
       email: "",
       password: "",
       confirmPassword: "",
-      agreeToTerms: false,
+      acceptTerms: false,
+      acceptPrivacyPolicy: false,
+      acceptOpenBanking: false,
+      acceptAIUsage: false,
     },
   });
 
-  const agreeToTerms = watch("agreeToTerms");
+  const acceptTerms = watch("acceptTerms");
+  const acceptPrivacyPolicy = watch("acceptPrivacyPolicy");
+  const acceptOpenBanking = watch("acceptOpenBanking");
+  const acceptAIUsage = watch("acceptAIUsage");
   const password = watch("password");
 
   interface SignupFormResponse {
     full_name: string;
     email: string;
     password: string;
-    agreeToTerms: boolean;
+    acceptTerms: boolean;
+    acceptPrivacyPolicy: boolean;
+    acceptOpenBanking: boolean;
+    acceptAIUsage: boolean;
     timestamp: string;
     userAgent: string;
   }
@@ -102,7 +164,10 @@ export default function SignUpForm() {
         full_name: data.full_name,
         email: data.email,
         password: data.password,
-        agreeToTerms: data.agreeToTerms,
+        acceptTerms: data.acceptTerms,
+        acceptPrivacyPolicy: data.acceptPrivacyPolicy,
+        acceptOpenBanking: data.acceptOpenBanking,
+        acceptAIUsage: data.acceptAIUsage,
         timestamp: new Date().toISOString(),
         userAgent: navigator.userAgent,
       } as SignupFormResponse);
@@ -134,7 +199,7 @@ export default function SignUpForm() {
     setValue("password", "Demo123456");
     setValue("confirmPassword", "Demo123456");
     toast.info("Demo information filled", {
-      description: "Please check the terms and conditions checkbox to continue",
+      description: "Please accept all required terms to continue",
     });
   };
 
@@ -426,47 +491,154 @@ export default function SignUpForm() {
                 )}
               </div>
 
-              {/* Terms and Conditions */}
-              <div className="space-y-3">
-                <div className="flex items-start space-x-2 sm:space-x-3">
+              {/* GDPR Compliance Section */}
+              <div className="space-y-4 p-4 border border-gray-200 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700/50">
+                <h3 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">
+                  Required Acceptances
+                </h3>
+
+                {/* Terms and Conditions */}
+                <div className="flex items-start space-x-2">
                   <Checkbox
-                    id="agreeToTerms"
+                    id="acceptTerms"
                     className={`border-primary/30 mt-0.5 ${
-                      errors.agreeToTerms ? "border-error" : ""
+                      errors.acceptTerms ? "border-error" : ""
                     }`}
-                    checked={agreeToTerms}
+                    checked={acceptTerms}
                     onCheckedChange={(checked) =>
-                      setValue("agreeToTerms", !!checked)
+                      setValue("acceptTerms", !!checked)
                     }
                     disabled={isLoading}
+                    required
                   />
                   <label
-                    htmlFor="agreeToTerms"
+                    htmlFor="acceptTerms"
                     className="text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed"
                   >
-                    I agree to the{" "}
+                    <span className="text-red-500">*</span> I accept the{" "}
                     <Link
                       href="/terms"
                       className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Terms and Conditions
-                    </Link>{" "}
-                    and{" "}
+                      Terms and Conditions of Use (ToS)
+                    </Link>
+                  </label>
+                </div>
+                {errors.acceptTerms && (
+                  <p className="text-error text-xs ml-6">
+                    {errors.acceptTerms.message}
+                  </p>
+                )}
+
+                {/* Privacy Policy */}
+                <div className="flex items-start space-x-2">
+                  <Checkbox
+                    id="acceptPrivacyPolicy"
+                    className={`border-primary/30 mt-0.5 ${
+                      errors.acceptPrivacyPolicy ? "border-error" : ""
+                    }`}
+                    checked={acceptPrivacyPolicy}
+                    onCheckedChange={(checked) =>
+                      setValue("acceptPrivacyPolicy", !!checked)
+                    }
+                    disabled={isLoading}
+                    required
+                  />
+                  <label
+                    htmlFor="acceptPrivacyPolicy"
+                    className="text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed"
+                  >
+                    <span className="text-red-500">*</span> I accept the{" "}
                     <Link
                       href="/privacy"
                       className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Privacy Policy
-                    </Link>
+                      Privacy Policy (GDPR Art. 13-14)
+                    </Link>{" "}
+                    including data security provisions
                   </label>
                 </div>
-                {errors.agreeToTerms && (
-                  <p className="text-error text-xs ml-6 sm:ml-7">
-                    {errors.agreeToTerms.message}
+                {errors.acceptPrivacyPolicy && (
+                  <p className="text-error text-xs ml-6">
+                    {errors.acceptPrivacyPolicy.message}
+                  </p>
+                )}
+
+                {/* Open Banking/PSD2 */}
+                <div className="flex items-start space-x-2">
+                  <Checkbox
+                    id="acceptOpenBanking"
+                    className={`border-primary/30 mt-0.5 ${
+                      errors.acceptOpenBanking ? "border-error" : ""
+                    }`}
+                    checked={acceptOpenBanking}
+                    onCheckedChange={(checked) =>
+                      setValue("acceptOpenBanking", !!checked)
+                    }
+                    disabled={isLoading}
+                    required
+                  />
+                  <label
+                    htmlFor="acceptOpenBanking"
+                    className="text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed"
+                  >
+                    <span className="text-red-500">*</span> I explicitly accept
+                    the use of{" "}
+                    <Link
+                      href="/open-banking"
+                      className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Open Banking/PSD2
+                    </Link>{" "}
+                    for processing sensitive banking data
+                  </label>
+                </div>
+                {errors.acceptOpenBanking && (
+                  <p className="text-error text-xs ml-6">
+                    {errors.acceptOpenBanking.message}
+                  </p>
+                )}
+
+                {/* AI Usage */}
+                <div className="flex items-start space-x-2">
+                  <Checkbox
+                    id="acceptAIUsage"
+                    className={`border-primary/30 mt-0.5 ${
+                      errors.acceptAIUsage ? "border-error" : ""
+                    }`}
+                    checked={acceptAIUsage}
+                    onCheckedChange={(checked) =>
+                      setValue("acceptAIUsage", !!checked)
+                    }
+                    disabled={isLoading}
+                    required
+                  />
+                  <label
+                    htmlFor="acceptAIUsage"
+                    className="text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed"
+                  >
+                    <span className="text-red-500">*</span> I acknowledge and
+                    accept the{" "}
+                    <Link
+                      href="/ai-usage"
+                      className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      information on the use of AI
+                    </Link>{" "}
+                    in this service
+                  </label>
+                </div>
+                {errors.acceptAIUsage && (
+                  <p className="text-error text-xs ml-6">
+                    {errors.acceptAIUsage.message}
                   </p>
                 )}
               </div>
