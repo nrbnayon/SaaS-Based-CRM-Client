@@ -67,7 +67,7 @@
   --card-foreground: #080635;
   --popover: #ffffff;
   --popover-foreground: #080635;
-  --primary: #080635;
+  --primary: #081524;
   --primary-foreground: #ffffff;
   --secondary: #f7f7f7;
   --secondary-foreground: #080635;
@@ -545,48 +545,49 @@
   }
 
   .bg-sidebar-gradient {
-    background: radial-gradient(ellipse at center, #080635 0%, #16156c 100%);
+    background: radial-gradient(ellipse at center, #081524 100%, #0b0305 0%);
+    /* background: radial-gradient(ellipse at center, #080635 0%, #16156c 100%); old one*/
   }
 
   /* Custom scrollbar utilities */
   .scrollbar-thin {
     scrollbar-width: thin;
   }
-  
+
   .scrollbar-custom {
     /* For Webkit browsers */
     &::-webkit-scrollbar {
       width: 2px;
       height: 2px;
     }
-    
+
     &::-webkit-scrollbar-track {
       @apply bg-transparent;
     }
-    
+
     &::-webkit-scrollbar-thumb {
       @apply bg-muted-custom rounded-full;
     }
-    
+
     &::-webkit-scrollbar-thumb:hover {
       @apply bg-primary;
     }
-    
+
     /* For Firefox */
     scrollbar-width: thin;
     scrollbar-color: var(--muted-custom) transparent;
   }
-  
+
   /* Dark mode scrollbar */
   .dark .scrollbar-custom {
     &::-webkit-scrollbar-thumb {
       @apply bg-gray-600;
     }
-    
+
     &::-webkit-scrollbar-thumb:hover {
       @apply bg-gray-400;
     }
-    
+
     scrollbar-color: #4b5563 transparent;
   }
 }
