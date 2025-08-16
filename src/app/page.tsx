@@ -10,7 +10,7 @@ import {
 
 export default function Home() {
   return (
-    <div className='min-h-screen bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900 relative overflow-hidden'>
+    <div className='min-h-screen bg-gradient-to-br from-[#0B0305] via-[#081524] to-[#081524] relative overflow-hidden'>
       <div className='absolute inset-0'>
         <div className='absolute top-20 left-20 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse'></div>
         <div className='absolute top-40 right-20 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000'></div>

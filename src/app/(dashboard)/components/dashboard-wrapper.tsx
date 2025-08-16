@@ -75,7 +75,7 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
   return (
     <div
       className={cn(
-        "rounded-md flex flex-col md:flex-row bg-background dark:bg-dark-primary w-full flex-1 mx-auto",
+        "flex flex-col md:flex-row bg-background dark:bg-dark-primary w-full flex-1 mx-auto",
         "h-screen overflow-hidden"
       )}
     >
@@ -86,12 +86,12 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
             // Light mode: radial gradient from #080635 to #16156C
             "bg-sidebar-gradient",
             // Dark mode: solid color #141440
-            "dark:bg-dark-primary dark:bg-none"
+            "dark:bg-[#0B0305]"
           )}
         >
-          <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+          <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
             {open ? <Logo /> : <LogoIcon />}
-            <div className="mt-10 flex flex-col gap-2">
+            <div className='mt-10 flex flex-col gap-2'>
               {links.map((link, idx) => {
                 const isActive = pathname === link.href;
 
@@ -120,15 +120,15 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
               })}
             </div>
           </div>
-          <div className="border-t border-white/20 pt-4">
-            <div className="mb-4">
+          <div className='border-t border-white/20 pt-4'>
+            <div className='mb-4'>
               <SidebarLink
                 link={{
                   label: "Profile",
                   href: "/profile",
                   icon: (
-                    <div className="w-5 h-5 rounded-full  bg-transparent flex items-center justify-center">
-                      <CircleUserRound className="w-5 h-5" />
+                    <div className='w-5 h-5 rounded-full  bg-transparent flex items-center justify-center'>
+                      <CircleUserRound className='w-5 h-5' />
                     </div>
                   ),
                 }}
@@ -145,16 +145,16 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
                 // Add your logout logic
                 console.log("Logout clicked");
               }}
-              className="w-full"
+              className='w-full'
             >
-              <div className="flex items-center gap-3 p-2 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200">
-                <LogOut className="h-5 w-5 flex-shrink-0" />
+              <div className='flex items-center gap-3 p-2 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200'>
+                <LogOut className='h-5 w-5 flex-shrink-0' />
                 <motion.span
                   animate={{
                     display: open ? "inline-block" : "none",
                     opacity: open ? 1 : 0,
                   }}
-                  className="text-sm whitespace-pre inline-block !p-0 !m-0"
+                  className='text-sm whitespace-pre inline-block !p-0 !m-0'
                 >
                   Log Out
                 </motion.span>
@@ -240,8 +240,8 @@ const LogoIcon = () => {
 
 const Dashboard = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex flex-1 bg-card min-h-0">
-      <div className="p-0 rounded-tl-2xl bg-white dark:bg-background flex flex-col gap-2 flex-1 w-full overflow-y-auto overflow-x-hidden scrollbar-custom">
+    <div className='flex flex-1 bg-card min-h-0'>
+      <div className='p-0 rounded-tl-2xl bg-white dark:bg-[#0B0305] flex flex-col gap-2 flex-1 w-full overflow-y-auto overflow-x-hidden scrollbar-custom'>
         {children}
       </div>
     </div>

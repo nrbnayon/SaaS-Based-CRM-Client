@@ -11,7 +11,7 @@ export default function DashboardHeader({
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 p-4 w-full transition-all duration-200bg-white/10 dark:bg-background/10 backdrop-blur-3xl"
+        "sticky top-0 z-50 p-4 w-full transition-all duration-200 bg-white/10 dark:bg-background/10 backdrop-blur-3xl"
       )}
     >
       <div className=" mx-auto">
