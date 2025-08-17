@@ -76,11 +76,11 @@ const DynamicPieChart = ({
       <text
         x={x}
         y={y}
-        fill="#666666"
+        fill='#666666'
         textAnchor={textAnchor}
-        dominantBaseline="central"
-        fontSize="14"
-        fontWeight="600"
+        dominantBaseline='central'
+        fontSize='14'
+        fontWeight='600'
       >
         {showValues
           ? ` ${percentage}% (${originalValue.toLocaleString()})`
@@ -90,20 +90,20 @@ const DynamicPieChart = ({
   };
 
   return (
-    <div className=" w-full bg-background dark:bg-card  rounded-3xl border border-border dark:border-none p-6 text-foreground overflow-x-auto scrollbar-custom  xl:overflow-hidden">
+    <div className=' w-full bg-white dark:bg-[#081524]  rounded-3xl border border-border dark:border-none p-6 text-foreground overflow-x-auto scrollbar-custom  xl:overflow-hidden'>
       {/* Title positioned at top center */}
 
-      <div className="flex flex-col md:flex-row">
+      <div className='flex flex-col md:flex-row'>
         {/* Legend positioned at top left  */}
         {showLegend && (
-          <div className="  flex flex-row md:flex-col gap-3">
+          <div className='  flex flex-row md:flex-col gap-3'>
             {adjustedData.map((item, legendIndex) => (
-              <div key={legendIndex} className="flex items-center gap-3">
+              <div key={legendIndex} className='flex items-center gap-3'>
                 <div
-                  className="w-3 h-3 rounded-full"
+                  className='w-3 h-3 rounded-full'
                   style={{ backgroundColor: item.color }}
                 />
-                <span className="text-foreground text-sm font-medium">
+                <span className='text-foreground text-sm font-medium'>
                   {item.label}
                 </span>
               </div>
@@ -112,9 +112,9 @@ const DynamicPieChart = ({
         )}
 
         {/* Chart Container */}
-        <div className=" items-center justify-center  mt-4 mx-auto">
-          <div className="text-center mb-6">
-            <h2 className="text-xl md:text-3xl font-bold text-foreground ">
+        <div className=' items-center justify-center  mt-4 mx-auto'>
+          <div className='text-center mb-6'>
+            <h2 className='text-xl md:text-3xl font-bold text-foreground '>
               {title}
             </h2>
           </div>
@@ -122,21 +122,21 @@ const DynamicPieChart = ({
           <div
             style={{ width: `${width + 100}px`, height: `${height + 60}px` }}
           >
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width='100%' height='100%'>
               <PieChart>
                 <Pie
                   data={adjustedData}
-                  cx="50%"
-                  cy="50%"
+                  cx='50%'
+                  cy='50%'
                   labelLine={true}
                   label={renderCustomLabel}
                   outerRadius={outerRadius}
                   innerRadius={innerRadius}
-                  fill="#8884d8"
-                  dataKey="value"
+                  fill='#8884d8'
+                  dataKey='value'
                   startAngle={90}
                   endAngle={450}
-                  stroke="none"
+                  stroke='none'
                 >
                   {adjustedData.map((entry, cellIndex) => (
                     <Cell key={`cell-${cellIndex}`} fill={entry.color} />

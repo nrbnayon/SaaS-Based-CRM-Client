@@ -52,7 +52,7 @@ export const FinancialCardComponent: React.FC<FinancialCardProps> = ({
 
   return (
     <Card
-      className={`flex flex-col w-full bg-secondary dark:bg-background items-center border-t-8 gap-2 p-2 flex-1 rounded-[20px] ${card.borderColor} min-h-[180px] ${className}`}
+      className={`flex flex-col w-full bg-white dark:bg-[#081524] items-center border-t-8 gap-2 p-2 flex-1 rounded-[20px] ${card.borderColor} min-h-[180px] ${className}`}
     >
       <CardHeader className='flex flex-row items-center justify-between px-2 py-1 w-full'>
         <CardTitle className='font-medium text-foreground dark:text-white text-base'>

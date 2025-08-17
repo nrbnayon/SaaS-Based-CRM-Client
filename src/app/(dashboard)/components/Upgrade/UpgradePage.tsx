@@ -11,27 +11,27 @@ import React from "react";
 const UpgradePage = () => {
   return (
     <div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 space-x-4">
+      <div className='grid grid-cols-1 lg:grid-cols-3 gap-2 space-x-4'>
         {/* Current Plan */}
-        <div className="lg:col-span-2">
-          <Card className="bg-card border-border">
+        <div className='lg:col-span-2'>
+          <Card className='  border-border'>
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-black dark:text-white text-lg md:text-xl">
+              <div className='flex items-center justify-between'>
+                <CardTitle className='text-black dark:text-white text-lg md:text-xl'>
                   Current Plan
                 </CardTitle>
-                <div className="flex space-x-2">
-                  <BadgeCheck className="h-7 w-7" />
-                  <h1 className="text-black dark:text-white text-lg md:text-xl font-bold">
+                <div className='flex space-x-2'>
+                  <BadgeCheck className='h-7 w-7' />
+                  <h1 className='text-black dark:text-white text-lg md:text-xl font-bold'>
                     Accountant package
                   </h1>
                 </div>
               </div>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex justify-between text-muted-custom text-xs md:text-base">
-                <div className="flex flex-col  ">
-                  <h3 className="text-lg md:text-2xl font-semibold text-black dark:text-white ">
+            <CardContent className='space-y-6'>
+              <div className='flex justify-between text-muted-custom text-xs md:text-base'>
+                <div className='flex flex-col  '>
+                  <h3 className='text-lg md:text-2xl font-semibold text-black dark:text-white '>
                     TechNova Solutions
                   </h3>
                   <p>Phone: +880 1636-828200</p>
@@ -46,19 +46,19 @@ const UpgradePage = () => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between  border border-border rounded-2xl p-2 md:p-4">
-                <div className="flex items-center gap-3">
-                  <div className="bg-white px-2 py-1 rounded text-xs font-semibold text-[#141440]">
+              <div className='flex items-center justify-between  border border-border rounded-2xl p-2 md:p-4'>
+                <div className='flex items-center gap-3'>
+                  <div className='bg-white px-2 py-1 rounded text-xs font-semibold text-[#141440]'>
                     VISA
                   </div>
-                  <span className="text-muted-custom text-xs md:text-base">
+                  <span className='text-muted-custom text-xs md:text-base'>
                     3545-1236-1344-3373
                   </span>
                 </div>
-                <div className="text-right">
-                  <div className="text-3xl md:text-4xl font-bold text-foreground">
+                <div className='text-right'>
+                  <div className='text-3xl md:text-4xl font-bold text-foreground'>
                     $69
-                    <span className="text-foreground font-medium text-sm md:text-base">
+                    <span className='text-foreground font-medium text-sm md:text-base'>
                       /Monthly
                     </span>
                   </div>
@@ -69,10 +69,10 @@ const UpgradePage = () => {
         </div>
 
         {/* Upgrade Plan */}
-        <div className="h-[310px] mx-0 md:mx-38 lg:mx-0">
-          <div className=" h-full w-full overflow-hidden">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-foreground">
+        <div className='h-[310px] mx-0 md:mx-38 lg:mx-0'>
+          <div className=' h-full w-full overflow-hidden'>
+            <div className='flex items-center justify-between mb-4'>
+              <h2 className='text-xl font-semibold text-foreground'>
                 Upgrade Plan
               </h2>
             </div>

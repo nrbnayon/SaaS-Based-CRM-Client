@@ -19,7 +19,7 @@ import {
   YAxis,
 } from "recharts";
 import React, { useState, useMemo } from "react";
-import { ChartData, FinancialCard,  TimePeriod } from "@/types/allTypes";
+import { ChartData, FinancialCard, TimePeriod } from "@/types/allTypes";
 import { generateMockData } from "@/data/generateMockData";
 
 // Same financial cards data as IncomeExpenseSection
@@ -293,7 +293,7 @@ export const AnalyticsSection = () => {
   return (
     <div className='flex flex-col lg:flex-row gap-4 lg:gap-6 h-auto lg:h-[400px]'>
       {/* Income Analytics Card */}
-      <Card className='w-full lg:w-1/2 bg-background dark:bg-dark-primary border-none rounded-3xl h-[350px] lg:h-full'>
+      <Card className='w-full lg:w-1/2 bg-white dark:bg-[#081524] border-none rounded-3xl h-[350px] lg:h-full'>
         <CardHeader className='pb-2 lg:pb-6'>
           <div className='flex flex-col sm:flex-row items-start sm:items-center justify-between px-2 gap-2 sm:gap-0'>
             <CardTitle className='font-medium text-foreground text-sm sm:text-base'>
@@ -379,7 +379,7 @@ export const AnalyticsSection = () => {
       </Card>
 
       {/* Category Analytics Card */}
-      <Card className='w-full lg:w-1/2 bg-background dark:bg-dark-primary rounded-3xl h-auto lg:h-full'>
+      <Card className='w-full lg:w-1/2 bg-background dark:bg-[#081524] rounded-3xl h-auto lg:h-full'>
         <CardHeader className='pb-2 lg:pb-6'>
           <div className='flex flex-col sm:flex-row items-start sm:items-center justify-between px-0 md:px-2 gap-2 sm:gap-0'>
             <CardTitle className='font-medium text-foreground text-sm sm:text-base'>

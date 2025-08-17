@@ -2,7 +2,7 @@ import { summaryData } from "@/data/hrTestData";
 
 export default function DetailedSummary() {
   return (
-    <div className='bg-background dark:bg-card  rounded-3xl border border-border dark:border-none h-full p-6'>
+    <div className='bg-white dark:bg-[#081524]  rounded-3xl border border-border dark:border-none h-full p-6'>
       <h1 className='text-foreground text-3xl font-bold mb-8'>
         Detailed Summary
       </h1>

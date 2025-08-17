@@ -31,42 +31,42 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
     {
       label: "Overview",
       href: "/overview",
-      icon: <MdDashboard className="h-5 w-5 flex-shrink-0" />,
+      icon: <MdDashboard className='h-5 w-5 flex-shrink-0' />,
     },
     {
       label: "Financial Plan",
       href: "/financial-plan",
-      icon: <PiRankingLight className="h-5 w-5 flex-shrink-0" />,
+      icon: <PiRankingLight className='h-5 w-5 flex-shrink-0' />,
     },
     {
       label: "Accounts",
       href: "/accounts",
-      icon: <MdAccountBalance className="h-5 w-5 flex-shrink-0" />,
+      icon: <MdAccountBalance className='h-5 w-5 flex-shrink-0' />,
     },
     {
       label: "Reports",
       href: "/reports",
-      icon: <HiOutlineDocumentText className="h-5 w-5 flex-shrink-0" />,
+      icon: <HiOutlineDocumentText className='h-5 w-5 flex-shrink-0' />,
     },
     {
       label: "HR Test",
       href: "/hr-test",
-      icon: <UserSquare2Icon className="h-5 w-5 flex-shrink-0" />,
+      icon: <UserSquare2Icon className='h-5 w-5 flex-shrink-0' />,
     },
     {
       label: "Chat AI",
       href: "/chat-ai",
-      icon: <BotMessageSquare className="h-5 w-5 flex-shrink-0" />,
+      icon: <BotMessageSquare className='h-5 w-5 flex-shrink-0' />,
     },
     {
       label: "Upgrade",
       href: "/upgrade",
-      icon: <CrownIcon className="h-5 w-5 flex-shrink-0" />,
+      icon: <CrownIcon className='h-5 w-5 flex-shrink-0' />,
     },
     {
       label: "Tutorial",
       href: "/tutorial",
-      icon: <MonitorCog className="h-5 w-5 flex-shrink-0" />,
+      icon: <MonitorCog className='h-5 w-5 flex-shrink-0' />,
     },
   ];
 
@@ -75,7 +75,7 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
   return (
     <div
       className={cn(
-        "flex flex-col md:flex-row bg-background dark:bg-dark-primary w-full flex-1 mx-auto",
+        "flex flex-col md:flex-row bg-background dark:bg-[#081524] w-full flex-1 mx-auto",
         "h-screen overflow-hidden"
       )}
     >
@@ -171,11 +171,11 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
 const Logo = () => {
   return (
     <Link
-      href="/overview"
-      className="font-normal flex space-x-3 items-center text-sm py-3 relative z-20 w-full"
+      href='/overview'
+      className='font-normal flex space-x-3 items-center text-sm py-3 relative z-20 w-full'
     >
       {/* Fixed container for image to prevent jumping */}
-      <div className=" w-5 h-10 flex-shrink-0 flex items-center justify-center">
+      <div className=' w-5 h-10 flex-shrink-0 flex items-center justify-center'>
         {/* <Image
           className="w-full h-full object-contain z-10"
           alt="PrimeFlow Logo"
@@ -188,14 +188,14 @@ const Logo = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.2 }}
-        className="font-semibold text-white whitespace-pre text-lg"
+        className='font-semibold text-white whitespace-pre text-lg'
       >
         <Image
-          alt="PrimeFlow Logo"
-          src="/logo.png"
+          alt='PrimeFlow Logo'
+          src='/logo.png'
           width={100}
           height={100}
-          className="w-full h-full object-contain z-10"
+          className='w-full h-full object-contain z-10'
         />
       </motion.span>
     </Link>
@@ -205,15 +205,15 @@ const Logo = () => {
 const LogoIcon = () => {
   return (
     <Link
-      href="/overview"
-      className="font-normal flex space-x-2 items-center text-sm py-3 relative z-20 w-full justify-center"
+      href='/overview'
+      className='font-normal flex space-x-2 items-center text-sm py-3 relative z-20 w-full justify-center'
     >
       {/* Fixed container for image to prevent jumping */}
-      <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center">
+      <div className='w-10 h-10 flex-shrink-0 flex items-center justify-center'>
         <Image
-          className="w-full h-full object-contain"
-          alt="PrimeFlow Logo"
-          src="/logo.png"
+          className='w-full h-full object-contain'
+          alt='PrimeFlow Logo'
+          src='/logo.png'
           width={100}
           height={100}
         />
@@ -224,12 +224,12 @@ const LogoIcon = () => {
           opacity: 1,
         }}
         transition={{ duration: 0.2 }}
-        className="font-medium text-lg bg-clip-text text-transparent dark:text-white whitespace-pre overflow-hidden"
+        className='font-medium text-lg bg-clip-text text-transparent dark:text-white whitespace-pre overflow-hidden'
       >
         <Image
-          className="w-full h-full object-contain"
-          alt="PrimeFlow Logo"
-          src="/logo.png"
+          className='w-full h-full object-contain'
+          alt='PrimeFlow Logo'
+          src='/logo.png'
           width={100}
           height={100}
         />
@@ -240,7 +240,7 @@ const LogoIcon = () => {
 
 const Dashboard = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='flex flex-1 bg-card min-h-0'>
+    <div className='flex flex-1   min-h-0'>
       <div className='p-0 rounded-tl-2xl bg-white dark:bg-[#0B0305] flex flex-col gap-2 flex-1 w-full overflow-y-auto overflow-x-hidden scrollbar-custom'>
         {children}
       </div>

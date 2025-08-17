@@ -234,15 +234,15 @@ export const AccountPage = () => {
   };
 
   return (
-    <div className="p-4 space-y-4 md:space-y-10">
+    <div className='p-4 space-y-4 md:space-y-10'>
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+      <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8'>
         <Card
           className={cn(
-            " bg-[linear-gradient(45deg,#A3C3FA_0%,white_50%,#D3E3FD_100%)] dark:bg-[linear-gradient(45deg,var(--dark-primary)_100%,var(--dark-primary)_100%,var(--dark-primary)_100%)]"
+            " bg-[linear-gradient(45deg,#A3C3FA_0%,white_50%,#D3E3FD_100%)] dark:bg-[linear-gradient(45deg,#081524_100%,#081524_100%,#081524_100%)]"
           )}
         >
-          <CardContent className="">
+          <CardContent className=''>
             <h3 className={`text-sm md:text-base  font-semibold mb-2 `}>
               Income
             </h3>
@@ -263,10 +263,10 @@ export const AccountPage = () => {
 
         <Card
           className={cn(
-            " bg-[linear-gradient(45deg,#FFDEDD_0%,#FFF9F9_45%,#FFD1CF_100%)] dark:bg-[linear-gradient(45deg,var(--dark-primary)_100%,var(--dark-primary)_100%,var(--dark-primary)_100%)]"
+            " bg-[linear-gradient(45deg,#FFDEDD_0%,#FFF9F9_45%,#FFD1CF_100%)] dark:bg-[linear-gradient(45deg,#081524_100%,#081524_100%,#081524_100%)]"
           )}
         >
-          <CardContent className="">
+          <CardContent className=''>
             <h3 className={`text-sm md:text-base  font-semibold mb-2 `}>
               Expense
             </h3>
@@ -287,10 +287,10 @@ export const AccountPage = () => {
 
         <Card
           className={cn(
-            " bg-[linear-gradient(45deg,#BEFFFD_0%,white_45%,#D7FFFE_100%)] dark:bg-[linear-gradient(45deg,var(--dark-primary)_100%,var(--dark-primary)_100%,var(--dark-primary)_100%)]"
+            " bg-[linear-gradient(45deg,#BEFFFD_0%,white_45%,#D7FFFE_100%)] dark:bg-[linear-gradient(45deg,#081524_100%,#081524_100%,#081524_100%)]"
           )}
         >
-          <CardContent className="">
+          <CardContent className=''>
             <h3 className={`text-sm md:text-base  font-semibold mb-2 `}>
               Savings
             </h3>
@@ -311,10 +311,10 @@ export const AccountPage = () => {
 
         <Card
           className={cn(
-            " bg-[linear-gradient(45deg,#F2F2F2_0%,#F2F2F2_45%,#F2F2F2_100%)] dark:bg-[linear-gradient(45deg,var(--dark-primary)_100%,var(--dark-primary)_100%,var(--dark-primary)_100%)]"
+            " bg-[linear-gradient(45deg,#F2F2F2_0%,#F2F2F2_45%,#F2F2F2_100%)] dark:bg-[linear-gradient(45deg,#081524_100%,#081524_100%,#081524_100%)]"
           )}
         >
-          <CardContent className="">
+          <CardContent className=''>
             <h3 className={`text-sm md:text-base  font-semibold mb-2 `}>
               Fixed Client
             </h3>
@@ -332,75 +332,75 @@ export const AccountPage = () => {
                   Client
                 </Button>
               </DialogTrigger>
-              <DialogContent className="">
-                <div className="   bg-transparent rounded-3xl  ">
-                  <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+              <DialogContent className=''>
+                <div className='   bg-transparent rounded-3xl  '>
+                  <div className='flex flex-col md:flex-row justify-between items-center mb-6'>
                     <div>
-                      <DialogTitle className="text-2xl font-bold">
+                      <DialogTitle className='text-2xl font-bold'>
                         Save Client
                       </DialogTitle>
-                      <p className="text-sm text-muted-custom">
+                      <p className='text-sm text-muted-custom'>
                         Save client details
                       </p>
                     </div>
-                    <div className="relative">
-                      <Search className="absolute top-2.5 left-3 text-muted-custom" />
+                    <div className='relative'>
+                      <Search className='absolute top-2.5 left-3 text-muted-custom' />
                       <input
-                        type="text"
-                        placeholder="Search"
-                        className="pl-10 pr-4 py-2 border rounded-full text-sm"
+                        type='text'
+                        placeholder='Search'
+                        className='pl-10 pr-4 py-2 border rounded-full text-sm'
                       />
                     </div>
                   </div>
 
                   {/* Hidden file input */}
                   <input
-                    type="file"
+                    type='file'
                     ref={fileInputRef}
                     onChange={handleImageUpload}
-                    accept="image/*"
+                    accept='image/*'
                     style={{ display: "none" }}
                   />
 
                   {/* Client Name */}
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium mb-1">
+                  <div className='mb-4'>
+                    <label className='block text-sm font-medium mb-1'>
                       Client Name
                     </label>
-                    <div className="flex gap-3">
+                    <div className='flex gap-3'>
                       <input
-                        type="text"
-                        name="name"
+                        type='text'
+                        name='name'
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="Enter client name"
-                        className="w-full p-2 pr-10 border rounded-xl text-sm"
+                        placeholder='Enter client name'
+                        className='w-full p-2 pr-10 border rounded-xl text-sm'
                       />
                       <div
-                        className="border-2 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors"
+                        className='border-2 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors'
                         onClick={handleBookImageClick}
                       >
-                        <BookImage className="m-2 text-muted-custom" />
+                        <BookImage className='m-2 text-muted-custom' />
                       </div>
                     </div>
 
                     {/* Image preview */}
                     {formData.avatar && (
-                      <div className="mt-2 relative inline-block">
+                      <div className='mt-2 relative inline-block'>
                         <Image
                           src={formData.avatar}
-                          alt="Client avatar preview"
-                          className="w-16 h-16 rounded-lg object-cover border"
+                          alt='Client avatar preview'
+                          className='w-16 h-16 rounded-lg object-cover border'
                           width={64}
                           height={64}
                         />
                         <button
-                          type="button"
+                          type='button'
                           onClick={() =>
                             setFormData({ ...formData, avatar: "" })
                           }
-                          className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold transition-colors"
-                          title="Remove image"
+                          className='absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold transition-colors'
+                          title='Remove image'
                         >
                           ×
                         </button>
@@ -409,70 +409,70 @@ export const AccountPage = () => {
                   </div>
 
                   {/* Company ID */}
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium mb-1">
+                  <div className='mb-4'>
+                    <label className='block text-sm font-medium mb-1'>
                       Company ID
                     </label>
                     <input
-                      type="text"
-                      name="id"
+                      type='text'
+                      name='id'
                       value={formData.id}
                       onChange={handleChange}
-                      placeholder="Enter company ID (optional - will auto-generate)"
-                      className="w-full p-2 border rounded-xl text-sm"
+                      placeholder='Enter company ID (optional - will auto-generate)'
+                      className='w-full p-2 border rounded-xl text-sm'
                     />
                   </div>
 
                   {/* Contact */}
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium mb-1">
+                  <div className='mb-4'>
+                    <label className='block text-sm font-medium mb-1'>
                       Contact
                     </label>
                     <input
-                      type="text"
-                      name="phone"
+                      type='text'
+                      name='phone'
                       value={formData.phone}
                       onChange={handleChange}
-                      placeholder="Enter phone number"
-                      className="w-full p-2 border rounded-xl text-sm"
+                      placeholder='Enter phone number'
+                      className='w-full p-2 border rounded-xl text-sm'
                     />
                   </div>
 
                   {/* Email */}
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium mb-1">
+                  <div className='mb-4'>
+                    <label className='block text-sm font-medium mb-1'>
                       Email
                     </label>
                     <input
-                      type="email"
-                      name="email"
+                      type='email'
+                      name='email'
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="Enter email address"
-                      className="w-full p-2 border rounded-xl text-sm"
+                      placeholder='Enter email address'
+                      className='w-full p-2 border rounded-xl text-sm'
                     />
                   </div>
 
                   {/* Address */}
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium mb-1">
+                  <div className='mb-4'>
+                    <label className='block text-sm font-medium mb-1'>
                       Address
                     </label>
                     <input
-                      type="text"
-                      name="address"
+                      type='text'
+                      name='address'
                       value={formData.address}
                       onChange={handleChange}
-                      placeholder="Enter client address"
-                      className="w-full p-2 border rounded-xl text-sm"
+                      placeholder='Enter client address'
+                      className='w-full p-2 border rounded-xl text-sm'
                     />
                   </div>
 
                   {/* Save Button */}
-                  <div className="mt-6">
+                  <div className='mt-6'>
                     <Button
                       onClick={handleSaveClient}
-                      className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl"
+                      className='w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl'
                     >
                       Save Client
                     </Button>
@@ -484,81 +484,81 @@ export const AccountPage = () => {
         </Card>
       </div>
 
-      <div id="transactions-section">
-        <div className="mb-6">
-          <h2 className="text-lg md:text-xl text-foreground font-bold mb-2">
+      <div id='transactions-section'>
+        <div className='mb-6'>
+          <h2 className='text-lg md:text-xl text-foreground font-bold mb-2'>
             Transactions
           </h2>
-          <p className="text-muted-custom  text-xs md:text-base">
+          <p className='text-muted-custom  text-xs md:text-base'>
             Add your income transaction&apos;s details
           </p>
         </div>
 
         {/* Transactions Section */}
-        <div className="grid grid-cols-3 gap-6   ">
-          <div className="col-span-3 lg:col-span-2 bg-gray-50 dark:bg-card border rounded-2xl p-1 md:p-4">
+        <div className='grid grid-cols-3 gap-6   '>
+          <div className='col-span-3 lg:col-span-2 bg-gray-50 dark:bg-[#081524]  border rounded-2xl p-1 md:p-4'>
             <Tabs
-              className="bg-transparent overflow-auto mb-3"
+              className='bg-transparent overflow-auto mb-3'
               value={activeTab}
               onValueChange={setActiveTab}
             >
-              <TabsList className="gap-3 md:gap-6 bg-transparent h-12 overflow-auto">
+              <TabsList className='gap-3 md:gap-6 bg-transparent h-12 overflow-auto'>
                 <TabsTrigger
-                  value="Income"
-                  className="text-base md:text-xl cursor-pointer border-2 bg-gray-200 dark:bg-border data-[state=active]:bg-transparent dark:data-[state=active]:border-[#34C724] data-[state=active]:border-[#34C724] dark:data-[state=active]:text-[#34C724] data-[state=active]:text-[#34C724]"
+                  value='Income'
+                  className='text-base md:text-xl cursor-pointer border-2 bg-gray-200 dark:bg-border data-[state=active]:bg-transparent dark:data-[state=active]:border-[#34C724] data-[state=active]:border-[#34C724] dark:data-[state=active]:text-[#34C724] data-[state=active]:text-[#34C724]'
                 >
                   Income
                 </TabsTrigger>
                 <TabsTrigger
-                  value="Expense"
-                  className="text-base md:text-xl cursor-pointer border-2 bg-gray-200 dark:bg-border data-[state=active]:bg-transparent dark:data-[state=active]:border-error data-[state=active]:border-error dark:data-[state=active]:text-error data-[state=active]:text-error"
+                  value='Expense'
+                  className='text-base md:text-xl cursor-pointer border-2 bg-gray-200 dark:bg-border data-[state=active]:bg-transparent dark:data-[state=active]:border-error data-[state=active]:border-error dark:data-[state=active]:text-error data-[state=active]:text-error'
                 >
                   Expense
                 </TabsTrigger>
                 <TabsTrigger
-                  value="Savings"
-                  className="text-base md:text-xl cursor-pointer border-2 bg-gray-200 dark:bg-border data-[state=active]:bg-transparent dark:data-[state=active]:border-cyan data-[state=active]:border-cyan dark:data-[state=active]:text-cyan data-[state=active]:text-cyan"
+                  value='Savings'
+                  className='text-base md:text-xl cursor-pointer border-2 bg-gray-200 dark:bg-border data-[state=active]:bg-transparent dark:data-[state=active]:border-cyan data-[state=active]:border-cyan dark:data-[state=active]:text-cyan data-[state=active]:text-cyan'
                 >
                   Savings
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="Income">
-                <TransactionForm type="Income" />
+              <TabsContent value='Income'>
+                <TransactionForm type='Income' />
               </TabsContent>
-              <TabsContent value="Expense">
-                <TransactionForm type="Expense" />
+              <TabsContent value='Expense'>
+                <TransactionForm type='Expense' />
               </TabsContent>
-              <TabsContent value="Savings">
-                <TransactionForm type="Savings" />
+              <TabsContent value='Savings'>
+                <TransactionForm type='Savings' />
               </TabsContent>
             </Tabs>
           </div>
 
           {/* Right Sidebar - Saved Clients */}
-          <div className="col-span-3 lg:col-span-1">
-            <Card className="bg-[#FBFBFB] dark:bg-dark-primary">
-              <CardHeader className="flex justify-between">
-                <div className="space-y-3">
-                  <CardTitle className="text-lg md:text-xl text-foreground font-bold mb-2">
+          <div className='col-span-3 lg:col-span-1'>
+            <Card className='bg-[#FBFBFB] dark:bg-[#081524]'>
+              <CardHeader className='flex justify-between'>
+                <div className='space-y-3'>
+                  <CardTitle className='text-lg md:text-xl text-foreground font-bold mb-2'>
                     Saved Client
                   </CardTitle>
-                  <CardDescription className="text-muted-custom  text-xs md:text-base">
+                  <CardDescription className='text-muted-custom  text-xs md:text-base'>
                     Save client details
                   </CardDescription>
                 </div>
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#a1a1a1]" />
+                <div className='relative'>
+                  <Search className='absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#a1a1a1]' />
                   <Input
-                    placeholder="Search..."
-                    className="bg-transparent pl-10"
+                    placeholder='Search...'
+                    className='bg-transparent pl-10'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </div>
               </CardHeader>
 
-              <CardContent className="space-y-1 md:space-y-4 md:max-h-[660px] overflow-y-auto scrollbar-custom">
+              <CardContent className='space-y-1 md:space-y-4 md:max-h-[660px] overflow-y-auto scrollbar-custom'>
                 {filteredClients.map((client, index) => (
                   <ClientItem
                     key={index}

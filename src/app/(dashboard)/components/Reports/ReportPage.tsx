@@ -286,7 +286,7 @@ export const ReportPage = () => {
         className='bg-transparent overflow-auto'
         defaultValue='Balance-Sheet'
       >
-        <TabsList className='w-full bg-secondary h-12 overflow-auto'>
+        <TabsList className='w-full dark:bg-[#081524] h-12 overflow-auto'>
           <TabsTrigger
             value='Balance-Sheet'
             className='text-base md:text-xl cursor-pointer'

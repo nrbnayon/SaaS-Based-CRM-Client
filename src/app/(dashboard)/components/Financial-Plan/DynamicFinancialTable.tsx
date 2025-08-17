@@ -83,7 +83,7 @@ export const DynamicFinancialTable: React.FC<DynamicFinancialTableProps> = ({
     <div className={cn("w-full", className)}>
       <Card
         className={cn(
-          "flex flex-col h-96 justify-between items-start p-4 bg-[linear-gradient(45deg,var(--accent)_0%,white_50%,#FFF1E5_100%)] dark:bg-[linear-gradient(45deg,var(--dark-primary)_100%,var(--dark-primary)_100%,var(--dark-primary)_100%)] flex-1 rounded-[20px] w-full xl:w-auto min-w-2xs"
+          "flex flex-col h-96 justify-between items-start p-4  flex-1 rounded-[20px] w-full xl:w-auto min-w-2xs"
         )}
       >
         <CardHeader className="flex flex-row items-center justify-between p-0 w-full">

@@ -660,7 +660,7 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
         <div className='min-w-[800px]'>
           <Table className=''>
             {/* Table Header */}
-            <TableHeader className='bg-accent dark:bg-secondary'>
+            <TableHeader className='bg-accent dark:bg-[#081524]'>
               <TableRow className='hover:bg-transparent border-b-0'>
                 {columns.map((column) => (
                   <TableHead
@@ -697,9 +697,9 @@ export const DynamicTable: React.FC<TransactionsSectionProps> = ({
                     className={cn(
                       "hover:bg-accent/50 dark:hover:bg-secondary/50 transition-colors",
                       "border-b border-border/30",
-                      "dark:bg-dark-primary/50",
+                      "dark:bg-[#081524]/50",
                       index % 2 === 0 ? "bg-white" : "bg-muted",
-                      "dark:bg-dark-primary/50",
+                      "dark:bg-[#081524]/50",
                       "[&>td]:px-4 [&>td]:py-3",
                       "dark:[&>td]:px-2 dark:[&>td]:py-2",
                       index === currentData.length - 1 &&

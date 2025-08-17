@@ -110,7 +110,7 @@ const EditPricingDialog = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className='sm:max-w-[425px]  dark:bg-[#081524]'>
         <DialogHeader>
           <DialogTitle>Edit Pricing Plan</DialogTitle>
           <DialogDescription>
@@ -119,32 +119,32 @@ const EditPricingDialog = ({
           </DialogDescription>
         </DialogHeader>
 
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="title" className="text-left">
+        <div className='grid gap-4 py-4'>
+          <div className='grid grid-cols-4 items-center gap-4'>
+            <Label htmlFor='title' className='text-left'>
               Title
             </Label>
-            <div className="col-span-3">
+            <div className='col-span-3'>
               <Input
-                id="title"
+                id='title'
                 value={formData.title}
                 onChange={(e) => handleInputChange("title", e.target.value)}
                 className={errors.title ? "border-red-500" : ""}
               />
               {errors.title && (
-                <p className="text-red-500 text-sm mt-1">{errors.title}</p>
+                <p className='text-red-500 text-sm mt-1'>{errors.title}</p>
               )}
             </div>
           </div>
 
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="oldPrice" className="text-left">
+          <div className='grid grid-cols-4 items-center gap-4'>
+            <Label htmlFor='oldPrice' className='text-left'>
               Old Price
             </Label>
-            <div className="col-span-3">
+            <div className='col-span-3'>
               <Input
-                id="oldPrice"
-                type="number"
+                id='oldPrice'
+                type='number'
                 value={formData.oldPrice}
                 onChange={(e) =>
                   handleInputChange("oldPrice", parseFloat(e.target.value) || 0)
@@ -152,19 +152,19 @@ const EditPricingDialog = ({
                 className={errors.oldPrice ? "border-red-500" : ""}
               />
               {errors.oldPrice && (
-                <p className="text-red-500 text-sm mt-1">{errors.oldPrice}</p>
+                <p className='text-red-500 text-sm mt-1'>{errors.oldPrice}</p>
               )}
             </div>
           </div>
 
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="price" className=" text-left">
+          <div className='grid grid-cols-4 items-center gap-4'>
+            <Label htmlFor='price' className=' text-left'>
               Current Price
             </Label>
-            <div className="col-span-3">
+            <div className='col-span-3'>
               <Input
-                id="price"
-                type="number"
+                id='price'
+                type='number'
                 value={formData.price}
                 onChange={(e) =>
                   handleInputChange("price", parseFloat(e.target.value) || 0)
@@ -172,25 +172,25 @@ const EditPricingDialog = ({
                 className={errors.price ? "border-red-500" : ""}
               />
               {errors.price && (
-                <p className="text-red-500 text-sm mt-1">{errors.price}</p>
+                <p className='text-red-500 text-sm mt-1'>{errors.price}</p>
               )}
             </div>
           </div>
 
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="planfor" className="text-left">
+          <div className='grid grid-cols-4 items-center gap-4'>
+            <Label htmlFor='planfor' className='text-left'>
               Plan Duration
             </Label>
-            <div className="col-span-3">
+            <div className='col-span-3'>
               <Input
-                id="planfor"
+                id='planfor'
                 value={formData.planfor}
                 onChange={(e) => handleInputChange("planfor", e.target.value)}
-                placeholder="e.g., month, year"
+                placeholder='e.g., month, year'
                 className={errors.planfor ? "border-red-500" : ""}
               />
               {errors.planfor && (
-                <p className="text-red-500 text-sm mt-1">{errors.planfor}</p>
+                <p className='text-red-500 text-sm mt-1'>{errors.planfor}</p>
               )}
             </div>
           </div>
@@ -198,8 +198,8 @@ const EditPricingDialog = ({
           {formData.oldPrice > 0 &&
             formData.price > 0 &&
             formData.price < formData.oldPrice && (
-              <div className="bg-green-50 p-3 rounded-md">
-                <p className="text-sm text-green-700">
+              <div className='bg-green-50 p-3 rounded-md'>
+                <p className='text-sm text-green-700'>
                   <strong>Savings:</strong> $
                   {formData.oldPrice - formData.price}
                 </p>
@@ -208,10 +208,10 @@ const EditPricingDialog = ({
         </div>
 
         <DialogFooter>
-          <Button type="button" variant="outline" onClick={handleCancel}>
+          <Button type='button' variant='outline' onClick={handleCancel}>
             Cancel
           </Button>
-          <Button type="button" onClick={handleSave}>
+          <Button type='button' onClick={handleSave}>
             Save Changes
           </Button>
         </DialogFooter>

@@ -147,10 +147,10 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
       switch (column) {
         case "Name":
           return (
-            <div className="flex text-center items-center gap-2">
-              <div className="flex w-full text-center justify-center items-center gap-2 font-medium text-foreground dark:text-white">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src={plan.image} alt="@shadcn" />
+            <div className='flex text-center items-center gap-2'>
+              <div className='flex w-full text-center justify-center items-center gap-2 font-medium text-foreground dark:text-white'>
+                <Avatar className='h-8 w-8'>
+                  <AvatarImage src={plan.image} alt='@shadcn' />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 {(plan.plan ?? plan.name ?? "Unknown Name").toString()}
@@ -159,28 +159,28 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
           );
         case "Id":
           return (
-            <div className="text-foreground">
+            <div className='text-foreground'>
               {plan.issue || plan.id || "Unknown ID"}
             </div>
           );
         case "Phone":
           return (
-            <div className="text-foreground">
+            <div className='text-foreground'>
               {(plan.expire ?? plan.phone ?? "Unknown Phone").toString()}
             </div>
           );
         case "Email":
           return (
-            <div className="text-foreground">
+            <div className='text-foreground'>
               {(plan.amount ?? plan.email ?? "Unknown Email").toString()}
             </div>
           );
         case "Download":
           return (
-            <div className="flex items-center justify-center gap-2">
+            <div className='flex items-center justify-center gap-2'>
               {plan.download && plan.download.trim() !== "" ? (
                 <a
-                  className="h-8 px-3 underline cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800"
+                  className='h-8 px-3 underline cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800'
                   onClick={(e) =>
                     handleDownload(
                       plan.download ?? "",
@@ -192,8 +192,8 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
                   Download PDF
                 </a>
               ) : (
-                <div className="flex items-center text-muted-foreground dark:text-gray-400">
-                  <span className="text-xs">No PDF</span>
+                <div className='flex items-center text-muted-foreground dark:text-gray-400'>
+                  <span className='text-xs'>No PDF</span>
                 </div>
               )}
             </div>
@@ -205,36 +205,36 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
     switch (column) {
       case "Plan":
         return (
-          <div className="flex items-center gap-2">
-            <div className="font-medium w-full text-center text-foreground dark:text-white">
+          <div className='flex items-center gap-2'>
+            <div className='font-medium w-full text-center text-foreground dark:text-white'>
               {plan.plan || "Unknown Plan"}
             </div>
           </div>
         );
       case "Issue":
         return (
-          <div className="text-foreground ">
+          <div className='text-foreground '>
             {formatDate(String(plan[column.toLowerCase()]))}
           </div>
         );
       case "Expire":
         return (
-          <div className="text-error ">
+          <div className='text-error '>
             {formatDate(String(plan[column.toLowerCase()]))}
           </div>
         );
       case "Amount":
         return (
-          <div className="font-semibold text-foreground">
+          <div className='font-semibold text-foreground'>
             {formatCurrency(plan.amount ?? 0)}
           </div>
         );
       case "Download":
         return (
-          <div className="flex items-center justify-center gap-2">
+          <div className='flex items-center justify-center gap-2'>
             {plan.download && plan.download.trim() !== "" ? (
               <a
-                className="h-8 px-3 underline cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800"
+                className='h-8 px-3 underline cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 text-blue-600 dark:text-blue-400 border-blue-200 dark:border-blue-800'
                 onClick={(e) =>
                   handleDownload(
                     plan.download ?? "",
@@ -246,8 +246,8 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
                 Download PDF
               </a>
             ) : (
-              <div className="flex items-center text-muted-foreground dark:text-gray-400">
-                <span className="text-xs">No PDF</span>
+              <div className='flex items-center text-muted-foreground dark:text-gray-400'>
+                <span className='text-xs'>No PDF</span>
               </div>
             )}
           </div>
@@ -287,20 +287,18 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
 
   return (
     <section
-      className={cn(
-        "flex flex-col w-full items-start gap-6 bg-card rounded-lg p-4"
-      )}
+      className={cn("flex flex-col w-full items-start gap-6   rounded-lg p-4")}
     >
       {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between w-full gap-4">
+      <div className='flex flex-col lg:flex-row lg:items-center justify-between w-full gap-4'>
         <div>
-          <h2 className="font-bold  text-xl lg:text-2xl leading-7 text-foreground">
+          <h2 className='font-bold  text-xl lg:text-2xl leading-7 text-foreground'>
             {title}
           </h2>
         </div>
         {enableSearch && (
-          <div className="flex items-center gap-2 px-4 py-3 rounded-xl border border-solid border-border w-full sm:max-w-[300px] lg:max-w-[356px] bg-background">
-            <SearchIcon className="w-5 h-5 text-muted-custom flex-shrink-0" />
+          <div className='flex items-center gap-2 px-4 py-3 rounded-xl border border-solid border-border w-full sm:max-w-[300px] lg:max-w-[356px] bg-background'>
+            <SearchIcon className='w-5 h-5 text-muted-custom flex-shrink-0' />
 
             <Input
               className={cn(
@@ -315,11 +313,11 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
       </div>
 
       {/* Table */}
-      <div className="w-full overflow-x-auto scrollbar-custom">
-        <div className="w-full">
+      <div className='w-full overflow-x-auto scrollbar-custom'>
+        <div className='w-full'>
           <Table>
-            <TableHeader className="bg-accent dark:bg-secondary">
-              <TableRow className="hover:bg-transparent justify-center border-b-0">
+            <TableHeader className='dark:bg-[#081524]'>
+              <TableRow className='hover:bg-transparent justify-center border-b-0'>
                 {tableColumns.map((column) => (
                   <TableHead
                     key={column}
@@ -353,7 +351,7 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
                     {tableColumns.map((column) => (
                       <TableCell
                         key={column}
-                        className="text-center font-normal text-sm lg:text-base"
+                        className='text-center font-normal text-sm lg:text-base'
                       >
                         {renderCellContent(plan, column)}
                       </TableCell>
@@ -364,7 +362,7 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
                 <TableRow>
                   <TableCell
                     colSpan={tableColumns.length}
-                    className="text-center py-8 text-muted-foreground dark:text-gray-400"
+                    className='text-center py-8 text-muted-foreground dark:text-gray-400'
                   >
                     {plans.length === 0
                       ? "No billing data available"
@@ -379,7 +377,7 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
 
       {/* Results Summary */}
       {filteredPlans.length > 8 && (
-        <div className="text-sm text-muted-foreground dark:text-gray-400">
+        <div className='text-sm text-muted-foreground dark:text-gray-400'>
           Showing {startIndex + 1} to{" "}
           {Math.min(startIndex + itemsPerPage, filteredPlans.length)} of{" "}
           {filteredPlans.length} plans
@@ -388,7 +386,7 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-center w-full mt-5">
+        <div className='flex justify-center w-full mt-5'>
           <Pagination>
             <PaginationContent>
               <PaginationItem>
@@ -404,12 +402,12 @@ export const DynamicBillingTable: React.FC<PlanTableProps> = ({
               {generatePageNumbers().map((pageNum, index) => (
                 <PaginationItem key={index}>
                   {pageNum === "..." ? (
-                    <span className="px-3 py-2">...</span>
+                    <span className='px-3 py-2'>...</span>
                   ) : (
                     <PaginationLink
                       onClick={() => handlePageChange(pageNum as number)}
                       isActive={currentPage === pageNum}
-                      className="cursor-pointer"
+                      className='cursor-pointer'
                     >
                       {pageNum}
                     </PaginationLink>
