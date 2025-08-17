@@ -69,30 +69,31 @@ export default function ForgetPassword() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col-reverse lg:flex-row bg-white dark:bg-primary-dark">
+    <div className='min-h-screen flex flex-col-reverse lg:flex-row bg-white dark:bg-primary-dark'>
       {/* Left Side - Welcome Message */}
-      <div className="flex-1 bg-sidebar-gradient dark:bg-primary-dark flex items-center justify-center p-4 sm:p-6 lg:p-8 text-white order-2 lg:order-1">
-        <div className="max-w-sm sm:max-w-md text-center space-y-4 sm:space-y-6 w-full">
-          <div className="w-full flex justify-center items-center">
+      <div className='flex-1 bg-sidebar-gradient dark:bg-primary-dark flex items-center justify-center p-4 sm:p-6 lg:p-8 text-white order-2 lg:order-1'>
+        <div className='max-w-sm sm:max-w-md text-center space-y-4 sm:space-y-6 w-full'>
+          <div className='w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl'>
             <Image
-              src="/logo.png"
-              alt="logo"
+              src='/logo.png'
+              alt='logo'
+              layout='responsive'
               width={100}
               height={100}
-              className="w-full h-full"
+              className='h-auto w-full object-contain'
             />
           </div>
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-tight">
+          <h1 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-tight'>
             Forgot Password?
           </h1>
-          <p className="text-xs sm:text-sm md:text-base lg:text-lg opacity-90 px-2 sm:px-0">
+          <p className='text-xs sm:text-sm md:text-base lg:text-lg opacity-90 px-2 sm:px-0'>
             Don&lsquo;t worry! Enter your email address and we&lsquo;ll send you
             a verification code to reset your password
           </p>
-          <div className="pt-2 sm:pt-4 space-y-3">
-            <p className="text-xs sm:text-sm opacity-75">
+          <div className='pt-2 sm:pt-4 space-y-3'>
+            <p className='text-xs sm:text-sm opacity-75'>
               Remember your password?{" "}
-              <Link href="/login" className="text-success underline font-bold">
+              <Link href='/login' className='text-success underline font-bold'>
                 Sign In
               </Link>
             </p>
@@ -101,44 +102,44 @@ export default function ForgetPassword() {
       </div>
 
       {/* Right Side - Forget Password Form */}
-      <div className="flex-1 bg-white dark:bg-primary-dark flex items-center justify-center p-4 sm:p-6 lg:p-8 order-1 lg:order-2 relative">
-        <Card className="w-full max-w-sm sm:max-w-md lg:max-w-2xl p-4 sm:p-6 lg:p-10 rounded-2xl sm:rounded-3xl lg:rounded-4xl border border-gray-200 dark:border-gray-700 shadow-lg bg-white dark:bg-gray-800">
-          <CardHeader className="text-center pb-4 sm:pb-6 relative">
-            <div className="flex items-center justify-center mb-2 sm:mb-4">
+      <div className='flex-1 bg-white dark:bg-primary-dark flex items-center justify-center p-4 sm:p-6 lg:p-8 order-1 lg:order-2 relative'>
+        <Card className='w-full max-w-sm sm:max-w-md lg:max-w-2xl p-4 sm:p-6 lg:p-10 rounded-2xl sm:rounded-3xl lg:rounded-4xl border border-gray-200 dark:border-gray-700 shadow-lg bg-white dark:bg-gray-800'>
+          <CardHeader className='text-center pb-4 sm:pb-6 relative'>
+            <div className='flex items-center justify-center mb-2 sm:mb-4'>
               <Link
-                href="/login"
-                className="absolute left-0 top-0 sm:left-2 sm:top-2 lg:left-4 lg:top-4 p-1 sm:p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+                href='/login'
+                className='absolute left-0 top-0 sm:left-2 sm:top-2 lg:left-4 lg:top-4 p-1 sm:p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors'
               >
-                <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600 dark:text-gray-400" />
+                <ArrowLeft className='h-4 w-4 sm:h-5 sm:w-5 text-gray-600 dark:text-gray-400' />
               </Link>
             </div>
-            <h2 className="text-lg sm:text-xl lg:text-2xl text-gray-900 dark:text-white mb-2">
+            <h2 className='text-lg sm:text-xl lg:text-2xl text-gray-900 dark:text-white mb-2'>
               Reset Password
             </h2>
-            <p className="text-muted-foreground text-xs sm:text-sm px-2 sm:px-0">
+            <p className='text-muted-foreground text-xs sm:text-sm px-2 sm:px-0'>
               Enter your email address and we&lsquo;ll send you a verification
               code
             </p>
           </CardHeader>
 
-          <CardContent className="px-2 sm:px-4 lg:px-6">
+          <CardContent className='px-2 sm:px-4 lg:px-6'>
             <form
-              className="space-y-4 sm:space-y-6"
+              className='space-y-4 sm:space-y-6'
               onSubmit={handleSubmit(onSubmit)}
             >
               {/* Email Field */}
-              <div className="space-y-2">
+              <div className='space-y-2'>
                 <label
-                  htmlFor="email"
-                  className="text-foreground text-sm sm:text-base font-medium block"
+                  htmlFor='email'
+                  className='text-foreground text-sm sm:text-base font-medium block'
                 >
                   Email Address
                 </label>
-                <div className="relative">
+                <div className='relative'>
                   <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter your email address"
+                    id='email'
+                    type='email'
+                    placeholder='Enter your email address'
                     className={`pl-4 pr-10 h-10 sm:h-12 rounded-md focus-visible:border-primary border-primary/30 bg-input text-foreground placeholder:text-muted-foreground text-sm sm:text-base ${
                       errors.email
                         ? "border-error focus:border-error"
@@ -147,10 +148,10 @@ export default function ForgetPassword() {
                     {...register("email")}
                     disabled={isLoading}
                   />
-                  <Mail className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
+                  <Mail className='absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground' />
                 </div>
                 {errors.email && (
-                  <p className="text-error text-xs mt-1">
+                  <p className='text-error text-xs mt-1'>
                     {errors.email.message}
                   </p>
                 )}
@@ -158,45 +159,45 @@ export default function ForgetPassword() {
 
               {/* Send OTP Button */}
               <Button
-                type="submit"
-                className="w-full h-10 sm:h-12 bg-primary/80 hover:bg-primary text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-indigo-500/20 text-sm sm:text-base"
+                type='submit'
+                className='w-full h-10 sm:h-12 bg-primary/80 hover:bg-primary text-white dark:text-black rounded-lg disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-indigo-500/20 text-sm sm:text-base'
                 disabled={isLoading || isSubmitting}
               >
                 {isLoading ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    <span className="hidden sm:inline">Sending OTP...</span>
-                    <span className="sm:hidden">Sending...</span>
+                    <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                    <span className='hidden sm:inline'>Sending OTP...</span>
+                    <span className='sm:hidden'>Sending...</span>
                   </>
                 ) : (
                   <>
-                    <span className="hidden sm:inline">
+                    <span className='hidden sm:inline'>
                       Send Verification Code
                     </span>
-                    <span className="sm:hidden">Send Code</span>
+                    <span className='sm:hidden'>Send Code</span>
                   </>
                 )}
               </Button>
             </form>
 
             {/* Additional Info */}
-            <div className="mt-4 sm:mt-6 text-center">
-              <p className="text-xs text-muted-foreground px-2 sm:px-0">
+            <div className='mt-4 sm:mt-6 text-center'>
+              <p className='text-xs text-muted-foreground px-2 sm:px-0'>
                 By continuing, you agree to our{" "}
                 <Link
-                  href="/terms"
-                  className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href='/terms'
+                  className='text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300'
+                  target='_blank'
+                  rel='noopener noreferrer'
                 >
                   Terms of Service
                 </Link>{" "}
                 and{" "}
                 <Link
-                  href="/privacy"
-                  className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href='/privacy'
+                  className='text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300'
+                  target='_blank'
+                  rel='noopener noreferrer'
                 >
                   Privacy Policy
                 </Link>

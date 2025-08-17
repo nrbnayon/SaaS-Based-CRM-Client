@@ -111,38 +111,39 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col-reverse lg:flex-row bg-white dark:bg-primary-dark">
+    <div className='min-h-screen flex flex-col-reverse lg:flex-row bg-white dark:bg-primary-dark'>
       {/* Left Side - Welcome Message */}
-      <div className="flex-1 bg-sidebar-gradient dark:bg-primary-dark flex items-center justify-center p-4 sm:p-6 lg:p-8 text-white order-2 lg:order-1">
-        <div className="max-w-sm sm:max-w-md text-center space-y-4 sm:space-y-6 w-full">
-          <div className="w-full flex justify-center items-center">
+      <div className='flex-1 bg-sidebar-gradient dark:bg-primary-dark flex items-center justify-center p-4 sm:p-6 lg:p-8 text-white order-2 lg:order-1'>
+        <div className='max-w-sm sm:max-w-md text-center space-y-4 sm:space-y-6 w-full'>
+          <div className='w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl'>
             <Image
-              src="/logo.png"
-              alt="logo"
-              width={120}
-              height={120}
-              className="w-full h-full"
+              src='/logo.png'
+              alt='logo'
+              layout='responsive'
+              width={100}
+              height={100}
+              className='h-auto w-full object-contain'
             />
           </div>
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl leading-tight">
+          <h1 className='text-2xl sm:text-3xl lg:text-4xl leading-tight'>
             Welcome Back!
           </h1>
-          <p className="text-sm sm:text-base lg:text-lg opacity-90 px-2 sm:px-0">
+          <p className='text-sm sm:text-base lg:text-lg opacity-90 px-2 sm:px-0'>
             Sign in to access your dashboard and manage everything
           </p>
-          <div className="pt-2 sm:pt-4 space-y-3">
+          <div className='pt-2 sm:pt-4 space-y-3'>
             <Button
-              variant="outline"
+              variant='outline'
               onClick={handleDemoLogin}
-              className="bg-white/10 border-white/20 hover:text-white hover:bg-white/20 w-full backdrop-blur-sm text-sm sm:text-base"
+              className='bg-white/10 border-white/20 hover:text-white hover:bg-white/20 w-full backdrop-blur-sm text-sm sm:text-base'
             >
               Try Demo Login
             </Button>
-            <p className="text-sm font-manrope-regular opacity-75">
+            <p className='text-sm font-manrope-regular opacity-75'>
               Don&apos;t have an Account?{" "}
               <Link
-                href="/signup"
-                className="text-white underline font-manrope-medium hover:opacity-80"
+                href='/signup'
+                className='text-white underline font-manrope-medium hover:opacity-80'
               >
                 Sign In
               </Link>
@@ -152,41 +153,41 @@ export default function LoginForm() {
       </div>
 
       {/* Right Side - Login Form */}
-      <div className="flex-1 bg-white dark:bg-primary-dark flex items-center justify-center p-4 sm:p-6 lg:p-8 order-1 lg:order-2">
-        <Card className="w-full max-w-sm sm:max-w-md lg:max-w-2xl p-4 sm:p-6 lg:p-10 rounded-2xl sm:rounded-3xl lg:rounded-4xl border border-gray-200 dark:border-gray-700 shadow-lg bg-white dark:bg-gray-800">
-          <CardHeader className="text-center pb-4 sm:pb-6">
-            <h2 className="text-xl sm:text-2xl text-gray-900 dark:text-white mb-2">
+      <div className='flex-1 bg-white dark:bg-primary-dark flex items-center justify-center p-4 sm:p-6 lg:p-8 order-1 lg:order-2'>
+        <Card className='w-full max-w-sm sm:max-w-md lg:max-w-2xl p-4 sm:p-6 lg:p-10 rounded-2xl sm:rounded-3xl lg:rounded-4xl border border-gray-200 dark:border-gray-700 shadow-lg bg-white dark:bg-gray-800'>
+          <CardHeader className='text-center pb-4 sm:pb-6'>
+            <h2 className='text-xl sm:text-2xl text-gray-900 dark:text-white mb-2'>
               Sign in to Account
             </h2>
-            <p className="text-muted-foreground text-sm font-manrope-regular">
+            <p className='text-muted-foreground text-sm font-manrope-regular'>
               Don&apos;t have an Account?{" "}
               <Link
-                href="/signup"
-                className="text-indigo-600 dark:text-indigo-400 underline font-manrope-medium hover:text-indigo-500 dark:hover:text-indigo-300"
+                href='/signup'
+                className='text-indigo-600 dark:text-indigo-400 underline font-manrope-medium hover:text-indigo-500 dark:hover:text-indigo-300'
               >
                 SignUp Now
               </Link>
             </p>
           </CardHeader>
 
-          <CardContent className="px-2 sm:px-4 lg:px-6">
+          <CardContent className='px-2 sm:px-4 lg:px-6'>
             <form
-              className="space-y-4 sm:space-y-6"
+              className='space-y-4 sm:space-y-6'
               onSubmit={handleSubmit(onSubmit)}
             >
               {/* Email Field */}
-              <div className="space-y-2">
+              <div className='space-y-2'>
                 <label
-                  htmlFor="email"
-                  className="text-foreground text-sm sm:text-base font-semibold block"
+                  htmlFor='email'
+                  className='text-foreground text-sm sm:text-base font-semibold block'
                 >
                   Email
                 </label>
-                <div className="relative">
+                <div className='relative'>
                   <Input
-                    id="email"
-                    type="text"
-                    placeholder="Enter your email"
+                    id='email'
+                    type='text'
+                    placeholder='Enter your email'
                     className={`pl-4 pr-10 h-10 sm:h-12 border-primary/30 bg-input focus-visible:border-primary rounded-md text-foreground placeholder:text-muted-foreground text-sm sm:text-base ${
                       errors.email
                         ? "border-error focus:border-error"
@@ -195,28 +196,28 @@ export default function LoginForm() {
                     {...register("email")}
                     disabled={isLoading}
                   />
-                  <User className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
+                  <User className='absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground' />
                 </div>
                 {errors.email && (
-                  <p className="text-error text-xs mt-1">
+                  <p className='text-error text-xs mt-1'>
                     {errors.email.message}
                   </p>
                 )}
               </div>
 
               {/* Password Field */}
-              <div className="space-y-2">
+              <div className='space-y-2'>
                 <label
-                  htmlFor="password"
-                  className="text-foreground text-sm sm:text-base font-semibold block"
+                  htmlFor='password'
+                  className='text-foreground text-sm sm:text-base font-semibold block'
                 >
                   Password
                 </label>
-                <div className="relative">
+                <div className='relative'>
                   <Input
-                    id="password"
+                    id='password'
                     type={showPassword ? "text" : "password"}
-                    placeholder="Enter your password"
+                    placeholder='Enter your password'
                     className={`pl-4 pr-10 h-10 sm:h-12 border-primary/30 bg-input text-foreground focus-visible:border-primary placeholder:text-muted-foreground rounded-md text-sm sm:text-base ${
                       errors.password
                         ? "border-error focus:border-error"
@@ -226,31 +227,31 @@ export default function LoginForm() {
                     disabled={isLoading}
                   />
                   <button
-                    type="button"
+                    type='button'
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 hover:text-primary transition-colors"
+                    className='absolute right-3 top-1/2 transform -translate-y-1/2 hover:text-primary transition-colors'
                     disabled={isLoading}
                   >
                     {showPassword ? (
-                      <EyeOff className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
+                      <EyeOff className='h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground' />
                     ) : (
-                      <Eye className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground" />
+                      <Eye className='h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground' />
                     )}
                   </button>
                 </div>
                 {errors.password && (
-                  <p className="text-error text-xs mt-1">
+                  <p className='text-error text-xs mt-1'>
                     {errors.password.message}
                   </p>
                 )}
               </div>
 
               {/* Remember Me and Forgot Password */}
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
-                <div className="flex items-center space-x-2">
+              <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0'>
+                <div className='flex items-center space-x-2'>
                   <Checkbox
-                    id="rememberMe"
-                    className="border-primary/30"
+                    id='rememberMe'
+                    className='border-primary/30'
                     checked={rememberMe}
                     onCheckedChange={(checked) =>
                       setValue("rememberMe", !!checked)
@@ -258,30 +259,30 @@ export default function LoginForm() {
                     disabled={isLoading}
                   />
                   <label
-                    htmlFor="rememberMe"
-                    className="text-muted-foreground text-xs sm:text-sm cursor-pointer mt-0.5"
+                    htmlFor='rememberMe'
+                    className='text-muted-foreground text-xs sm:text-sm cursor-pointer mt-0.5'
                   >
                     Remember me
                   </label>
                 </div>
                 <Link
-                  href="/forgot-password"
-                  className="text-foreground font-semibold text-xs sm:text-sm hover:text-primary hover:underline transition-colors text-center sm:text-right"
+                  href='/forgot-password'
+                  className='text-foreground font-semibold text-xs sm:text-sm hover:text-primary hover:underline transition-colors text-center sm:text-right'
                 >
                   Forgot Password?
                 </Link>
               </div>
 
               {/* GDPR Compliance Section */}
-              <div className="space-y-4 p-4 border border-gray-200 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700/50">
-                <h3 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-white">
+              <div className='space-y-4 p-4 border border-gray-200 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700/50'>
+                <h3 className='text-sm sm:text-base font-semibold text-gray-900 dark:text-white'>
                   Required Acceptances
                 </h3>
 
                 {/* Terms and Conditions */}
-                <div className="flex items-start space-x-2">
+                <div className='flex items-start space-x-2'>
                   <Checkbox
-                    id="acceptTerms"
+                    id='acceptTerms'
                     className={`border-primary/30 mt-0.5 ${
                       errors.acceptTerms ? "border-error" : ""
                     }`}
@@ -293,30 +294,30 @@ export default function LoginForm() {
                     required
                   />
                   <label
-                    htmlFor="acceptTerms"
-                    className="text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed"
+                    htmlFor='acceptTerms'
+                    className='text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed'
                   >
-                    <span className="text-red-500">*</span> I accept the{" "}
+                    <span className='text-red-500'>*</span> I accept the{" "}
                     <Link
-                      href="/terms"
-                      className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href='/terms'
+                      className='text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300'
+                      target='_blank'
+                      rel='noopener noreferrer'
                     >
                       Terms and Conditions of Use (ToS)
                     </Link>
                   </label>
                 </div>
                 {errors.acceptTerms && (
-                  <p className="text-error text-xs ml-6">
+                  <p className='text-error text-xs ml-6'>
                     {errors.acceptTerms.message}
                   </p>
                 )}
 
                 {/* Privacy Policy */}
-                <div className="flex items-start space-x-2">
+                <div className='flex items-start space-x-2'>
                   <Checkbox
-                    id="acceptPrivacyPolicy"
+                    id='acceptPrivacyPolicy'
                     className={`border-primary/30 mt-0.5 ${
                       errors.acceptPrivacyPolicy ? "border-error" : ""
                     }`}
@@ -328,15 +329,15 @@ export default function LoginForm() {
                     required
                   />
                   <label
-                    htmlFor="acceptPrivacyPolicy"
-                    className="text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed"
+                    htmlFor='acceptPrivacyPolicy'
+                    className='text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed'
                   >
-                    <span className="text-red-500">*</span> I accept the{" "}
+                    <span className='text-red-500'>*</span> I accept the{" "}
                     <Link
-                      href="/privacy"
-                      className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href='/privacy'
+                      className='text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300'
+                      target='_blank'
+                      rel='noopener noreferrer'
                     >
                       Privacy Policy (GDPR Art. 13-14)
                     </Link>{" "}
@@ -344,15 +345,15 @@ export default function LoginForm() {
                   </label>
                 </div>
                 {errors.acceptPrivacyPolicy && (
-                  <p className="text-error text-xs ml-6">
+                  <p className='text-error text-xs ml-6'>
                     {errors.acceptPrivacyPolicy.message}
                   </p>
                 )}
 
                 {/* Open Banking/PSD2 */}
-                <div className="flex items-start space-x-2">
+                <div className='flex items-start space-x-2'>
                   <Checkbox
-                    id="acceptOpenBanking"
+                    id='acceptOpenBanking'
                     className={`border-primary/30 mt-0.5 ${
                       errors.acceptOpenBanking ? "border-error" : ""
                     }`}
@@ -364,16 +365,16 @@ export default function LoginForm() {
                     required
                   />
                   <label
-                    htmlFor="acceptOpenBanking"
-                    className="text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed"
+                    htmlFor='acceptOpenBanking'
+                    className='text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed'
                   >
-                    <span className="text-red-500">*</span> I explicitly accept
+                    <span className='text-red-500'>*</span> I explicitly accept
                     the use of{" "}
                     <Link
-                      href="/open-banking"
-                      className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href='/open-banking'
+                      className='text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300'
+                      target='_blank'
+                      rel='noopener noreferrer'
                     >
                       Open Banking/PSD2
                     </Link>{" "}
@@ -381,15 +382,15 @@ export default function LoginForm() {
                   </label>
                 </div>
                 {errors.acceptOpenBanking && (
-                  <p className="text-error text-xs ml-6">
+                  <p className='text-error text-xs ml-6'>
                     {errors.acceptOpenBanking.message}
                   </p>
                 )}
 
                 {/* AI Usage */}
-                <div className="flex items-start space-x-2">
+                <div className='flex items-start space-x-2'>
                   <Checkbox
-                    id="acceptAIUsage"
+                    id='acceptAIUsage'
                     className={`border-primary/30 mt-0.5 ${
                       errors.acceptAIUsage ? "border-error" : ""
                     }`}
@@ -401,16 +402,16 @@ export default function LoginForm() {
                     required
                   />
                   <label
-                    htmlFor="acceptAIUsage"
-                    className="text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed"
+                    htmlFor='acceptAIUsage'
+                    className='text-muted-foreground text-xs sm:text-sm cursor-pointer leading-relaxed'
                   >
-                    <span className="text-red-500">*</span> I acknowledge and
+                    <span className='text-red-500'>*</span> I acknowledge and
                     accept the{" "}
                     <Link
-                      href="/ai-usage"
-                      className="text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href='/ai-usage'
+                      className='text-indigo-600 dark:text-indigo-400 underline hover:text-indigo-500 dark:hover:text-indigo-300'
+                      target='_blank'
+                      rel='noopener noreferrer'
                     >
                       information on the use of AI
                     </Link>{" "}
@@ -418,7 +419,7 @@ export default function LoginForm() {
                   </label>
                 </div>
                 {errors.acceptAIUsage && (
-                  <p className="text-error text-xs ml-6">
+                  <p className='text-error text-xs ml-6'>
                     {errors.acceptAIUsage.message}
                   </p>
                 )}
@@ -426,13 +427,13 @@ export default function LoginForm() {
 
               {/* Login Button */}
               <Button
-                type="submit"
-                className="w-full h-10 sm:h-12 bg-primary/80 hover:bg-primary text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-indigo-500/20 text-sm sm:text-base"
+                type='submit'
+                className='w-full h-10 sm:h-12 bg-primary/80 hover:bg-primary text-white dark:text-black rounded-md disabled:opacity-50 disabled:cursor-not-allowed focus:ring-2 focus:ring-indigo-500/20 text-sm sm:text-base'
                 disabled={isLoading || isSubmitting}
               >
                 {isLoading ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                     Signing in...
                   </>
                 ) : (

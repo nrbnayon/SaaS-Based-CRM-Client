@@ -7,6 +7,7 @@ import {
   ArrowRight,
   ChevronDown,
 } from "lucide-react";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -22,14 +23,17 @@ export default function Home() {
         {/* Hero section */}
         <div className='max-w-4xl mx-auto'>
           {/* Logo/Brand */}
-          <div className='mb-8'>
-            <h1 className='text-6xl md:text-8xl font-bold text-white mb-4 tracking-tight'>
-              Prime
-              <span className='text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400 ml-2'>
-                Flow
-              </span>
-            </h1>
-            <div className='w-24 h-1 bg-gradient-to-r from-cyan-400 to-purple-400 mx-auto rounded-full'></div>
+          <div className='w-full flex justify-center items-center my-5 px-4'>
+            <div className='w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl'>
+              <Image
+                src='/logo.png'
+                alt='logo'
+                layout='responsive'
+                width={100}
+                height={100}
+                className='h-auto w-full object-contain'
+              />
+            </div>
           </div>
 
           {/* Tagline */}
