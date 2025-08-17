@@ -5,7 +5,7 @@ export const siteConfig = {
   name: "Saas Based CRM Admin Dashboard",
   shortName: "SBCRMAD",
   description: "Saas Based CRM Admin Dashboard",
-  url: "https://fun-engagement-dashboard.vercel.app",
+  url: "https://saa-s-based-crm-client.vercel.app",
   ogImage: "/logo.png",
   logo: {
     default: "/logo.png",

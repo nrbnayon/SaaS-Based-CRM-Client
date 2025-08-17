@@ -4,4 +4,4 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/private/
 
-Sitemap: https://fun-engagement-dashboard.vercel.app/sitemap.xml
+Sitemap: https://saa-s-based-crm-client.vercel.app/sitemap.xml
