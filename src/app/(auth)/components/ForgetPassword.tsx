@@ -71,7 +71,13 @@ export default function ForgetPassword() {
   return (
     <div className='min-h-screen flex flex-col-reverse lg:flex-row bg-white dark:bg-primary-dark'>
       {/* Left Side - Welcome Message */}
-      <div className='flex-1 bg-sidebar-gradient dark:bg-primary-dark flex items-center justify-center p-4 sm:p-6 lg:p-8 text-white order-2 lg:order-1'>
+      <div
+        className='flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8 text-white order-2 lg:order-1'
+        style={{
+          background:
+            "linear-gradient(135deg, #378986 0%, #081524 50%, #00394a 100%)",
+        }}
+      >
         <div className='max-w-sm sm:max-w-md text-center space-y-4 sm:space-y-6 w-full'>
           <div className='w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl'>
             <Image

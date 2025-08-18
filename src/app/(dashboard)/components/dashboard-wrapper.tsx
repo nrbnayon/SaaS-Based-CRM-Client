@@ -84,10 +84,14 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
           className={cn(
             "justify-between gap-10 border-none",
             // Light mode: radial gradient from #080635 to #16156C
-            "bg-sidebar-gradient",
-            // Dark mode: solid color #141440
-            "dark:bg-[#0B0305]"
+            // "bg-sidebar-gradient",
+            // // Dark mode: solid color #141440
+            // "dark:bg-[#0B0305]"
           )}
+          style={{
+            background:
+              "linear-gradient(120deg, #378986 0%, #081524 50%, #00394a 100%)",
+          }}
         >
           <div className='flex flex-col flex-1 overflow-y-auto overflow-x-hidden'>
             {open ? <Logo /> : <LogoIcon />}

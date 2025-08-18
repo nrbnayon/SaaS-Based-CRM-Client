@@ -47,8 +47,20 @@ const PricingCard = ({
 
   return (
     <>
-      <div className='w-full rounded-2xl h-full dark:bg-transparent'>
-        <Card className='bg-primary dark:bg-[#081524] border-0 p-0 text-foreground'>
+      <div
+        className='w-full rounded-2xl h-full '
+        style={{
+          background:
+            "linear-gradient(135deg, #378986 0%, #081524 50%, #00394a 100%)",
+        }}
+      >
+        <Card
+          className='border-0 p-0 text-foreground'
+          style={{
+            background:
+              "linear-gradient(135deg, #378986 0%, #081524 50%, #00394a 100%)",
+          }}
+        >
           <CardContent className='pt-3'>
             <div className='flex items-center gap-2 '>
               <div className='w-4 h-4 rounded-full border-2 border-white'></div>
