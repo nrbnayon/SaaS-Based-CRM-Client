@@ -1,5 +1,3 @@
-/** @format */
-
 "use client";
 
 import DashboardHeader from "../components/dashboard-header";

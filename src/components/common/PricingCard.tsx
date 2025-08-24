@@ -10,6 +10,9 @@ interface PricingCardProps {
   oldPrice: number;
   price: number;
   planfor: string;
+  packageType?: string;
+  vatIncluded?: boolean;
+  features?: string[];
   onUpdate?: (data: PricingData) => void;
 }
 
@@ -18,6 +21,8 @@ export interface PricingData {
   oldPrice: number;
   price: number;
   planfor: string;
+  packageType?: string;
+  vatIncluded?: boolean;
 }
 
 const PricingCard = ({
@@ -25,6 +30,9 @@ const PricingCard = ({
   oldPrice,
   price,
   planfor,
+  packageType,
+  vatIncluded,
+  features,
   onUpdate,
 }: PricingCardProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -33,6 +41,8 @@ const PricingCard = ({
     oldPrice,
     price,
     planfor,
+    packageType,
+    vatIncluded,
   });
 
   const handleEdit = () => {
@@ -74,22 +84,31 @@ const PricingCard = ({
 
             <div className='pl-6'>
               <ul className='space-y-2 mb-6 text-white text-xs md:text-sm'>
-                <li className='flex items-center gap-2'>
-                  <div className='w-1.5 h-1.5 rounded-full bg-white'></div>
-                  Automatic bot building
-                </li>
-                <li className='flex items-center gap-2'>
-                  <div className='w-1.5 h-1.5 rounded-full bg-white'></div>
-                  Team collaboration
-                </li>
-                <li className='flex items-center gap-2'>
-                  <div className='w-1.5 h-1.5 rounded-full bg-white'></div>
-                  AI model training
-                </li>
-                <li className='flex items-center gap-2'>
-                  <div className='w-1.5 h-1.5 rounded-full bg-white'></div>
-                  Multilingual AI
-                </li>
+                {features ? features.slice(0, 4).map((feature, index) => (
+                  <li key={index} className='flex items-center gap-2'>
+                    <div className='w-1.5 h-1.5 rounded-full bg-white'></div>
+                    {feature}
+                  </li>
+                )) : (
+                  <>
+                    <li className='flex items-center gap-2'>
+                      <div className='w-1.5 h-1.5 rounded-full bg-white'></div>
+                      Financial Management
+                    </li>
+                    <li className='flex items-center gap-2'>
+                      <div className='w-1.5 h-1.5 rounded-full bg-white'></div>
+                      AI Chat Assistant
+                    </li>
+                    <li className='flex items-center gap-2'>
+                      <div className='w-1.5 h-1.5 rounded-full bg-white'></div>
+                      Aptitude Tests
+                    </li>
+                    <li className='flex items-center gap-2'>
+                      <div className='w-1.5 h-1.5 rounded-full bg-white'></div>
+                      Analytics & Reports
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
 
@@ -101,19 +120,33 @@ const PricingCard = ({
               </div>
               <div>
                 <div className='flex text-xl md:text-3xl font-bold text-white'>
-                  ${pricingData.price}{" "}
+                  €{pricingData.price}{" "}
                   <span className='text-xs font-normal pt-4 text-whited'>
                     /{pricingData.planfor}
                   </span>
                 </div>
 
                 <div className='flex space-x-3 items-end'>
-                  <div className='text-white line-through text-xs'>
-                    ${pricingData.oldPrice}{" "}
-                  </div>
-                  <div className='text-black bg-white px-3 py-0.5 rounded-2xl text-xs'>
-                    Save: ${pricingData.oldPrice - pricingData.price}
-                  </div>
+                  {pricingData.oldPrice > pricingData.price && (
+                    <>
+                      <div className='text-white line-through text-xs'>
+                        €{pricingData.oldPrice}{" "}
+                      </div>
+                      <div className='text-black bg-white px-3 py-0.5 rounded-2xl text-xs'>
+                        Save: €{pricingData.oldPrice - pricingData.price}
+                      </div>
+                    </>
+                  )}
+                  {vatIncluded && (
+                    <div className='text-white text-xs'>
+                      VAT included
+                    </div>
+                  )}
+                  {!vatIncluded && (
+                    <div className='text-white text-xs'>
+                      +22% VAT
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

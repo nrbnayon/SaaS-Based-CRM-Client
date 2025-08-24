@@ -37,11 +37,13 @@ const UpgradePage = () => {
                   <p>Phone: +880 1636-828200</p>
                   <p>E-mail: mahdeershid@gmail.com</p>
                   <p>Country: Bangladesh</p>
+                  <p>Package: Flat Rate (€39/month)</p>
+                  <p className="text-xs text-muted-foreground mt-2">VAT included in price</p>
                 </div>
                 <div>
                   <p>Invoice: HU-fjw-92382</p>
                   <p>Invoice Date: 12/09/2024</p>
-                  <p>Invoice Amount: $55</p>
+                  <p>Invoice Amount: €39</p>
                   <p>Billing ID: 7325729579</p>
                 </div>
               </div>
@@ -57,11 +59,12 @@ const UpgradePage = () => {
                 </div>
                 <div className='text-right'>
                   <div className='text-3xl md:text-4xl font-bold text-foreground'>
-                    $69
+                    €39
                     <span className='text-foreground font-medium text-sm md:text-base'>
                       /Monthly
                     </span>
                   </div>
+                  <p className="text-xs text-muted-foreground">VAT included</p>
                 </div>
               </div>
             </CardContent>

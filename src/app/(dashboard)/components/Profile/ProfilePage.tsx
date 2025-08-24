@@ -20,13 +20,13 @@ import ChangePassword from "./ChangePassord";
 export default function ProfilePage() {
   // Profile data array
   const [profileData, setProfileData] = useState({
-    name: "Mahdee Rashid",
+    name: "Nrb Nayon",
     image: "/placeholder.svg?height=80&width=80",
-    email: "polash@gmail.com",
+    email: "nrbnayon@gmail.com",
     phone: "+880 1636 828200",
     address: "123 Main Street, Dhaka, Bangladesh",
-    linkedin: "linkedin.com/in/polash",
-    website: "polashportfolio.com",
+    linkedin: "linkedin.com/in/itsnayon",
+    website: "nayon-ii.com",
   });
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);

@@ -38,6 +38,9 @@ export interface SlideData {
   oldPrice: number;
   price: number;
   planfor: string;
+  packageType?: string;
+  vatIncluded?: boolean;
+  features?: string[];
 }
 
 // Transaction type definitions

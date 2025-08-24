@@ -136,6 +136,35 @@ saas-based-crm-client/
 └── components.json           # shadcn/ui configuration
 ```
 
+## Package Structure
+
+### Flat Rate Package (€39/month - VAT included)
+**Target**: Freelancers (Forfettari)
+**Features**:
+- Invoice Creation & Management
+- Bank Statement Upload
+- Direct Accountant Support
+- Financial Plan Access
+- AI Chat Assistant
+- Aptitude Tests
+
+### Business Package (€99/month + 22% VAT = €120.78)
+**Target**: Companies
+**Features**:
+- Personnel Recruitment System
+- All Financial Features
+- AI Chat Assistant
+- Aptitude Tests
+- Advanced Analytics
+
+### Premium Business Package (€129/month + 22% VAT = €157.38)
+**Target**: Large Companies
+**Features**:
+- All Business Package Features
+- Premium External Services
+- Priority Support
+- Dedicated Account Manager
+
 ## Development
 
 ### Available Scripts

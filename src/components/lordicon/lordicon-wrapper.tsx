@@ -151,7 +151,7 @@ const Lordicon = forwardRef<HTMLElement, LordiconProps>(
       <div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="inline-block"
+        className='inline-block'
       >
         {React.createElement("lord-icon", {
           ref: iconRef,

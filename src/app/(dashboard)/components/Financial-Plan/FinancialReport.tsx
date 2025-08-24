@@ -322,6 +322,48 @@ const FinancialReport = () => {
               </CardContent>
             </Card>
           </div>
+          <div className='space-y-6'>
+            <Card className='border-border'>
+              <CardHeader>
+                <CardTitle>Tax Management & F24 Categorization</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className='space-y-4'>
+                  <div className='bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg'>
+                    <h3 className='font-semibold text-foreground mb-2'>Automatic Tax Categorization</h3>
+                    <p className='text-sm text-muted-foreground'>
+                      All transactions containing "F24" in the description are automatically categorized as tax payments.
+                      This helps maintain accurate tax records and simplifies your financial reporting.
+                    </p>
+                  </div>
+                  
+                  <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+                    <div className='text-center p-4 border border-border rounded-lg'>
+                      <div className='text-2xl font-bold text-primary mb-2'>
+                        {transactions.filter(t => t.details.toLowerCase().includes('f24')).length}
+                      </div>
+                      <div className='text-sm text-muted-foreground'>F24 Payments</div>
+                    </div>
+                    <div className='text-center p-4 border border-border rounded-lg'>
+                      <div className='text-2xl font-bold text-success mb-2'>
+                        €{transactions
+                          .filter(t => t.details.toLowerCase().includes('f24'))
+                          .reduce((sum, t) => sum + parseFloat(t.amount.replace(/[€,$]/g, '')), 0)
+                          .toFixed(2)}
+                      </div>
+                      <div className='text-sm text-muted-foreground'>Total Tax Paid</div>
+                    </div>
+                    <div className='text-center p-4 border border-border rounded-lg'>
+                      <div className='text-2xl font-bold text-yellow-600 mb-2'>
+                        {new Date().getMonth() + 1}
+                      </div>
+                      <div className='text-sm text-muted-foreground'>Current Month</div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
       </Tabs>
       <div></div>

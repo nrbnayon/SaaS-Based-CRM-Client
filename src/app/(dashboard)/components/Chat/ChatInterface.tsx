@@ -71,7 +71,7 @@ const ChatInterface: React.FC = () => {
       id: 1,
       type: "bot",
       content:
-        "Hi there! 👋 I'm your AI expense assistant. I can help you track expenses, analyze receipts, documents, view reports, or answer questions about your spending.",
+        "Hi there! 👋 I'm your AI financial assistant. I can help you analyze your financial plan data, provide management improvement strategies, optimization suggestions, and answer questions about your financial performance.",
       timestamp: new Date(Date.now() - 300000),
       status: "delivered",
     },
@@ -79,14 +79,14 @@ const ChatInterface: React.FC = () => {
 
   const botResponses: Record<BotResponseCategory, string[]> = {
     greeting: [
-      "Hello! Ready to track some expenses today? I can analyze receipts and documents too! 📊",
-      "Hi there! How can I help you manage your finances today? 💰",
-      "Hey! What would you like to do? Add expenses, view reports, or analyze receipts/documents?",
+      "Hello! Ready to analyze your financial data today? I can provide insights and strategies! 📊",
+      "Hi there! How can I help you optimize your financial management today? 💰", 
+      "Hey! What would you like to know? Financial analysis, management strategies, or optimization tips?",
     ],
     addExpense: [
-      "Perfect! You can tell me about the expense or upload a receipt photo or document. What works better for you?",
-      "Great choice! What's this expense for? Feel free to share a receipt or document if you have one 📸📄",
-      "Sure thing! Describe the expense or upload a receipt/document - I'll handle the rest!",
+      "Perfect! I can help you analyze your financial data and suggest improvements. What specific area would you like to focus on?",
+      "Great choice! Let me analyze your financial patterns and provide strategic recommendations 📊",
+      "Sure thing! I can review your financial plan and suggest optimization strategies!",
     ],
     receiptAnalysis: [
       "Nice! I can see the receipt. Let me extract the details for you...",
@@ -119,14 +119,14 @@ const ChatInterface: React.FC = () => {
       "Done! 🎉 Transaction added to your records. Anything else I can help with?",
     ],
     reports: [
-      "I can show you: 📊 Spending trends, 📈 Category breakdown, 📅 Monthly summary, or 🔍 Recent transactions. What interests you?",
-      "Here are your options: Weekly summary, Category analysis, Budget tracking, or Export data. What would you like to see?",
-      "I can generate: Expense reports, Budget analysis, Spending patterns, or Transaction history. Which one?",
+      "I can analyze: 📊 Financial trends, 📈 Performance metrics, 📅 Cash flow patterns, or 🔍 Optimization opportunities. What interests you?",
+      "Here are your options: Financial analysis, Strategy recommendations, Performance insights, or Growth opportunities. What would you like to explore?",
+      "I can provide: Financial reports, Strategic analysis, Performance optimization, or Management recommendations. Which one?",
     ],
     help: [
-      "I can help you with: 💰 Adding expenses, 📊 Viewing reports, 📸 Analyzing receipts/documents, 💳 Managing budgets, and 📤 Exporting data. What do you need?",
-      "Here's what I do best: Track expenses, Process receipt images and documents, Generate insights, Set spending alerts, and Export your data!",
-      "I'm your complete expense assistant! I can track spending, analyze receipts and documents with AI, create reports, and help with budgets.",
+      "I can help you with: 💰 Financial analysis, 📊 Strategic insights, 📈 Performance optimization, 💡 Management strategies, and 📤 Growth recommendations. What do you need?",
+      "Here's what I do best: Analyze financial data, Provide strategic insights, Generate optimization recommendations, Identify improvement opportunities, and Create management strategies!",
+      "I'm your complete financial advisor! I can analyze your financial plan data, provide strategic recommendations, and help optimize your business performance.",
     ],
     default: [
       "I'm not quite sure what you mean. Could you clarify? You can also try uploading a receipt photo or document! 📸📄",
@@ -431,23 +431,9 @@ const ChatInterface: React.FC = () => {
   const quickActions: QuickAction[] = [
     {
       icon: Plus,
-      label: "Add Expense",
+      label: "Financial Analysis",
       action: () => {
-        addMessage("user", "I want to add an expense", [], "delivered");
-        setTimeout(() => {
-          setIsTyping(true);
-          setTimeout(() => {
-            setIsTyping(false);
-            addMessage("bot", getRandomResponse("addExpense"), [], "delivered");
-          }, 1000);
-        }, 100);
-      },
-    },
-    {
-      icon: BarChart3,
-      label: "View Reports",
-      action: () => {
-        addMessage("user", "Show me my expense reports", [], "delivered");
+        addMessage("user", "I want financial analysis", [], "delivered");
         setTimeout(() => {
           setIsTyping(true);
           setTimeout(() => {
@@ -458,9 +444,23 @@ const ChatInterface: React.FC = () => {
       },
     },
     {
+      icon: BarChart3,
+      label: "Strategy Tips",
+      action: () => {
+        addMessage("user", "Give me management strategies", [], "delivered");
+        setTimeout(() => {
+          setIsTyping(true);
+          setTimeout(() => {
+            setIsTyping(false);
+            addMessage("bot", getRandomResponse("help"), [], "delivered");
+          }, 1000);
+        }, 100);
+      },
+    },
+    {
       icon: Camera,
-      label: "Scan Receipt",
-      action: () => cameraInputRef.current?.click(),
+      label: "Upload Data",
+      action: () => fileInputRef.current?.click(),
     },
   ];
 
@@ -474,9 +474,9 @@ const ChatInterface: React.FC = () => {
           </div>
           <div>
             <h1 className='text-lg font-semibold text-gray-900 dark:text-white'>
-              Expense AI
+              Financial AI
             </h1>
-            <p className='text-sm text-gray-500'>Smart expense tracking</p>
+            <p className='text-sm text-gray-500'>Smart financial advisor</p>
           </div>
         </div>
         <div className='flex items-center space-x-2'>

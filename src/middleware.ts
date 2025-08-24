@@ -9,7 +9,7 @@ const AUTH_ROUTES = [
   "/reset-password",
   "/verify-otp",
 ];
-const PROTECTED_ROUTES = ["/dashboard"]; // "/profile", "/settings"
+const PROTECTED_ROUTES = ["/dashboard", "/profile", "/settings"];
 const PUBLIC_ROUTES = ["/", "/about", "/contact", "/success"];
 
 // JWT secret - in production, use environment variable

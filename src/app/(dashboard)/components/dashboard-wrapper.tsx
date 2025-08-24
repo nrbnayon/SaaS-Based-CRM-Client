@@ -18,6 +18,7 @@ import {
   LogOut,
   MonitorCog,
   UserSquare2Icon,
+  Users,
 } from "lucide-react";
 
 interface DashboardWrapperProps {
@@ -44,9 +45,14 @@ export default function DashboardWrapper({ children }: DashboardWrapperProps) {
       icon: <MdAccountBalance className='h-5 w-5 flex-shrink-0' />,
     },
     {
-      label: "Reports",
-      href: "/reports",
+      label: "Accountant",
+      href: "/accountant",
       icon: <HiOutlineDocumentText className='h-5 w-5 flex-shrink-0' />,
+    },
+    {
+      label: "Personnel",
+      href: "/personnel-recruitment",
+      icon: <Users className='h-5 w-5 flex-shrink-0' />,
     },
     {
       label: "HR Test",
