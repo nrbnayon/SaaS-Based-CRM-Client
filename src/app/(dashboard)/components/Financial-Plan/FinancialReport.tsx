@@ -167,11 +167,11 @@ const FinancialReport = () => {
     chartDataSets[selectedPeriods.analytics || "monthly"];
 
   return (
-    <div className='p-4 space-y-4 md:space-y-10'>
+    <div className="p-4 space-y-4 md:space-y-10">
       {/* Financial Goals Grid */}
-      <div className='space-y-6'>
+      <div className="space-y-6">
         {/* First Row - Primary Goals */}
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {financialPlanCards.slice(0, 4).map((card) => (
             <FinancialCardComponent
               key={card.id}
@@ -184,45 +184,45 @@ const FinancialReport = () => {
           ))}
         </div>
       </div>
-      <Tabs className='bg-transparent overflow-auto' defaultValue='Overview'>
-        <TabsList className='w-full dark:bg-[#081524] h-12  overflow-auto'>
+      <Tabs className="bg-transparent overflow-auto" defaultValue="Overview">
+        <TabsList className="w-full dark:bg-[#081524] h-12  overflow-auto">
           <TabsTrigger
-            value='Overview'
-            className=' text-base md:text-xl cursor-pointer'
+            value="Overview"
+            className=" text-base md:text-xl cursor-pointer"
           >
             Overview
           </TabsTrigger>
           <TabsTrigger
-            value='Cost-Analysis'
-            className=' text-base md:text-xl cursor-pointer'
+            value="Cost-Analysis"
+            className=" text-base md:text-xl cursor-pointer"
           >
             Cost Analysis
           </TabsTrigger>
           <TabsTrigger
-            value='Cash-Flow'
-            className=' text-base md:text-xl cursor-pointer'
+            value="Cash-Flow"
+            className=" text-base md:text-xl cursor-pointer"
           >
             Cash Flow
           </TabsTrigger>
           <TabsTrigger
-            value='Taxes-Deadlines'
-            className=' text-base md:text-xl cursor-pointer'
+            value="Taxes-Deadlines"
+            className=" text-base md:text-xl cursor-pointer"
           >
             Taxes & Deadlines
           </TabsTrigger>
         </TabsList>
         {/* // Only showing the updated TabsContent sections - replace these in your
         existing component */}
-        <TabsContent value='Overview'>
+        <TabsContent value="Overview">
           <DynamicFinancialTable
             chartData={currentChartData}
             selectedPeriod={selectedPeriods.analytics}
             onPeriodChange={(period) => handlePeriodChange("analytics", period)}
-            chartType='both'
+            chartType="both"
           />
         </TabsContent>
-        <TabsContent value='Cost-Analysis'>
-          <div className='space-y-2 md:space-y-5'>
+        <TabsContent value="Cost-Analysis">
+          <div className="space-y-2 md:space-y-5">
             <div>
               <DynamicFinancialTable
                 chartData={currentChartData}
@@ -230,10 +230,10 @@ const FinancialReport = () => {
                 onPeriodChange={(period) =>
                   handlePeriodChange("analytics", period)
                 }
-                chartType='expense-only'
+                chartType="expense-only"
               />
             </div>
-            <div className='overflow-hidden'>
+            <div className="overflow-hidden">
               <DynamicPieChart
                 data={[
                   { label: "AI equipement", value: 77396, color: "#ef4444" },
@@ -242,7 +242,7 @@ const FinancialReport = () => {
                   { label: "Exam Maintainance", value: 9396, color: "#483D8B" },
                   { label: "Conference Cost", value: 1396, color: "#FFD700" },
                 ]}
-                title='Expenses'
+                title="Expenses"
                 width={400}
                 height={300}
                 showLabels={true}
@@ -252,15 +252,15 @@ const FinancialReport = () => {
             </div>
           </div>
         </TabsContent>
-        <TabsContent value='Cash-Flow'>
-          <div className='w-full '>
+        <TabsContent value="Cash-Flow">
+          <div className="w-full ">
             <Card
               className={cn(
                 "flex flex-col h-96 justify-between items-start p-4 bg-[linear-gradient(45deg,var(--accent)_0%,white_50%,#FFF1E5_100%)] dark:bg-[linear-gradient(45deg,var(--dark-primary)_100%,var(--dark-primary)_100%,var(--dark-primary)_100%)] flex-1 rounded-[20px] w-full xl:w-auto min-w-2xs"
               )}
             >
-              <CardHeader className='flex flex-row items-center justify-between p-0 w-full'>
-                <CardTitle className='inline-flex items-center justify-center gap-2 font-medium text-gray-800 dark:text-white text-base'>
+              <CardHeader className="flex flex-row items-center justify-between p-0 w-full">
+                <CardTitle className="inline-flex items-center justify-center gap-2 font-medium text-gray-800 dark:text-white text-base">
                   Analytics
                 </CardTitle>
                 <Select
@@ -269,21 +269,21 @@ const FinancialReport = () => {
                     handlePeriodChange("analytics", value)
                   }
                 >
-                  <SelectTrigger className='inline-flex items-center text-muted-custom justify-center gap-1.5 px-3 py-2 h-auto bg-white/20 dark:bg-transparent rounded-lg border-[0.5px] border-solid border-gray-300 dark:border-[#505050]'>
-                    <SelectValue className='font-normal dark:text-muted-foreground text-xs' />
+                  <SelectTrigger className="inline-flex items-center text-muted-custom justify-center gap-1.5 px-3 py-2 h-auto bg-white/20 dark:bg-transparent rounded-lg border-[0.5px] border-solid border-gray-300 dark:border-[#505050]">
+                    <SelectValue className="font-normal dark:text-muted-foreground text-xs" />
                     {/* <ChevronDownIcon className='h-4 w-4 text-muted-custom dark:text-muted-foreground' /> */}
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value='daily'>Daily</SelectItem>
-                    <SelectItem value='weekly'>Weekly</SelectItem>
-                    <SelectItem value='monthly'>Monthly</SelectItem>
-                    <SelectItem value='yearly'>Yearly</SelectItem>
+                    <SelectItem value="daily">Daily</SelectItem>
+                    <SelectItem value="weekly">Weekly</SelectItem>
+                    <SelectItem value="monthly">Monthly</SelectItem>
+                    <SelectItem value="yearly">Yearly</SelectItem>
                   </SelectContent>
                 </Select>
               </CardHeader>
 
-              <CardContent className='w-full flex-1 p-0 pt-4'>
-                <ResponsiveContainer width='100%' height='100%'>
+              <CardContent className="w-full flex-1 p-0 pt-4">
+                <ResponsiveContainer width="100%" height="100%">
                   <LineChart
                     width={500}
                     height={300}
@@ -295,69 +295,90 @@ const FinancialReport = () => {
                       bottom: 5,
                     }}
                   >
-                    <XAxis dataKey='name' axisLine={false} tickLine={false} />
+                    <XAxis dataKey="name" axisLine={false} tickLine={false} />
                     <YAxis axisLine={false} tickLine={false} />
                     <Tooltip cursor={{ fill: "transparent" }} />
                     <Legend />
                     <Line
-                      type='monotone'
-                      dataKey='cashflow'
-                      stroke='#18A0FB'
-                      name='Cash Flow'
+                      type="monotone"
+                      dataKey="cashflow"
+                      stroke="#18A0FB"
+                      name="Cash Flow"
                     />
                     <Line
-                      type='monotone'
-                      dataKey='income'
-                      stroke='#88F77C'
-                      name='Income'
+                      type="monotone"
+                      dataKey="income"
+                      stroke="#88F77C"
+                      name="Income"
                     />
                     <Line
-                      type='monotone'
-                      dataKey='expense'
-                      stroke='#F54A45'
-                      name='Expense'
+                      type="monotone"
+                      dataKey="expense"
+                      stroke="#F54A45"
+                      name="Expense"
                     />
                   </LineChart>
                 </ResponsiveContainer>
               </CardContent>
             </Card>
           </div>
-          <div className='space-y-6'>
-            <Card className='border-border'>
+          <div className="space-y-6">
+            <Card className="border-border">
               <CardHeader>
                 <CardTitle>Tax Management & F24 Categorization</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className='space-y-4'>
-                  <div className='bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg'>
-                    <h3 className='font-semibold text-foreground mb-2'>Automatic Tax Categorization</h3>
-                    <p className='text-sm text-muted-foreground'>
-                      All transactions containing "F24" in the description are automatically categorized as tax payments.
-                      This helps maintain accurate tax records and simplifies your financial reporting.
+                <div className="space-y-4">
+                  <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg">
+                    <h3 className="font-semibold text-foreground mb-2">
+                      Automatic Tax Categorization
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      All transactions containing &ldquo;F24&ldquo; in the
+                      description are automatically categorized as tax payments.
+                      This helps maintain accurate tax records and simplifies
+                      your financial reporting.
                     </p>
                   </div>
-                  
-                  <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-                    <div className='text-center p-4 border border-border rounded-lg'>
-                      <div className='text-2xl font-bold text-primary mb-2'>
-                        {transactions.filter(t => t.details.toLowerCase().includes('f24')).length}
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="text-center p-4 border border-border rounded-lg">
+                      <div className="text-2xl font-bold text-primary mb-2">
+                        {
+                          transactions.filter((t) =>
+                            t.details.toLowerCase().includes("f24")
+                          ).length
+                        }
                       </div>
-                      <div className='text-sm text-muted-foreground'>F24 Payments</div>
+                      <div className="text-sm text-muted-foreground">
+                        F24 Payments
+                      </div>
                     </div>
-                    <div className='text-center p-4 border border-border rounded-lg'>
-                      <div className='text-2xl font-bold text-success mb-2'>
-                        €{transactions
-                          .filter(t => t.details.toLowerCase().includes('f24'))
-                          .reduce((sum, t) => sum + parseFloat(t.amount.replace(/[€,$]/g, '')), 0)
+                    <div className="text-center p-4 border border-border rounded-lg">
+                      <div className="text-2xl font-bold text-success mb-2">
+                        €
+                        {transactions
+                          .filter((t) =>
+                            t.details.toLowerCase().includes("f24")
+                          )
+                          .reduce(
+                            (sum, t) =>
+                              sum + parseFloat(t.amount.replace(/[€,$]/g, "")),
+                            0
+                          )
                           .toFixed(2)}
                       </div>
-                      <div className='text-sm text-muted-foreground'>Total Tax Paid</div>
+                      <div className="text-sm text-muted-foreground">
+                        Total Tax Paid
+                      </div>
                     </div>
-                    <div className='text-center p-4 border border-border rounded-lg'>
-                      <div className='text-2xl font-bold text-yellow-600 mb-2'>
+                    <div className="text-center p-4 border border-border rounded-lg">
+                      <div className="text-2xl font-bold text-yellow-600 mb-2">
                         {new Date().getMonth() + 1}
                       </div>
-                      <div className='text-sm text-muted-foreground'>Current Month</div>
+                      <div className="text-sm text-muted-foreground">
+                        Current Month
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -371,7 +392,7 @@ const FinancialReport = () => {
       {/* Transaction table */}
       <div>
         <DynamicTable
-          title='All Transactions'
+          title="All Transactions"
           transactions={transactions}
           onEdit={handleEditTransaction}
           onDelete={handleDeleteTransaction}
@@ -379,7 +400,7 @@ const FinancialReport = () => {
           onDateFilter={handleDateFilter}
           onAccountFilter={handleAccountFilter}
           enableDelete={true}
-          className='mb-8'
+          className="mb-8"
           itemsPerPage={12}
         />
       </div>
