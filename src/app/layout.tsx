@@ -4,7 +4,6 @@ import { Geist, Geist_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/theme-provider";
-import Script from "next/script";
 import { layoutMetadata } from "@/lib/seo/metadata";
 
 const geistSans = Geist({
@@ -61,10 +60,6 @@ export default function RootLayout({
           {children}
           <Toaster richColors position="top-center" />
         </ThemeProvider>
-        <Script
-          src="https://cdn.lordicon.com/lordicon.js"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );

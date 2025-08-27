@@ -3,8 +3,8 @@
 export const priceData = [
   {
     title: "Accountant package",
-    oldPrice: 69,
-    price: 69,
+    oldPrice: 39,
+    price: 39,
     planfor: "monthly",
   },
   {

@@ -17,6 +17,7 @@ interface SidebarContextProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   animate: boolean;
+  width?: number;
 }
 
 const SidebarContext = createContext<SidebarContextProps | undefined>(
@@ -36,11 +37,13 @@ export const SidebarProvider = ({
   open: openProp,
   setOpen: setOpenProp,
   animate = true,
+  width,
 }: {
   children: React.ReactNode;
   open?: boolean;
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   animate?: boolean;
+  width?: number;
 }) => {
   const [openState, setOpenState] = useState(false);
 
@@ -48,7 +51,7 @@ export const SidebarProvider = ({
   const setOpen = setOpenProp !== undefined ? setOpenProp : setOpenState;
 
   return (
-    <SidebarContext.Provider value={{ open, setOpen, animate: animate }}>
+    <SidebarContext.Provider value={{ open, setOpen, animate: animate, width }}>
       {children}
     </SidebarContext.Provider>
   );
@@ -59,14 +62,21 @@ export const Sidebar = ({
   open,
   setOpen,
   animate,
+  width,
 }: {
   children: React.ReactNode;
   open?: boolean;
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   animate?: boolean;
+  width?: number;
 }) => {
   return (
-    <SidebarProvider open={open} setOpen={setOpen} animate={animate}>
+    <SidebarProvider
+      open={open}
+      setOpen={setOpen}
+      animate={animate}
+      width={width}
+    >
       {children}
     </SidebarProvider>
   );
@@ -86,24 +96,30 @@ export const DesktopSidebar = ({
   children,
   ...props
 }: React.ComponentProps<typeof motion.div>) => {
-  const { open, setOpen, animate } = useSidebar();
+  const { open, animate, width } = useSidebar();
+  const currentWidth = width || 210;
+  const collapsedWidth = 68;
+
   return (
-    <>
-      <motion.div
-        className={cn(
-          "h-full px-4 py-4 hidden md:flex md:flex-col bg-background dark:bg-[#081524] w-[210px] shrink-0",
-          className
-        )}
-        animate={{
-          width: animate ? (open ? "210px" : "68px") : "210px",
-        }}
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
-        {...props}
-      >
-        {children}
-      </motion.div>
-    </>
+    <motion.div
+      className={cn(
+        "h-full px-4 py-4 hidden md:flex md:flex-col bg-background dark:bg-[#081524] shrink-0 relative",
+        className
+      )}
+      animate={{
+        width: animate
+          ? open
+            ? `${currentWidth}px`
+            : `${collapsedWidth}px`
+          : `${currentWidth}px`,
+      }}
+      style={{
+        width: animate ? (open ? currentWidth : collapsedWidth) : currentWidth,
+      }}
+      {...props}
+    >
+      {children}
+    </motion.div>
   );
 };
 
