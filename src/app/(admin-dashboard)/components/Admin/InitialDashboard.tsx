@@ -120,21 +120,6 @@ export const InitialDashboard = () => {
     (c) => c.riskLevel === "high"
   ).length;
 
-  const getStatusColor = (status: Customer["status"]) => {
-    switch (status) {
-      case "active":
-        return "bg-success/10 text-success border-success";
-      case "pending":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200";
-      case "overdue":
-        return "bg-error/10 text-error border-error";
-      case "cancelled":
-        return "bg-gray-100 text-gray-800 border-gray-200";
-      default:
-        return "bg-gray-100 text-gray-800 border-gray-200";
-    }
-  };
-
   const getSubscriptionColor = (type: Customer["subscriptionType"]) => {
     switch (type) {
       case "premium":
@@ -148,16 +133,31 @@ export const InitialDashboard = () => {
     }
   };
 
+  const getStatusColor = (status: Customer["status"]) => {
+    switch (status) {
+      case "active":
+        return "bg-green-100 text-green-800 border-green-300";
+      case "pending":
+        return "bg-yellow-100 text-yellow-800 border-yellow-300";
+      case "overdue":
+        return "bg-red-100 text-red-800 border-red-300";
+      case "cancelled":
+        return "bg-gray-100 text-gray-800 border-gray-300";
+      default:
+        return "bg-gray-100 text-gray-800 border-gray-300";
+    }
+  };
+
   const getRiskColor = (risk: Customer["riskLevel"]) => {
     switch (risk) {
       case "high":
-        return "bg-error/10 text-error border-error";
+        return "bg-red-100 text-red-800 border-red-300";
       case "medium":
-        return "bg-yellow-100 text-yellow-800 border-yellow-200";
+        return "bg-yellow-100 text-yellow-800 border-yellow-300";
       case "low":
-        return "bg-success/10 text-success border-success";
+        return "bg-green-100 text-green-800 border-green-300";
       default:
-        return "bg-gray-100 text-gray-800 border-gray-200";
+        return "bg-gray-100 text-gray-800 border-gray-300";
     }
   };
 
