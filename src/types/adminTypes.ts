@@ -11,6 +11,58 @@ export interface AdminDashboardStats {
   averageRevenuePerUser: number;
 }
 
+export interface AdminCustomer {
+  id: string;
+  name: string;
+  email: string;
+  subscriptionType: "flat-rate" | "business" | "premium";
+  status: "active" | "pending" | "cancelled" | "overdue";
+  riskLevel: "low" | "medium" | "high";
+  vatNumber?: string;
+  customPricing?: number;
+  totalRevenue: number;
+  monthlyRevenue: number;
+  registrationDate: string;
+  lastPaymentDate?: string;
+  nextRenewalDate?: string;
+  notes?: string;
+}
+
+export interface AdminTicket {
+  id: string;
+  ticketNumber: string;
+  customerId: string;
+  customerName: string;
+  staffAssigned?: string;
+  requestType: "personnel-search" | "hr-support" | "recruitment" | "accounting";
+  status: "open" | "in-progress" | "pending-review" | "closed";
+  priority: "low" | "medium" | "high" | "urgent";
+  createdDate: string;
+  lastUpdate: string;
+  description: string;
+  jobTitle?: string;
+  candidatesFound?: number;
+  estimatedCompletion?: string;
+  resolutionNotes?: string;
+}
+
+export interface AdminRequest {
+  id: string;
+  customerId: string;
+  customerName: string;
+  category: "invoice" | "vat" | "bank-statement" | "general" | "urgent";
+  priority: "low" | "medium" | "high" | "urgent";
+  status: "open" | "in-progress" | "resolved";
+  subject: string;
+  message: string;
+  createdAt: string;
+  updatedAt: string;
+  assignedTo?: string;
+  responseRequired: boolean;
+  attachments?: string[];
+  internalNotes?: string;
+}
+
 export interface AdminCustomerFilter {
   subscriptionType?: "flat-rate" | "business" | "premium" | "all";
   status?: "active" | "pending" | "cancelled" | "overdue" | "all";
@@ -24,7 +76,12 @@ export interface AdminCustomerFilter {
 export interface AdminTicketFilter {
   status?: "open" | "in-progress" | "pending-review" | "closed" | "all";
   priority?: "low" | "medium" | "high" | "urgent" | "all";
-  requestType?: "personnel-search" | "hr-support" | "recruitment" | "accounting" | "all";
+  requestType?:
+    | "personnel-search"
+    | "hr-support"
+    | "recruitment"
+    | "accounting"
+    | "all";
   staffAssigned?: string;
   dateRange?: {
     start: string;
@@ -33,7 +90,13 @@ export interface AdminTicketFilter {
 }
 
 export interface AdminRequestFilter {
-  category?: "invoice" | "vat" | "bank-statement" | "general" | "urgent" | "all";
+  category?:
+    | "invoice"
+    | "vat"
+    | "bank-statement"
+    | "general"
+    | "urgent"
+    | "all";
   priority?: "low" | "medium" | "high" | "urgent" | "all";
   status?: "open" | "in-progress" | "resolved" | "all";
   assignedTo?: string;
@@ -45,7 +108,12 @@ export interface AdminRequestFilter {
 
 export interface AdminNotification {
   id: string;
-  type: "customer-signup" | "payment-received" | "ticket-created" | "system-alert" | "staff-update";
+  type:
+    | "customer-signup"
+    | "payment-received"
+    | "ticket-created"
+    | "system-alert"
+    | "staff-update";
   title: string;
   message: string;
   priority: "low" | "medium" | "high" | "urgent";
@@ -60,7 +128,12 @@ export interface AdminActivity {
   id: string;
   adminId: string;
   adminName: string;
-  action: "customer-updated" | "ticket-closed" | "request-responded" | "pricing-changed" | "system-config";
+  action:
+    | "customer-updated"
+    | "ticket-closed"
+    | "request-responded"
+    | "pricing-changed"
+    | "system-config";
   description: string;
   timestamp: string;
   entityId?: string;
@@ -78,7 +151,14 @@ export interface AdminRole {
 export interface AdminPermission {
   id: string;
   name: string;
-  resource: "customers" | "tickets" | "requests" | "invoices" | "staff" | "pricing" | "system";
+  resource:
+    | "customers"
+    | "tickets"
+    | "requests"
+    | "invoices"
+    | "staff"
+    | "pricing"
+    | "system";
   actions: ("read" | "write" | "delete" | "admin")[];
   description: string;
 }
