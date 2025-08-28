@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Plus, Trash2, FileText, Send } from "lucide-react";
 import { toast } from "sonner";
 
@@ -33,8 +34,9 @@ interface InvoiceData {
   issuerBankName: string;
   items: InvoiceItem[];
   subtotal: number;
-  vatAmount: number;
+  gsInpsContribution: number;
   total: number;
+  applyGsInps: boolean;
   legalPhrase: string;
 }
 
@@ -55,8 +57,9 @@ export const InvoiceCreation = () => {
     issuerBankName: "",
     items: [{ id: "1", description: "", quantity: 1, unitPrice: 0, total: 0 }],
     subtotal: 0,
-    vatAmount: 0,
+    gsInpsContribution: 0,
     total: 0,
+    applyGsInps: false,
     legalPhrase:
       "Operazione in regime di vantaggio ai sensi della Legge 190/2014 - IVA non dovuta",
   });
@@ -112,16 +115,16 @@ export const InvoiceCreation = () => {
       (sum, item) => sum + item.total,
       0
     );
-    const vatAmount = subtotal * 0.22; // 22% VAT
-    const total = subtotal + vatAmount;
+    const gsInpsContribution = invoiceData.applyGsInps ? subtotal * 0.04 : 0; // 4% GS INPS contribution
+    const total = subtotal + gsInpsContribution;
 
     setInvoiceData((prev) => ({
       ...prev,
       subtotal,
-      vatAmount,
+      gsInpsContribution,
       total,
     }));
-  }, [invoiceData.items]);
+  }, [invoiceData.items, invoiceData.applyGsInps]);
 
   const generateAndSendInvoice = async () => {
     setIsGenerating(true);
@@ -161,8 +164,9 @@ export const InvoiceCreation = () => {
           { id: "1", description: "", quantity: 1, unitPrice: 0, total: 0 },
         ],
         subtotal: 0,
-        vatAmount: 0,
+        gsInpsContribution: 0,
         total: 0,
+        applyGsInps: false,
         legalPhrase:
           "Operazione in regime di vantaggio ai sensi della Legge 190/2014 - IVA non dovuta",
       });
@@ -177,49 +181,49 @@ export const InvoiceCreation = () => {
   };
 
   return (
-    <div className='space-y-6'>
-      <Card className='border-border'>
+    <div className="space-y-6">
+      <Card className="border-border">
         <CardHeader>
-          <CardTitle className='flex items-center gap-2'>
-            <FileText className='w-5 h-5 text-primary' />
+          <CardTitle className="flex items-center gap-2">
+            <FileText className="w-5 h-5 text-primary" />
             Create New Invoice
           </CardTitle>
         </CardHeader>
-        <CardContent className='space-y-6'>
+        <CardContent className="space-y-6">
           {/* Invoice Header */}
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <Label htmlFor='invoiceNumber'>Invoice Number</Label>
+              <Label htmlFor="invoiceNumber">Invoice Number</Label>
               <Input
-                id='invoiceNumber'
+                id="invoiceNumber"
                 value={invoiceData.invoiceNumber}
                 onChange={(e) =>
                   updateInvoiceData("invoiceNumber", e.target.value)
                 }
-                className='bg-gray-50 border-border'
+                className="bg-gray-50 border-border"
                 readOnly
               />
             </div>
             <div>
-              <Label htmlFor='invoiceDate'>Invoice Date</Label>
+              <Label htmlFor="invoiceDate">Invoice Date</Label>
               <Input
-                id='invoiceDate'
-                type='date'
+                id="invoiceDate"
+                type="date"
                 value={invoiceData.invoiceDate}
                 onChange={(e) =>
                   updateInvoiceData("invoiceDate", e.target.value)
                 }
-                className='border-border'
+                className="border-border"
               />
             </div>
             <div>
-              <Label htmlFor='dueDate'>Due Date</Label>
+              <Label htmlFor="dueDate">Due Date</Label>
               <Input
-                id='dueDate'
-                type='date'
+                id="dueDate"
+                type="date"
                 value={invoiceData.dueDate}
                 onChange={(e) => updateInvoiceData("dueDate", e.target.value)}
-                className='border-border'
+                className="border-border"
               />
             </div>
           </div>
@@ -227,48 +231,48 @@ export const InvoiceCreation = () => {
           <Separator />
 
           {/* Client Information */}
-          <div className='space-y-4'>
-            <h3 className='text-lg font-semibold text-foreground'>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-foreground">
               Client Information
             </h3>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor='clientName'>Company Name *</Label>
+                <Label htmlFor="clientName">Company Name *</Label>
                 <Input
-                  id='clientName'
+                  id="clientName"
                   value={invoiceData.clientName}
                   onChange={(e) =>
                     updateInvoiceData("clientName", e.target.value)
                   }
-                  placeholder='Enter client company name'
-                  className='border-border'
+                  placeholder="Enter client company name"
+                  className="border-border"
                   required
                 />
               </div>
               <div>
-                <Label htmlFor='clientVatNumber'>VAT Number *</Label>
+                <Label htmlFor="clientVatNumber">VAT Number *</Label>
                 <Input
-                  id='clientVatNumber'
+                  id="clientVatNumber"
                   value={invoiceData.clientVatNumber}
                   onChange={(e) =>
                     updateInvoiceData("clientVatNumber", e.target.value)
                   }
-                  placeholder='Enter client VAT number'
-                  className='border-border'
+                  placeholder="Enter client VAT number"
+                  className="border-border"
                   required
                 />
               </div>
             </div>
             <div>
-              <Label htmlFor='clientAddress'>Address *</Label>
+              <Label htmlFor="clientAddress">Address *</Label>
               <Textarea
-                id='clientAddress'
+                id="clientAddress"
                 value={invoiceData.clientAddress}
                 onChange={(e) =>
                   updateInvoiceData("clientAddress", e.target.value)
                 }
-                placeholder='Enter client address'
-                className='border-border'
+                placeholder="Enter client address"
+                className="border-border"
                 required
               />
             </div>
@@ -277,75 +281,75 @@ export const InvoiceCreation = () => {
           <Separator />
 
           {/* Issuer Information */}
-          <div className='space-y-4'>
-            <h3 className='text-lg font-semibold text-foreground'>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-foreground">
               Your Company Information
             </h3>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor='issuerName'>Company Name *</Label>
+                <Label htmlFor="issuerName">Company Name *</Label>
                 <Input
-                  id='issuerName'
+                  id="issuerName"
                   value={invoiceData.issuerName}
                   onChange={(e) =>
                     updateInvoiceData("issuerName", e.target.value)
                   }
-                  placeholder='Enter your company name'
-                  className='border-border'
+                  placeholder="Enter your company name"
+                  className="border-border"
                   required
                 />
               </div>
               <div>
-                <Label htmlFor='issuerVatNumber'>Your VAT Number *</Label>
+                <Label htmlFor="issuerVatNumber">Your VAT Number *</Label>
                 <Input
-                  id='issuerVatNumber'
+                  id="issuerVatNumber"
                   value={invoiceData.issuerVatNumber}
                   onChange={(e) =>
                     updateInvoiceData("issuerVatNumber", e.target.value)
                   }
-                  placeholder='Enter your VAT number'
-                  className='border-border'
+                  placeholder="Enter your VAT number"
+                  className="border-border"
                   required
                 />
               </div>
             </div>
             <div>
-              <Label htmlFor='issuerAddress'>Your Address *</Label>
+              <Label htmlFor="issuerAddress">Your Address *</Label>
               <Textarea
-                id='issuerAddress'
+                id="issuerAddress"
                 value={invoiceData.issuerAddress}
                 onChange={(e) =>
                   updateInvoiceData("issuerAddress", e.target.value)
                 }
-                placeholder='Enter your company address'
-                className='border-border'
+                placeholder="Enter your company address"
+                className="border-border"
                 required
               />
             </div>
-            <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor='issuerIban'>IBAN *</Label>
+                <Label htmlFor="issuerIban">IBAN *</Label>
                 <Input
-                  id='issuerIban'
+                  id="issuerIban"
                   value={invoiceData.issuerIban}
                   onChange={(e) =>
                     updateInvoiceData("issuerIban", e.target.value)
                   }
-                  placeholder='Enter your IBAN'
-                  className='border-border'
+                  placeholder="Enter your IBAN"
+                  className="border-border"
                   required
                 />
               </div>
               <div>
-                <Label htmlFor='issuerBankName'>Bank Name *</Label>
+                <Label htmlFor="issuerBankName">Bank Name *</Label>
                 <Input
-                  id='issuerBankName'
+                  id="issuerBankName"
                   value={invoiceData.issuerBankName}
                   onChange={(e) =>
                     updateInvoiceData("issuerBankName", e.target.value)
                   }
-                  placeholder='Enter your bank name'
-                  className='border-border'
+                  placeholder="Enter your bank name"
+                  className="border-border"
                   required
                 />
               </div>
@@ -355,40 +359,40 @@ export const InvoiceCreation = () => {
           <Separator />
 
           {/* Services/Items */}
-          <div className='space-y-4'>
-            <div className='flex items-center justify-between'>
-              <h3 className='text-lg font-semibold text-foreground'>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-foreground">
                 Services Provided
               </h3>
-              <Button onClick={addItem} variant='outline' size='sm'>
-                <Plus className='w-4 h-4 mr-2' />
+              <Button onClick={addItem} variant="outline" size="sm">
+                <Plus className="w-4 h-4 mr-2" />
                 Add Item
               </Button>
             </div>
 
-            <div className='space-y-3'>
+            <div className="space-y-3">
               {invoiceData.items.map((item) => (
                 <div
                   key={item.id}
-                  className='grid grid-cols-12 gap-2 items-end p-4 border border-border rounded-lg'
+                  className="grid grid-cols-12 gap-2 items-end p-4 border border-border rounded-lg"
                 >
-                  <div className='col-span-12 md:col-span-5'>
+                  <div className="col-span-12 md:col-span-5">
                     <Label>Service Description *</Label>
                     <Input
                       value={item.description}
                       onChange={(e) =>
                         updateItem(item.id, "description", e.target.value)
                       }
-                      placeholder='Describe the service provided'
-                      className='border-border'
+                      placeholder="Describe the service provided"
+                      className="border-border"
                       required
                     />
                   </div>
-                  <div className='col-span-4 md:col-span-2'>
+                  <div className="col-span-4 md:col-span-2">
                     <Label>Quantity</Label>
                     <Input
-                      type='number'
-                      min='1'
+                      type="number"
+                      min="1"
                       value={item.quantity}
                       onChange={(e) =>
                         updateItem(
@@ -397,15 +401,15 @@ export const InvoiceCreation = () => {
                           parseInt(e.target.value) || 1
                         )
                       }
-                      className='border-border'
+                      className="border-border"
                     />
                   </div>
-                  <div className='col-span-4 md:col-span-2'>
+                  <div className="col-span-4 md:col-span-2">
                     <Label>Unit Price (€)</Label>
                     <Input
-                      type='number'
-                      min='0'
-                      step='0.01'
+                      type="number"
+                      min="0"
+                      step="0.01"
                       value={item.unitPrice}
                       onChange={(e) =>
                         updateItem(
@@ -414,26 +418,26 @@ export const InvoiceCreation = () => {
                           parseFloat(e.target.value) || 0
                         )
                       }
-                      className='border-border'
+                      className="border-border"
                     />
                   </div>
-                  <div className='col-span-3 md:col-span-2'>
+                  <div className="col-span-3 md:col-span-2">
                     <Label>Total (€)</Label>
                     <Input
                       value={`€${item.total.toFixed(2)}`}
-                      className='bg-gray-50 border-border'
+                      className="bg-gray-50 border-border"
                       readOnly
                     />
                   </div>
-                  <div className='col-span-1'>
+                  <div className="col-span-1">
                     {invoiceData.items.length > 1 && (
                       <Button
-                        variant='ghost'
-                        size='sm'
+                        variant="ghost"
+                        size="sm"
                         onClick={() => removeItem(item.id)}
-                        className='text-error hover:text-error hover:bg-error/10'
+                        className="text-error hover:text-error hover:bg-error/10"
                       >
-                        <Trash2 className='w-4 h-4' />
+                        <Trash2 className="w-4 h-4" />
                       </Button>
                     )}
                   </div>
@@ -444,28 +448,49 @@ export const InvoiceCreation = () => {
 
           <Separator />
 
+          {/* GS INPS Contribution Checkbox */}
+          <div className="space-y-4">
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="applyGsInps"
+                checked={invoiceData.applyGsInps}
+                onCheckedChange={(checked) =>
+                  updateInvoiceData("applyGsInps", checked)
+                }
+              />
+              <Label
+                htmlFor="applyGsInps"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mt-3"
+              >
+                Apply GS INPS contribution 4%
+              </Label>
+            </div>
+          </div>
+
           {/* Invoice Totals */}
-          <div className='space-y-4'>
-            <h3 className='text-lg font-semibold text-foreground'>
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-foreground">
               Invoice Summary
             </h3>
-            <div className='bg-gray-50 dark:bg-gray-800 p-4 rounded-lg space-y-2'>
-              <div className='flex justify-between'>
+            <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg space-y-2">
+              <div className="flex justify-between">
                 <span>Subtotal:</span>
-                <span className='font-medium'>
+                <span className="font-medium">
                   €{invoiceData.subtotal.toFixed(2)}
                 </span>
               </div>
-              <div className='flex justify-between'>
-                <span>VAT (22%):</span>
-                <span className='font-medium'>
-                  €{invoiceData.vatAmount.toFixed(2)}
-                </span>
-              </div>
+              {invoiceData.applyGsInps && (
+                <div className="flex justify-between">
+                  <span>GS INPS Contribution (4%):</span>
+                  <span className="font-medium">
+                    €{invoiceData.gsInpsContribution.toFixed(2)}
+                  </span>
+                </div>
+              )}
               <Separator />
-              <div className='flex justify-between text-lg font-bold'>
+              <div className="flex justify-between text-lg font-bold">
                 <span>Total:</span>
-                <span className='text-primary'>
+                <span className="text-primary">
                   €{invoiceData.total.toFixed(2)}
                 </span>
               </div>
@@ -474,18 +499,18 @@ export const InvoiceCreation = () => {
 
           {/* Legal Phrase */}
           <div>
-            <Label htmlFor='legalPhrase'>Legal VAT/Stamp Duty Phrase</Label>
+            <Label htmlFor="legalPhrase">Legal VAT/Stamp Duty Phrase</Label>
             <Textarea
-              id='legalPhrase'
+              id="legalPhrase"
               value={invoiceData.legalPhrase}
               onChange={(e) => updateInvoiceData("legalPhrase", e.target.value)}
-              className='border-border'
+              className="border-border"
               rows={2}
             />
           </div>
 
           {/* Generate Invoice Button */}
-          <div className='flex justify-end pt-4'>
+          <div className="flex justify-end pt-4">
             <Button
               onClick={generateAndSendInvoice}
               disabled={
@@ -493,16 +518,16 @@ export const InvoiceCreation = () => {
                 !invoiceData.clientName ||
                 !invoiceData.issuerName
               }
-              className='bg-primary hover:bg-primary/90 text-primary-foreground'
+              className="bg-primary hover:bg-primary/90 text-primary-foreground"
             >
               {isGenerating ? (
                 <>
-                  <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2' />
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
                   Generating...
                 </>
               ) : (
                 <>
-                  <Send className='w-4 h-4 mr-2' />
+                  <Send className="w-4 h-4 mr-2" />
                   Generate & Send to Accountant
                 </>
               )}
