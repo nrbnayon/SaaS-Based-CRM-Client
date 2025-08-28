@@ -167,12 +167,12 @@ export const OperationalMonitoring = () => {
       case "paid":
       case "completed":
       case "viewed":
-        return "bg-success/10 text-success border-success";
+        return "bg-green-100 text-green-800 border-green-200";
       case "pending":
       case "sent":
         return "bg-yellow-100 text-yellow-800 border-yellow-200";
       case "overdue":
-        return "bg-error/10 text-error border-error";
+        return "bg-red-100 text-red-800 border-red-200";
       case "generated":
         return "bg-blue-100 text-blue-800 border-blue-200";
       default:
@@ -187,20 +187,25 @@ export const OperationalMonitoring = () => {
   };
 
   const filteredInvoices = mockInvoices.filter((invoice) => {
-    const matchesSearch = 
+    const matchesSearch =
       invoice.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       invoice.vatNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
       invoice.invoiceNumber.toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesStatus = statusFilter === "all" || invoice.status === statusFilter;
-    
+
+    const matchesStatus =
+      statusFilter === "all" || invoice.status === statusFilter;
+
     return matchesSearch && matchesStatus;
   });
 
   const filteredPersonnel = mockPersonnelActivity.filter((staff) => {
-    const matchesSearch = staff.staffName.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesRole = roleFilter === "all" || staff.role.toLowerCase().includes(roleFilter.toLowerCase());
-    
+    const matchesSearch = staff.staffName
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesRole =
+      roleFilter === "all" ||
+      staff.role.toLowerCase().includes(roleFilter.toLowerCase());
+
     return matchesSearch && matchesRole;
   });
 
@@ -219,22 +224,22 @@ export const OperationalMonitoring = () => {
       {/* Main Content */}
       <Tabs defaultValue="invoices" className="w-full">
         <TabsList className="grid w-full grid-cols-3 bg-background border border-border">
-          <TabsTrigger 
-            value="invoices" 
+          <TabsTrigger
+            value="invoices"
             className="flex items-center gap-2 data-[state=active]:bg-red-600 data-[state=active]:text-white"
           >
             <FileText className="w-4 h-4" />
             Invoice Management
           </TabsTrigger>
-          <TabsTrigger 
-            value="personnel" 
+          <TabsTrigger
+            value="personnel"
             className="flex items-center gap-2 data-[state=active]:bg-red-600 data-[state=active]:text-white"
           >
             <Users className="w-4 h-4" />
             Personnel Activity
           </TabsTrigger>
-          <TabsTrigger 
-            value="financial" 
+          <TabsTrigger
+            value="financial"
             className="flex items-center gap-2 data-[state=active]:bg-red-600 data-[state=active]:text-white"
           >
             <Download className="w-4 h-4" />
@@ -302,7 +307,8 @@ export const OperationalMonitoring = () => {
                         </TableCell>
                         <TableCell>
                           <Badge className={getStatusColor(invoice.status)}>
-                            {invoice.status.charAt(0).toUpperCase() + invoice.status.slice(1)}
+                            {invoice.status.charAt(0).toUpperCase() +
+                              invoice.status.slice(1)}
                           </Badge>
                         </TableCell>
                         <TableCell>
@@ -382,9 +388,7 @@ export const OperationalMonitoring = () => {
                           {staff.staffName}
                         </TableCell>
                         <TableCell>
-                          <Badge variant="outline">
-                            {staff.role}
-                          </Badge>
+                          <Badge variant="outline">{staff.role}</Badge>
                         </TableCell>
                         <TableCell>{staff.requestsAssigned}</TableCell>
                         <TableCell className="text-success">
@@ -394,7 +398,9 @@ export const OperationalMonitoring = () => {
                           {staff.activeRequests}
                         </TableCell>
                         <TableCell>
-                          <span className={getPerformanceColor(staff.performance)}>
+                          <span
+                            className={getPerformanceColor(staff.performance)}
+                          >
                             {staff.performance}%
                           </span>
                         </TableCell>
@@ -426,21 +432,29 @@ export const OperationalMonitoring = () => {
             <CardContent>
               <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
                 {mockFinancialPlans.map((plan) => (
-                  <div key={plan.id} className="p-4 border border-border rounded-lg hover:shadow-md transition-shadow">
+                  <div
+                    key={plan.id}
+                    className="p-4 border border-border rounded-lg hover:shadow-md transition-shadow"
+                  >
                     <div className="flex items-start justify-between mb-3">
                       <div>
-                        <h4 className="font-medium text-foreground">{plan.customerName}</h4>
-                        <p className="text-sm text-muted-foreground">{plan.planType}</p>
+                        <h4 className="font-medium text-foreground">
+                          {plan.customerName}
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                          {plan.planType}
+                        </p>
                       </div>
                       <Badge className={getStatusColor(plan.status)}>
                         {plan.status}
                       </Badge>
                     </div>
-                    
+
                     <div className="space-y-2 text-sm text-muted-foreground">
                       <div className="flex items-center gap-2">
                         <Calendar className="w-4 h-4" />
-                        Generated: {new Date(plan.generatedDate).toLocaleDateString()}
+                        Generated:{" "}
+                        {new Date(plan.generatedDate).toLocaleDateString()}
                       </div>
                       <div className="flex items-center gap-2">
                         <FileText className="w-4 h-4" />
@@ -449,7 +463,10 @@ export const OperationalMonitoring = () => {
                     </div>
 
                     <div className="flex items-center gap-2 mt-4">
-                      <Button size="sm" className="flex-1 bg-green-600 hover:bg-green-700">
+                      <Button
+                        size="sm"
+                        className="flex-1 bg-green-600 hover:bg-green-700"
+                      >
                         <Download className="w-4 h-4 mr-2" />
                         Download PDF
                       </Button>
