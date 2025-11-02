@@ -1,4 +1,4 @@
-# PrimeFlow - SAAS CRM Client
+# REDUCO - SAAS BASE CRM
 
 A comprehensive SAAS-based CRM client application built with Next.js. This platform combines HR testing, financial management, AI-powered chat assistance, and complete business analytics in one unified dashboard.
 
