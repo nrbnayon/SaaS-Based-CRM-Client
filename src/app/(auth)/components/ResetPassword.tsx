@@ -148,10 +148,8 @@ export default function ResetPassword() {
             <Image
               src='/logo.png'
               alt='logo'
-              layout='responsive'
               width={100}
               height={100}
-              quality={100}
               priority
               className='h-auto w-full object-contain'
             />
