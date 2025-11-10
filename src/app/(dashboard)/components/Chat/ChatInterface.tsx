@@ -517,7 +517,7 @@ const ChatInterface: React.FC = () => {
                           />
                         ) : (
                           <div className='flex items-center space-x-3 p-3 bg-gray-50 rounded-lg border border-gray-200'>
-                            <FileText className='w-8 h-8 text-blue-600 flex-shrink-0' />
+                            <FileText className='w-8 h-8 text-blue-600 shrink-0' />
                             <div className='flex-1 min-w-0'>
                               <p className='text-sm font-medium text-gray-900 truncate'>
                                 {file.name}
@@ -605,7 +605,7 @@ const ChatInterface: React.FC = () => {
             </div>
             <div className='flex space-x-3 overflow-x-auto pb-1'>
               {uploadedFiles.map((file) => (
-                <div key={file.id} className='relative flex-shrink-0'>
+                <div key={file.id} className='relative shrink-0'>
                   {file.type === "image" ? (
                     <Image
                       src={file.url}

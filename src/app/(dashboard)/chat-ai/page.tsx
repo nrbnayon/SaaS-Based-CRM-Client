@@ -1,3 +1,4 @@
+// src\app\(dashboard)\chat-ai\page.tsx
 import ChatInterface from "../components/Chat/ChatInterface";
 import DashboardHeader from "../components/dashboard-header";
 

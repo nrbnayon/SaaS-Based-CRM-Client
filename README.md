@@ -36,7 +36,7 @@ A comprehensive SAAS-based CRM client application built with Next.js. This platf
 
 ## Tech Stack
 
-- **Framework**: Next.js 14+ with App Router
+- **Framework**: Next.js 16+, React 19+ with App Router
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS + shadcn/ui components
 - **Icons**: Lucide React
